@@ -1,0 +1,24 @@
+# Core ML/Audio Processing
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.30.0
+
+# Audio manipulation
+librosa>=0.10.0
+
+# Data handling
+numpy>=1.23.0
+
+# Visualization (optional but recommended)
+matplotlib>=3.7.0
+
+# Utilities
+pydantic>=2.0.0
+
+# Optional: GPU support (uncomment for better performance)
+# torch-cuda>=11.8
+
+# Development/Testing (optional)
+pytest>=7.0.0
+black>=23.0.0
+pylint>=2.17.0
