@@ -1,0 +1,50 @@
+# ──────────────────────────────────────────────
+#  Note Onset / Offset Detector — Default Config
+# ──────────────────────────────────────────────
+
+audio:
+  sample_rate: 16000
+  n_fft: 1024
+  hop_length: 256
+  n_mels: 80
+  fmin: 0.0
+  fmax: 8000.0
+
+model:
+  cnn_channels: [32, 64, 128, 128]   # one conv block per entry
+  lstm_hidden_size: 256
+  lstm_num_layers: 2
+  lstm_dropout: 0.3
+  head_hidden_size: 128
+  dropout: 0.3
+
+training:
+  batch_size: 16
+  num_epochs: 100
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 15              # early stopping patience (epochs)
+  grad_clip: 1.0
+  onset_weight: 1.0         # loss weighting
+  offset_weight: 1.0
+  label_sigma: 0.02         # Gaussian soft-label sigma in seconds
+
+data:
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  num_workers: 4
+  segment_length: 10.0      # fixed crop length in seconds (null = variable)
+
+peak_picking:
+  onset_threshold: 0.3
+  offset_threshold: 0.3
+  min_distance_frames: 3    # minimum frames between consecutive peaks
+
+evaluation:
+  tolerance_ms: 50          # timing tolerance for P/R/F1 matching
+
+paths:
+  data_dir: ""              # root of dataset (audio/ and labels/ subdirs)
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
