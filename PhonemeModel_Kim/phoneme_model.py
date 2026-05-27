@@ -84,6 +84,18 @@ class PhonemeBoundaryConfig:
     collapse_repeated_tokens: bool = True
     remove_blank_tokens: bool = True
     blank_token_id: int = 0
+    # Post-processing A — long-segment splitting (rarely triggers for singing,
+    # kept for completeness when segments are unusually long).
+    max_segment_ms: float = 300.0   # split segments longer than this (0 = disabled)
+    min_split_prob: float = 0.25    # min alt-token probability to justify a split
+    # Post-processing B — blank-region phoneme recovery.
+    # In singing, brief consonants between sustained vowels never win the CTC
+    # argmax (blank wins instead) yet still register a meaningful probability
+    # bump in the logits.  Scanning those blank frames and inserting a segment
+    # at the probability peak recovers the missed boundaries.
+    blank_region_scan: bool = True   # enable blank-region scanning
+    min_phoneme_prob: float = 0.05   # min non-blank prob to insert a segment
+    min_gap_frames: int = 2          # skip gaps shorter than this (noise guard; 2 frames = 40 ms)
 
     def __post_init__(self):
         if isinstance(self.device, str):
@@ -183,22 +195,43 @@ def build_id2phoneme(model: AutoModelForCTC, processor: Wav2Vec2Processor) -> Di
     Build token-ID → phoneme-string mapping.
 
     Priority:
-    1. model.config.id2label  — present on most CTC fine-tunes
-    2. processor.tokenizer.convert_ids_to_tokens()  — fallback that correctly
-       includes IPA tokens stored in added_tokens.json (get_vocab() misses these)
+    1. processor.tokenizer._added_tokens_decoder — AddedToken objects loaded
+       from added_tokens.json by Wav2Vec2PhonemeCTCTokenizer; this is the only
+       source that reliably contains all IPA phoneme tokens.
+    2. processor.tokenizer.get_vocab() — fills in base special tokens (<pad> etc.)
+       not covered by _added_tokens_decoder.
+    3. model.config.id2label — last resort if both tokenizer sources are empty.
     """
-    if getattr(model.config, "id2label", None):
-        mapping = {int(k): v for k, v in model.config.id2label.items()}
-        logger.debug(f"id2phoneme from model.config.id2label ({len(mapping)} tokens)")
-        return mapping
+    mapping: Dict[int, str] = {}
 
-    logger.warning(
-        "model.config.id2label unavailable; building vocab from convert_ids_to_tokens"
-    )
-    vocab_size = model.config.vocab_size
-    tokens = processor.tokenizer.convert_ids_to_tokens(list(range(vocab_size)))
-    mapping = {i: t for i, t in enumerate(tokens) if t is not None}
-    logger.debug(f"id2phoneme from convert_ids_to_tokens ({len(mapping)} tokens)")
+    # Source 1: added_tokens_decoder — IPA phonemes live here after
+    # Wav2Vec2PhonemeCTCTokenizer.from_pretrained() loads added_tokens.json.
+    # model.config.id2label is often absent or only covers special tokens for
+    # this checkpoint, so it cannot be used as the primary source.
+    for tok_id, added_tok in processor.tokenizer._added_tokens_decoder.items():
+        mapping[int(tok_id)] = str(added_tok)
+
+    # Source 2: base vocab (special tokens not already covered above)
+    for tok_str, tok_id in processor.tokenizer.get_vocab().items():
+        if int(tok_id) not in mapping:
+            mapping[int(tok_id)] = tok_str
+
+    # Source 3: id2label fallback when both tokenizer sources are empty
+    if not mapping:
+        id2label = getattr(model.config, "id2label", None)
+        if id2label:
+            mapping = {int(k): v for k, v in id2label.items()}
+            logger.warning(
+                f"id2phoneme fell back to model.config.id2label ({len(mapping)} tokens)"
+            )
+
+    if not mapping:
+        logger.error(
+            "id2phoneme mapping is empty — all tokens will decode as <unk>. "
+            "Verify that Wav2Vec2PhonemeCTCTokenizer was used (not AutoProcessor)."
+        )
+
+    logger.debug(f"id2phoneme: {len(mapping)} / {model.config.vocab_size} tokens")
     return mapping
 
 
@@ -384,7 +417,7 @@ def extract_phoneme_boundaries(
     logger.debug(
         f"Decoded {len(phonemes)} phonemes | frame_dur={frame_dur * 1000:.2f} ms"
     )
-    return phonemes, time_boundaries, list(frame_ranges), confidences
+    return phonemes, time_boundaries, list(frame_ranges), confidences, probs, id2phoneme
 
 
 # ============================================================================
@@ -444,6 +477,182 @@ def group_by_words(
         words.append(current)
 
     return words
+
+
+# ============================================================================
+# SEGMENT SPLITTING
+# ============================================================================
+
+def split_long_segments(
+    segments: List[PhonemeSegment],
+    probs: np.ndarray,
+    id2phoneme: Dict[int, str],
+    frame_dur: float,
+    max_segment_ms: float,
+    min_split_prob: float,
+) -> List[PhonemeSegment]:
+    """
+    Post-processing pass that splits over-long CTC segments at their best
+    internal phoneme-transition candidate.
+
+    Why this is needed:
+        In singing, vowels are held for 300–800 ms.  The CTC model was trained
+        on speech where vowels last ~100 ms.  When it encounters a long vowel
+        followed by a consonant (e.g. "let"), it often keeps the argmax on the
+        vowel for the entire span, merging two phonemes into one CTC segment.
+        This causes systematic under-prediction (predictions < references).
+
+    Algorithm per long segment [fs, fe]:
+        1. Build an "alternative probability" trace: for each frame, find the
+           highest-probability token that is neither blank (0) nor the segment's
+           own winning token.
+        2. Search only interior frames (1 … n-2) to avoid zero-length splits.
+        3. If the peak alternative probability exceeds min_split_prob, split
+           there and label the tail with the alternative token's phoneme.
+        4. Recurse on each half in case a sub-segment is still too long.
+    """
+    max_frames = max(2, int(max_segment_ms / (frame_dur * 1000)))
+    result: List[PhonemeSegment] = []
+
+    for seg in segments:
+        n_frames = seg.frame_end - seg.frame_start + 1
+        if n_frames <= max_frames:
+            result.append(seg)
+            continue
+
+        seg_probs = probs[seg.frame_start : seg.frame_end + 1]  # [n, V]
+
+        # Identify winning token: most frequent non-blank argmax in the segment
+        frame_argmax = np.argmax(seg_probs, axis=1)             # [n]
+        non_blank = frame_argmax[frame_argmax != 0]
+        if len(non_blank) == 0:
+            result.append(seg)
+            continue
+        winning_id = int(np.bincount(non_blank).argmax())
+
+        # Build alternative-probability trace (mask blank and winning token)
+        alt_probs = seg_probs.copy()
+        alt_probs[:, 0] = 0
+        alt_probs[:, winning_id] = 0
+        max_alt_per_frame = alt_probs.max(axis=1)  # [n]
+
+        # Only consider interior frames so neither sub-segment is empty
+        interior = max_alt_per_frame[1:-1]
+        if len(interior) == 0:
+            result.append(seg)
+            continue
+
+        best_local = int(np.argmax(interior)) + 1  # offset for the sliced interior
+        best_prob = float(max_alt_per_frame[best_local])
+
+        if best_prob < min_split_prob:
+            result.append(seg)
+            continue
+
+        split_token_id = int(np.argmax(alt_probs[best_local]))
+        split_phoneme = id2phoneme.get(split_token_id, seg.phoneme)
+        abs_split = seg.frame_start + best_local
+
+        seg1 = PhonemeSegment(
+            phoneme=seg.phoneme,
+            start_time=seg.start_time,
+            end_time=round(abs_split * frame_dur, 4),
+            confidence=round(float(seg_probs[:best_local, winning_id].mean()), 4),
+            frame_start=seg.frame_start,
+            frame_end=abs_split - 1,
+        )
+        seg2 = PhonemeSegment(
+            phoneme=split_phoneme,
+            start_time=round(abs_split * frame_dur, 4),
+            end_time=seg.end_time,
+            confidence=round(float(seg_probs[best_local:, split_token_id].mean()), 4),
+            frame_start=abs_split,
+            frame_end=seg.frame_end,
+        )
+
+        # Recurse: each half may itself still be too long
+        result.extend(split_long_segments(
+            [seg1, seg2], probs, id2phoneme, frame_dur, max_segment_ms, min_split_prob
+        ))
+
+    return result
+
+
+# ============================================================================
+# BLANK-REGION PHONEME RECOVERY
+# ============================================================================
+
+def insert_blank_region_phonemes(
+    segments: List[PhonemeSegment],
+    probs: np.ndarray,
+    id2phoneme: Dict[int, str],
+    frame_dur: float,
+    min_phoneme_prob: float,
+    min_gap_frames: int,
+) -> List[PhonemeSegment]:
+    """
+    Recover phonemes suppressed by CTC blank dominance.
+
+    Why blank regions contain missed boundaries:
+        Wav2Vec2 was trained on speech where consonants last ~50–100 ms and
+        are strong enough to win the frame-level argmax.  In singing, the same
+        consonants are brief and sandwiched between long sustained vowels; the
+        blank token often wins the argmax even while the consonant's softmax
+        probability is clearly elevated (0.10–0.25).  Scanning the blank frames
+        between detected segments and inserting a new segment at the probability
+        peak recovers these timing boundaries.
+
+    Algorithm per inter-segment gap [gap_start, gap_end]:
+        1. If gap is shorter than min_gap_frames, skip (transition noise).
+        2. Compute per-frame max non-blank probability.
+        3. At the frame where this peaks, record the winning non-blank token.
+        4. If the peak exceeds min_phoneme_prob, insert a 1-frame segment there.
+        5. Merge all insertions back into the sorted segment list.
+    """
+    if len(segments) < 2:
+        return segments
+
+    insertions: List[PhonemeSegment] = []
+
+    for i in range(len(segments) - 1):
+        gap_start = segments[i].frame_end + 1
+        gap_end = segments[i + 1].frame_start - 1
+        gap_len = gap_end - gap_start + 1
+
+        if gap_len < min_gap_frames:
+            continue
+
+        gap_probs = probs[gap_start : gap_end + 1, :]  # [gap_len, V]
+        non_blank = gap_probs[:, 1:]                    # exclude blank (col 0)
+        peak_per_frame = non_blank.max(axis=1)          # [gap_len]
+
+        best_local = int(np.argmax(peak_per_frame))
+        peak_val = float(peak_per_frame[best_local])
+
+        if peak_val < min_phoneme_prob:
+            continue
+
+        # +1 offsets back to the full vocab indexing (we dropped col 0 above)
+        best_token_id = int(np.argmax(non_blank[best_local])) + 1
+        phoneme = id2phoneme.get(best_token_id, "<unk>")
+        abs_frame = gap_start + best_local
+
+        insertions.append(PhonemeSegment(
+            phoneme=phoneme,
+            start_time=round(abs_frame * frame_dur, 4),
+            end_time=round((abs_frame + 1) * frame_dur, 4),
+            confidence=round(peak_val, 4),
+            frame_start=abs_frame,
+            frame_end=abs_frame,
+        ))
+
+    if not insertions:
+        return segments
+
+    merged = list(segments) + insertions
+    merged.sort(key=lambda s: s.start_time)
+    logger.debug(f"Blank-region scan: inserted {len(insertions)} segment(s)")
+    return merged
 
 
 # ============================================================================
@@ -596,14 +805,36 @@ def extract_phoneme_boundaries_from_audio(
         logits, input_values = run_inference(audio, model, processor, config)
 
         logger.info("[4/5] Extracting phoneme boundaries...")
-        phonemes, time_boundaries, frame_ranges, confidences = extract_phoneme_boundaries(
-            logits, model, processor, config, input_values.shape[1]
+        phonemes, time_boundaries, frame_ranges, confidences, probs, id2phoneme = (
+            extract_phoneme_boundaries(logits, model, processor, config, input_values.shape[1])
         )
 
         logger.info("[5/5] Building output...")
         segments = create_phoneme_segments(
             phonemes, time_boundaries, frame_ranges, confidences
         )
+
+        frame_dur = compute_frame_duration(model, config.sample_rate)
+
+        if config.max_segment_ms > 0 and segments:
+            n_before = len(segments)
+            segments = split_long_segments(
+                segments, probs, id2phoneme, frame_dur,
+                config.max_segment_ms, config.min_split_prob,
+            )
+            n_split = len(segments) - n_before
+            if n_split:
+                logger.info(f"Segment splitting: {n_before} → {len(segments)} (+{n_split})")
+
+        if config.blank_region_scan and segments:
+            n_before = len(segments)
+            segments = insert_blank_region_phonemes(
+                segments, probs, id2phoneme, frame_dur,
+                config.min_phoneme_prob, config.min_gap_frames,
+            )
+            n_inserted = len(segments) - n_before
+            if n_inserted:
+                logger.info(f"Blank-region scan: {n_before} → {len(segments)} (+{n_inserted})")
 
         if segments:
             logger.info(
@@ -653,6 +884,11 @@ def main() -> None:
                                             [--reference ref.json] [--device cpu|cuda]
     """
     import argparse
+    import sys
+
+    # IPA symbols can't encode in the default Windows CP1252 console.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
     parser = argparse.ArgumentParser(
         description="Extract phoneme boundaries from audio using Wav2Vec2 + CTC"
