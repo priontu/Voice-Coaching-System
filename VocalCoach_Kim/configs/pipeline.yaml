@@ -1,0 +1,159 @@
+# configs/pipeline.yaml
+# Unified inference pipeline configuration.
+# Loaded by UnifiedInferencePipeline at startup; merges with system.yaml.
+
+pipeline:
+  # Toggle individual modules. Disabling a module skips its load and inference.
+  enable_pitch: true
+  enable_phoneme: true
+  enable_onset_offset: true       # requires checkpoint
+
+  # Shared device preference (propagated to all models)
+  device: auto                    # auto | cpu | cuda | cuda:N | mps
+
+  # Checkpoint resolution for models that require weights
+  checkpoints:
+    onset_offset: "checkpoints/best.pt"   # path to your .pt file
+    phoneme: null                 # null → downloads from HuggingFace
+
+  # Whether to write per-model JSON outputs alongside the unified result
+  export_pitch_json: false        # set true to also write pitch_data.json
+  output_dir: outputs/            # directory for any exported files
+
+  # Temporal alignment
+  canonical_hop: 160              # samples; canonical 10ms frame resolution
+  canonical_sample_rate: 16000    # Hz
+
+  # Logging
+  verbose: false                  # true enables DEBUG logging for all modules
+
+# ---------------------------------------------------------------------------
+# Phase 4 — Feature fusion configuration
+# ---------------------------------------------------------------------------
+
+fusion:
+  enabled: true                   # required for reference alignment → metrics → scoring
+
+  # Note event construction (fusion/note_events.py)
+  onset_threshold: 0.5            # minimum onset peak height
+  offset_threshold: 0.5           # minimum offset peak height
+  min_note_duration_ms: 50        # discard notes shorter than this
+  max_duration_s: 10.0            # discard note pairs longer than this
+  min_distance_s: 0.05            # minimum distance between peaks of the same type
+
+  # Lyric/word event construction (fusion/lyric_events.py)
+  word_gap_ms: 100                # max gap between phonemes in the same word
+
+  # Phrase segmentation (fusion/event_alignment.py)
+  phrase_gap_s: 0.5               # inter-note gap that starts a new phrase
+
+  # Voiced region extraction
+  min_region_duration_ms: 20      # minimum voiced/unvoiced region length
+
+  # Cross-event alignment thresholds
+  min_overlap_s: 0.01             # minimum overlap to register a note–phoneme mapping
+  overlap_threshold: 0.5          # fraction-of-phoneme overlap to consider "aligned"
+  boundary_snap_ms: 20            # snap tolerance when aligning to canonical grid
+
+# ---------------------------------------------------------------------------
+# Phase 5 — Reference parsing & alignment configuration
+# ---------------------------------------------------------------------------
+
+reference:
+  # Set true to enable reference alignment when musicxml_path/textgrid_path
+  # are passed to pipeline.predict(). Has no effect without those arguments.
+  enable_reference_alignment: true
+
+  # TextGrid tier names (configurable per dataset)
+  phoneme_tier: phonemes            # name of the phoneme/phone interval tier
+  word_tier: words                  # name of the word interval tier
+
+  # Silence labels skipped during TextGrid parsing
+  # (empty string, SIL, <SIL>, sp, spn are always skipped)
+
+  # MusicXML parsing options
+  default_tempo_bpm: 120.0          # fallback BPM when score has no MetronomeMark
+  merge_ties: true                  # merge tied notes into single events
+  include_rests: true               # include rest notes in reference note list
+
+  # Prediction ↔ reference alignment thresholds
+  alignment_tolerance_ms: 200       # max |pred_onset - ref_onset| to form a match
+  min_overlap_s: 0.01               # minimum temporal overlap for note/word matches
+  phoneme_min_overlap_s: 0.005      # minimum temporal overlap for phoneme matches
+  match_phoneme_label: false        # if true, label mismatch penalises phoneme sorting
+
+  # Phrase segmentation for reference notes
+  phrase_gap_s: 0.5                 # inter-note gap that starts a new reference phrase
+
+# ---------------------------------------------------------------------------
+# Phase 6 — Metric computation configuration
+# ---------------------------------------------------------------------------
+
+metrics:
+  enabled: true                    # set true to auto-compute metrics after alignment
+
+  # Pitch metrics (metrics/pitch_metrics.py)
+  pitch:
+    cents_tolerance: 50             # max |deviation| in cents to count as correct
+    voiced_only: true               # only evaluate on voiced note pairs
+
+  # Timing metrics (metrics/timing_metrics.py)
+  timing:
+    onset_tolerance_ms: 50          # max |onset deviation| to count as on-time
+
+  # Duration metrics (metrics/duration_metrics.py)
+  duration:
+    normalized: true                # also report relative (tempo-independent) errors
+
+  # Lyric/phoneme metrics (metrics/lyric_metrics.py)
+  lyric:
+    phoneme_tolerance_ms: 30        # max |phoneme onset deviation| to count as correct
+
+# ---------------------------------------------------------------------------
+# Phase 7 — Scoring engine configuration
+# ---------------------------------------------------------------------------
+
+scoring:
+  enabled: true                    # set true to auto-compute scores after metrics
+
+  # Category weights used in overall score aggregation.
+  # Values are relative; they are normalized to sum to 1 internally.
+  weights:
+    pitch: 0.40
+    timing: 0.30
+    duration: 0.15
+    lyric: 0.15
+
+  # Pitch scoring (scoring/pitch_scoring.py)
+  pitch:
+    cents_tolerance: 50             # passed through to PitchMetrics tolerance
+    weight_accuracy: 0.50           # weight for pitch_accuracy component
+    weight_intonation: 0.30         # weight for MACE-based intonation component
+    weight_stability: 0.20          # weight for RMSE-based stability component
+
+  # Timing scoring (scoring/timing_scoring.py)
+  timing:
+    onset_tolerance_ms: 50          # passed through to TimingMetrics tolerance
+    weight_accuracy: 0.50           # weight for timing_accuracy component
+    weight_mae: 0.30                # weight for mean abs onset error component
+    weight_stability: 0.20          # weight for rhythm stability component
+
+  # Duration scoring (scoring/duration_scoring.py)
+  duration:
+    weight_relative: 0.60           # weight for relative duration error
+    weight_ratio: 0.20              # weight for duration ratio deviation
+    weight_phrase: 0.20             # weight for phrase duration consistency
+
+  # Lyric scoring (scoring/lyric_scoring.py)
+  lyric:
+    weight_word: 0.35               # weight for word alignment accuracy
+    weight_overlap: 0.25            # weight for phoneme overlap accuracy
+    weight_label: 0.25              # weight for phoneme label match rate
+    weight_timing: 0.15             # weight for phoneme boundary timing
+
+  # Interpretation thresholds (scoring/interpretation.py)
+  interpretation:
+    excellent_threshold: 90         # score ≥ this → "excellent"
+    good_threshold: 75              # score ≥ this → "good"
+    fair_threshold: 55              # score ≥ this → "fair"
+                                    # score < fair  → "needs_work"
