@@ -1,0 +1,39 @@
+# configs/pitch.yaml
+# Configuration for the VAD + pitch estimation pipeline.
+
+audio:
+  sample_rate: 16000   # must match preprocessing.yaml
+  normalize: true
+
+vad:
+  aggressiveness: 2      # WebRTC mode: 0 (least) – 3 (most)
+  frame_duration_ms: 20  # 10 | 20 | 30
+  smoothing_window: 5    # median filter window over VAD frames
+  energy_threshold_db: -40.0  # fallback energy VAD threshold
+
+pitch:
+  backend: torchcrepe    # "torchcrepe" | "pyin"
+  hop_length: 160        # samples at 16 kHz = 10 ms/frame
+  fmin: 50.0             # Hz
+  fmax: 1000.0           # Hz (covers full singing range)
+  model_capacity: full   # torchcrepe: tiny | small | medium | large | full
+  batch_size: 1024
+  use_viterbi: true
+  periodicity_threshold: 0.21
+  silence_threshold_db: -60.0
+
+  # pYIN-specific (only used when backend = pyin)
+  pyin_fmin: 65.0
+  pyin_fmax: 2093.0
+  pyin_frame_length: 2048
+  pyin_hop_length: 512
+
+fusion:
+  unvoiced_fill: zero    # "zero" (for pitch_score.py) | "nan" (for plots)
+  median_filter_size: 5
+  max_gap_fill_frames: 10
+  smoothing_sigma: 1.0
+
+output:
+  path: pitch_data.json
+  export_json: true

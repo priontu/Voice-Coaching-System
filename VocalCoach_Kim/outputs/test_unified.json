@@ -1,0 +1,5046 @@
+{
+  "audio_path": "data\\test\\test.wav",
+  "sample_rate": 16000,
+  "hop_length": 160,
+  "duration_s": 9.28,
+  "metadata": {
+    "elapsed_s": 26.357,
+    "device": "cuda:0",
+    "enabled": {
+      "pitch": true,
+      "phoneme": true,
+      "onset_offset": true,
+      "fusion": true,
+      "reference_alignment": true,
+      "metrics": true,
+      "scores": true
+    }
+  },
+  "phoneme_segments": [
+    {
+      "phoneme": "h",
+      "start_time": 1.94,
+      "end_time": 1.98,
+      "confidence": 0.9866,
+      "frame_start": 97,
+      "frame_end": 98
+    },
+    {
+      "phoneme": "\u025c\u02d0",
+      "start_time": 2.02,
+      "end_time": 2.04,
+      "confidence": 0.4155,
+      "frame_start": 101,
+      "frame_end": 101
+    },
+    {
+      "phoneme": "\u0279",
+      "start_time": 2.24,
+      "end_time": 2.26,
+      "confidence": 0.9858,
+      "frame_start": 112,
+      "frame_end": 112
+    },
+    {
+      "phoneme": "\u0279",
+      "start_time": 2.26,
+      "end_time": 2.28,
+      "confidence": 0.3917,
+      "frame_start": 113,
+      "frame_end": 113
+    },
+    {
+      "phoneme": "\u1d7b",
+      "start_time": 2.3,
+      "end_time": 2.32,
+      "confidence": 0.528,
+      "frame_start": 115,
+      "frame_end": 115
+    },
+    {
+      "phoneme": "m",
+      "start_time": 2.42,
+      "end_time": 2.46,
+      "confidence": 0.8839,
+      "frame_start": 121,
+      "frame_end": 122
+    },
+    {
+      "phoneme": "\u025b",
+      "start_time": 2.5,
+      "end_time": 2.52,
+      "confidence": 0.7483,
+      "frame_start": 125,
+      "frame_end": 125
+    },
+    {
+      "phoneme": "m",
+      "start_time": 2.62,
+      "end_time": 2.66,
+      "confidence": 0.9236,
+      "frame_start": 131,
+      "frame_end": 132
+    },
+    {
+      "phoneme": "b",
+      "start_time": 2.68,
+      "end_time": 2.7,
+      "confidence": 0.9208,
+      "frame_start": 134,
+      "frame_end": 134
+    },
+    {
+      "phoneme": "\u025a",
+      "start_time": 2.72,
+      "end_time": 2.74,
+      "confidence": 0.8374,
+      "frame_start": 136,
+      "frame_end": 136
+    },
+    {
+      "phoneme": "t",
+      "start_time": 2.9,
+      "end_time": 2.92,
+      "confidence": 0.8918,
+      "frame_start": 145,
+      "frame_end": 145
+    },
+    {
+      "phoneme": "\u026a",
+      "start_time": 3.02,
+      "end_time": 3.04,
+      "confidence": 0.3785,
+      "frame_start": 151,
+      "frame_end": 151
+    },
+    {
+      "phoneme": "z",
+      "start_time": 3.3,
+      "end_time": 3.32,
+      "confidence": 0.9128,
+      "frame_start": 165,
+      "frame_end": 165
+    },
+    {
+      "phoneme": "\u0279",
+      "start_time": 3.42,
+      "end_time": 3.44,
+      "confidence": 0.9876,
+      "frame_start": 171,
+      "frame_end": 171
+    },
+    {
+      "phoneme": "\u026a",
+      "start_time": 3.46,
+      "end_time": 3.48,
+      "confidence": 0.9041,
+      "frame_start": 173,
+      "frame_end": 173
+    },
+    {
+      "phoneme": "m",
+      "start_time": 3.58,
+      "end_time": 3.62,
+      "confidence": 0.9855,
+      "frame_start": 179,
+      "frame_end": 180
+    },
+    {
+      "phoneme": "\u026a",
+      "start_time": 3.64,
+      "end_time": 3.66,
+      "confidence": 0.9341,
+      "frame_start": 182,
+      "frame_end": 182
+    },
+    {
+      "phoneme": "\u014b",
+      "start_time": 3.74,
+      "end_time": 3.78,
+      "confidence": 0.8549,
+      "frame_start": 187,
+      "frame_end": 188
+    },
+    {
+      "phoneme": "d",
+      "start_time": 3.86,
+      "end_time": 3.88,
+      "confidence": 0.9592,
+      "frame_start": 193,
+      "frame_end": 193
+    },
+    {
+      "phoneme": "a\u028a",
+      "start_time": 3.94,
+      "end_time": 3.96,
+      "confidence": 0.7392,
+      "frame_start": 197,
+      "frame_end": 197
+    },
+    {
+      "phoneme": "n",
+      "start_time": 4.22,
+      "end_time": 4.26,
+      "confidence": 0.8526,
+      "frame_start": 211,
+      "frame_end": 212
+    },
+    {
+      "phoneme": "j",
+      "start_time": 4.3,
+      "end_time": 4.32,
+      "confidence": 0.2833,
+      "frame_start": 215,
+      "frame_end": 215
+    },
+    {
+      "phoneme": "j",
+      "start_time": 4.32,
+      "end_time": 4.36,
+      "confidence": 0.8299,
+      "frame_start": 216,
+      "frame_end": 217
+    },
+    {
+      "phoneme": "j",
+      "start_time": 4.36,
+      "end_time": 4.38,
+      "confidence": 0.0628,
+      "frame_start": 218,
+      "frame_end": 218
+    },
+    {
+      "phoneme": "\u0254\u02d0\u0279",
+      "start_time": 4.4,
+      "end_time": 4.42,
+      "confidence": 0.231,
+      "frame_start": 220,
+      "frame_end": 220
+    },
+    {
+      "phoneme": "\u0279",
+      "start_time": 4.6,
+      "end_time": 4.62,
+      "confidence": 0.0733,
+      "frame_start": 230,
+      "frame_end": 230
+    },
+    {
+      "phoneme": "f",
+      "start_time": 4.76,
+      "end_time": 4.78,
+      "confidence": 0.9934,
+      "frame_start": 238,
+      "frame_end": 238
+    },
+    {
+      "phoneme": "e\u026a",
+      "start_time": 4.86,
+      "end_time": 4.88,
+      "confidence": 0.9323,
+      "frame_start": 243,
+      "frame_end": 243
+    },
+    {
+      "phoneme": "s",
+      "start_time": 5.14,
+      "end_time": 5.16,
+      "confidence": 0.9762,
+      "frame_start": 257,
+      "frame_end": 257
+    },
+    {
+      "phoneme": "w",
+      "start_time": 5.24,
+      "end_time": 5.26,
+      "confidence": 0.1409,
+      "frame_start": 262,
+      "frame_end": 262
+    },
+    {
+      "phoneme": "w",
+      "start_time": 5.26,
+      "end_time": 5.28,
+      "confidence": 0.9507,
+      "frame_start": 263,
+      "frame_end": 263
+    },
+    {
+      "phoneme": "\u025b",
+      "start_time": 5.3,
+      "end_time": 5.32,
+      "confidence": 0.5338,
+      "frame_start": 265,
+      "frame_end": 265
+    },
+    {
+      "phoneme": "n",
+      "start_time": 5.42,
+      "end_time": 5.44,
+      "confidence": 0.9893,
+      "frame_start": 271,
+      "frame_end": 271
+    },
+    {
+      "phoneme": "a\u026a",
+      "start_time": 5.48,
+      "end_time": 5.5,
+      "confidence": 0.8287,
+      "frame_start": 274,
+      "frame_end": 274
+    },
+    {
+      "phoneme": "s",
+      "start_time": 5.66,
+      "end_time": 5.68,
+      "confidence": 0.9929,
+      "frame_start": 283,
+      "frame_end": 283
+    },
+    {
+      "phoneme": "\u025b",
+      "start_time": 5.78,
+      "end_time": 5.8,
+      "confidence": 0.8011,
+      "frame_start": 289,
+      "frame_end": 289
+    },
+    {
+      "phoneme": "d",
+      "start_time": 5.96,
+      "end_time": 5.98,
+      "confidence": 0.4055,
+      "frame_start": 298,
+      "frame_end": 298
+    },
+    {
+      "phoneme": "\u0259l",
+      "start_time": 6.0,
+      "end_time": 6.02,
+      "confidence": 0.6256,
+      "frame_start": 300,
+      "frame_end": 300
+    },
+    {
+      "phoneme": "l",
+      "start_time": 6.06,
+      "end_time": 6.08,
+      "confidence": 0.2351,
+      "frame_start": 303,
+      "frame_end": 303
+    },
+    {
+      "phoneme": "n",
+      "start_time": 6.14,
+      "end_time": 6.18,
+      "confidence": 0.9666,
+      "frame_start": 307,
+      "frame_end": 308
+    },
+    {
+      "phoneme": "\u025b",
+      "start_time": 6.2,
+      "end_time": 6.22,
+      "confidence": 0.8789,
+      "frame_start": 310,
+      "frame_end": 310
+    },
+    {
+      "phoneme": "v",
+      "start_time": 6.36,
+      "end_time": 6.38,
+      "confidence": 0.9878,
+      "frame_start": 318,
+      "frame_end": 318
+    },
+    {
+      "phoneme": "\u025a",
+      "start_time": 6.42,
+      "end_time": 6.44,
+      "confidence": 0.8271,
+      "frame_start": 321,
+      "frame_end": 321
+    },
+    {
+      "phoneme": "l",
+      "start_time": 6.62,
+      "end_time": 6.66,
+      "confidence": 0.7859,
+      "frame_start": 331,
+      "frame_end": 332
+    },
+    {
+      "phoneme": "\u025b",
+      "start_time": 6.68,
+      "end_time": 6.7,
+      "confidence": 0.6935,
+      "frame_start": 334,
+      "frame_end": 334
+    },
+    {
+      "phoneme": "t",
+      "start_time": 6.96,
+      "end_time": 6.98,
+      "confidence": 0.0752,
+      "frame_start": 348,
+      "frame_end": 348
+    },
+    {
+      "phoneme": "t\u0283",
+      "start_time": 6.98,
+      "end_time": 7.0,
+      "confidence": 0.5533,
+      "frame_start": 349,
+      "frame_end": 349
+    },
+    {
+      "phoneme": "d\u0292",
+      "start_time": 7.0,
+      "end_time": 7.02,
+      "confidence": 0.1027,
+      "frame_start": 350,
+      "frame_end": 350
+    },
+    {
+      "phoneme": "u\u02d0",
+      "start_time": 7.18,
+      "end_time": 7.2,
+      "confidence": 0.6355,
+      "frame_start": 359,
+      "frame_end": 359
+    },
+    {
+      "phoneme": "\u0261",
+      "start_time": 7.56,
+      "end_time": 7.58,
+      "confidence": 0.8068,
+      "frame_start": 378,
+      "frame_end": 378
+    },
+    {
+      "phoneme": "o\u028a",
+      "start_time": 7.64,
+      "end_time": 7.66,
+      "confidence": 0.6312,
+      "frame_start": 382,
+      "frame_end": 382
+    }
+  ],
+  "note_events": [
+    {
+      "onset_time": 1.904,
+      "offset_time": 2.256,
+      "duration": 0.352,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    },
+    {
+      "onset_time": 2.432,
+      "offset_time": 2.688,
+      "duration": 0.256,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    },
+    {
+      "onset_time": 2.88,
+      "offset_time": 2.896,
+      "duration": 0.016,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    },
+    {
+      "onset_time": 3.808,
+      "offset_time": 5.232,
+      "duration": 1.424,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    },
+    {
+      "onset_time": 5.232,
+      "offset_time": 6.144,
+      "duration": 0.912,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    },
+    {
+      "onset_time": 6.144,
+      "offset_time": 6.384,
+      "duration": 0.24,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    },
+    {
+      "onset_time": 6.944,
+      "offset_time": 7.52,
+      "duration": 0.576,
+      "pitch_hz": null,
+      "pitch_midi": null,
+      "pitch_stability": null,
+      "voiced_fraction": null,
+      "confidence": null,
+      "onset_confidence": null,
+      "offset_confidence": null,
+      "phoneme_labels": null,
+      "lyric_text": null,
+      "note_idx": null
+    }
+  ],
+  "n_pitch_frames": 929,
+  "n_onset_frames": 581,
+  "n_canonical_frames": 929,
+  "fused": {
+    "audio_path": "data\\test\\test.wav",
+    "duration_s": 9.28,
+    "sample_rate": 16000,
+    "hop_length": 160,
+    "n_frames": 929,
+    "n_notes": 7,
+    "n_words": 21,
+    "n_phrases": 3,
+    "n_voiced_regions": 7,
+    "alignment_metadata": {
+      "note_phoneme_coverage": {
+        "covered_fraction": 0.6567,
+        "mean_overlap": 0.6627,
+        "n_unmatched": 16
+      }
+    },
+    "inference_metadata": {},
+    "note_events": [
+      {
+        "onset_time": 1.904,
+        "offset_time": 2.256,
+        "duration": 0.352,
+        "pitch_hz": 291.1469,
+        "pitch_midi": 61.8509,
+        "pitch_stability": 28.4033,
+        "voiced_fraction": 0.8333,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": [
+          "h",
+          "\u025c\u02d0",
+          "\u0279"
+        ],
+        "lyric_text": "h-\u025c\u02d0-\u0279",
+        "note_idx": null
+      },
+      {
+        "onset_time": 2.432,
+        "offset_time": 2.688,
+        "duration": 0.256,
+        "pitch_hz": 341.8517,
+        "pitch_midi": 64.6304,
+        "pitch_stability": 2.1476,
+        "voiced_fraction": 1.0,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": [
+          "m",
+          "\u025b"
+        ],
+        "lyric_text": "m-\u025b",
+        "note_idx": null
+      },
+      {
+        "onset_time": 2.88,
+        "offset_time": 2.896,
+        "duration": 0.016,
+        "pitch_hz": 326.6078,
+        "pitch_midi": 63.8407,
+        "pitch_stability": 0.7882,
+        "voiced_fraction": 1.0,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": null,
+        "lyric_text": null,
+        "note_idx": null
+      },
+      {
+        "onset_time": 3.808,
+        "offset_time": 5.232,
+        "duration": 1.424,
+        "pitch_hz": 266.1917,
+        "pitch_midi": 60.2995,
+        "pitch_stability": 9.3867,
+        "voiced_fraction": 1.0,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": [
+          "d",
+          "a\u028a",
+          "n",
+          "j",
+          "\u0254\u02d0\u0279",
+          "\u0279",
+          "f",
+          "e\u026a",
+          "s"
+        ],
+        "lyric_text": "d-a\u028a-n-j-\u0254\u02d0\u0279-\u0279-f-e\u026a-s",
+        "note_idx": null
+      },
+      {
+        "onset_time": 5.232,
+        "offset_time": 6.144,
+        "duration": 0.912,
+        "pitch_hz": 210.3884,
+        "pitch_midi": 56.2266,
+        "pitch_stability": 9.5814,
+        "voiced_fraction": 1.0,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": [
+          "w",
+          "\u025b",
+          "n",
+          "a\u026a",
+          "s",
+          "d",
+          "\u0259l",
+          "l"
+        ],
+        "lyric_text": "w-\u025b-n-a\u026a-s-d-\u0259l-l",
+        "note_idx": null
+      },
+      {
+        "onset_time": 6.144,
+        "offset_time": 6.384,
+        "duration": 0.24,
+        "pitch_hz": 230.2735,
+        "pitch_midi": 57.7901,
+        "pitch_stability": 5.1534,
+        "voiced_fraction": 1.0,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": [
+          "n",
+          "\u025b",
+          "v"
+        ],
+        "lyric_text": "n-\u025b-v",
+        "note_idx": null
+      },
+      {
+        "onset_time": 6.944,
+        "offset_time": 7.52,
+        "duration": 0.576,
+        "pitch_hz": 200.1071,
+        "pitch_midi": 55.3592,
+        "pitch_stability": 25.097,
+        "voiced_fraction": 0.6897,
+        "confidence": null,
+        "onset_confidence": null,
+        "offset_confidence": null,
+        "phoneme_labels": [
+          "t",
+          "t\u0283",
+          "d\u0292",
+          "u\u02d0"
+        ],
+        "lyric_text": "t-t\u0283-d\u0292-u\u02d0",
+        "note_idx": null
+      }
+    ],
+    "lyric_events": [
+      {
+        "phoneme": "h",
+        "start_time": 1.94,
+        "end_time": 1.98,
+        "confidence": 0.9866,
+        "lyric_idx": 0,
+        "word_idx": 0,
+        "note_idx": 0
+      },
+      {
+        "phoneme": "\u025c\u02d0",
+        "start_time": 2.02,
+        "end_time": 2.04,
+        "confidence": 0.4155,
+        "lyric_idx": 1,
+        "word_idx": 0,
+        "note_idx": 0
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 2.24,
+        "end_time": 2.26,
+        "confidence": 0.9858,
+        "lyric_idx": 2,
+        "word_idx": 1,
+        "note_idx": 0
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 2.26,
+        "end_time": 2.28,
+        "confidence": 0.3917,
+        "lyric_idx": 3,
+        "word_idx": 1,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u1d7b",
+        "start_time": 2.3,
+        "end_time": 2.32,
+        "confidence": 0.528,
+        "lyric_idx": 4,
+        "word_idx": 1,
+        "note_idx": null
+      },
+      {
+        "phoneme": "m",
+        "start_time": 2.42,
+        "end_time": 2.46,
+        "confidence": 0.8839,
+        "lyric_idx": 5,
+        "word_idx": 2,
+        "note_idx": 1
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 2.5,
+        "end_time": 2.52,
+        "confidence": 0.7483,
+        "lyric_idx": 6,
+        "word_idx": 2,
+        "note_idx": 1
+      },
+      {
+        "phoneme": "m",
+        "start_time": 2.62,
+        "end_time": 2.66,
+        "confidence": 0.9236,
+        "lyric_idx": 7,
+        "word_idx": 3,
+        "note_idx": 1
+      },
+      {
+        "phoneme": "b",
+        "start_time": 2.68,
+        "end_time": 2.7,
+        "confidence": 0.9208,
+        "lyric_idx": 8,
+        "word_idx": 3,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u025a",
+        "start_time": 2.72,
+        "end_time": 2.74,
+        "confidence": 0.8374,
+        "lyric_idx": 9,
+        "word_idx": 3,
+        "note_idx": null
+      },
+      {
+        "phoneme": "t",
+        "start_time": 2.9,
+        "end_time": 2.92,
+        "confidence": 0.8918,
+        "lyric_idx": 10,
+        "word_idx": 4,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.02,
+        "end_time": 3.04,
+        "confidence": 0.3785,
+        "lyric_idx": 11,
+        "word_idx": 5,
+        "note_idx": null
+      },
+      {
+        "phoneme": "z",
+        "start_time": 3.3,
+        "end_time": 3.32,
+        "confidence": 0.9128,
+        "lyric_idx": 12,
+        "word_idx": 6,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 3.42,
+        "end_time": 3.44,
+        "confidence": 0.9876,
+        "lyric_idx": 13,
+        "word_idx": 7,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.46,
+        "end_time": 3.48,
+        "confidence": 0.9041,
+        "lyric_idx": 14,
+        "word_idx": 7,
+        "note_idx": null
+      },
+      {
+        "phoneme": "m",
+        "start_time": 3.58,
+        "end_time": 3.62,
+        "confidence": 0.9855,
+        "lyric_idx": 15,
+        "word_idx": 8,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.64,
+        "end_time": 3.66,
+        "confidence": 0.9341,
+        "lyric_idx": 16,
+        "word_idx": 8,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u014b",
+        "start_time": 3.74,
+        "end_time": 3.78,
+        "confidence": 0.8549,
+        "lyric_idx": 17,
+        "word_idx": 8,
+        "note_idx": null
+      },
+      {
+        "phoneme": "d",
+        "start_time": 3.86,
+        "end_time": 3.88,
+        "confidence": 0.9592,
+        "lyric_idx": 18,
+        "word_idx": 8,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "a\u028a",
+        "start_time": 3.94,
+        "end_time": 3.96,
+        "confidence": 0.7392,
+        "lyric_idx": 19,
+        "word_idx": 8,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "n",
+        "start_time": 4.22,
+        "end_time": 4.26,
+        "confidence": 0.8526,
+        "lyric_idx": 20,
+        "word_idx": 9,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.3,
+        "end_time": 4.32,
+        "confidence": 0.2833,
+        "lyric_idx": 21,
+        "word_idx": 9,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.32,
+        "end_time": 4.36,
+        "confidence": 0.8299,
+        "lyric_idx": 22,
+        "word_idx": 9,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.36,
+        "end_time": 4.38,
+        "confidence": 0.0628,
+        "lyric_idx": 23,
+        "word_idx": 9,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "\u0254\u02d0\u0279",
+        "start_time": 4.4,
+        "end_time": 4.42,
+        "confidence": 0.231,
+        "lyric_idx": 24,
+        "word_idx": 9,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 4.6,
+        "end_time": 4.62,
+        "confidence": 0.0733,
+        "lyric_idx": 25,
+        "word_idx": 10,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "f",
+        "start_time": 4.76,
+        "end_time": 4.78,
+        "confidence": 0.9934,
+        "lyric_idx": 26,
+        "word_idx": 11,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "e\u026a",
+        "start_time": 4.86,
+        "end_time": 4.88,
+        "confidence": 0.9323,
+        "lyric_idx": 27,
+        "word_idx": 11,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "s",
+        "start_time": 5.14,
+        "end_time": 5.16,
+        "confidence": 0.9762,
+        "lyric_idx": 28,
+        "word_idx": 12,
+        "note_idx": 3
+      },
+      {
+        "phoneme": "w",
+        "start_time": 5.24,
+        "end_time": 5.26,
+        "confidence": 0.1409,
+        "lyric_idx": 29,
+        "word_idx": 12,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "w",
+        "start_time": 5.26,
+        "end_time": 5.28,
+        "confidence": 0.9507,
+        "lyric_idx": 30,
+        "word_idx": 12,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 5.3,
+        "end_time": 5.32,
+        "confidence": 0.5338,
+        "lyric_idx": 31,
+        "word_idx": 12,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "n",
+        "start_time": 5.42,
+        "end_time": 5.44,
+        "confidence": 0.9893,
+        "lyric_idx": 32,
+        "word_idx": 12,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "a\u026a",
+        "start_time": 5.48,
+        "end_time": 5.5,
+        "confidence": 0.8287,
+        "lyric_idx": 33,
+        "word_idx": 12,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "s",
+        "start_time": 5.66,
+        "end_time": 5.68,
+        "confidence": 0.9929,
+        "lyric_idx": 34,
+        "word_idx": 13,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 5.78,
+        "end_time": 5.8,
+        "confidence": 0.8011,
+        "lyric_idx": 35,
+        "word_idx": 14,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "d",
+        "start_time": 5.96,
+        "end_time": 5.98,
+        "confidence": 0.4055,
+        "lyric_idx": 36,
+        "word_idx": 15,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "\u0259l",
+        "start_time": 6.0,
+        "end_time": 6.02,
+        "confidence": 0.6256,
+        "lyric_idx": 37,
+        "word_idx": 15,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "l",
+        "start_time": 6.06,
+        "end_time": 6.08,
+        "confidence": 0.2351,
+        "lyric_idx": 38,
+        "word_idx": 15,
+        "note_idx": 4
+      },
+      {
+        "phoneme": "n",
+        "start_time": 6.14,
+        "end_time": 6.18,
+        "confidence": 0.9666,
+        "lyric_idx": 39,
+        "word_idx": 15,
+        "note_idx": 5
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 6.2,
+        "end_time": 6.22,
+        "confidence": 0.8789,
+        "lyric_idx": 40,
+        "word_idx": 15,
+        "note_idx": 5
+      },
+      {
+        "phoneme": "v",
+        "start_time": 6.36,
+        "end_time": 6.38,
+        "confidence": 0.9878,
+        "lyric_idx": 41,
+        "word_idx": 16,
+        "note_idx": 5
+      },
+      {
+        "phoneme": "\u025a",
+        "start_time": 6.42,
+        "end_time": 6.44,
+        "confidence": 0.8271,
+        "lyric_idx": 42,
+        "word_idx": 16,
+        "note_idx": null
+      },
+      {
+        "phoneme": "l",
+        "start_time": 6.62,
+        "end_time": 6.66,
+        "confidence": 0.7859,
+        "lyric_idx": 43,
+        "word_idx": 17,
+        "note_idx": null
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 6.68,
+        "end_time": 6.7,
+        "confidence": 0.6935,
+        "lyric_idx": 44,
+        "word_idx": 17,
+        "note_idx": null
+      },
+      {
+        "phoneme": "t",
+        "start_time": 6.96,
+        "end_time": 6.98,
+        "confidence": 0.0752,
+        "lyric_idx": 45,
+        "word_idx": 18,
+        "note_idx": 6
+      },
+      {
+        "phoneme": "t\u0283",
+        "start_time": 6.98,
+        "end_time": 7.0,
+        "confidence": 0.5533,
+        "lyric_idx": 46,
+        "word_idx": 18,
+        "note_idx": 6
+      },
+      {
+        "phoneme": "d\u0292",
+        "start_time": 7.0,
+        "end_time": 7.02,
+        "confidence": 0.1027,
+        "lyric_idx": 47,
+        "word_idx": 18,
+        "note_idx": 6
+      },
+      {
+        "phoneme": "u\u02d0",
+        "start_time": 7.18,
+        "end_time": 7.2,
+        "confidence": 0.6355,
+        "lyric_idx": 48,
+        "word_idx": 19,
+        "note_idx": 6
+      },
+      {
+        "phoneme": "\u0261",
+        "start_time": 7.56,
+        "end_time": 7.58,
+        "confidence": 0.8068,
+        "lyric_idx": 49,
+        "word_idx": 20,
+        "note_idx": null
+      },
+      {
+        "phoneme": "o\u028a",
+        "start_time": 7.64,
+        "end_time": 7.66,
+        "confidence": 0.6312,
+        "lyric_idx": 50,
+        "word_idx": 20,
+        "note_idx": null
+      }
+    ],
+    "word_events": [
+      {
+        "text": "h-\u025c\u02d0",
+        "start_time": 1.94,
+        "end_time": 2.04,
+        "duration": 0.10000000000000009,
+        "confidence": 0.70105,
+        "word_idx": 0,
+        "note_idx": 0,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "h",
+            "start_time": 1.94,
+            "end_time": 1.98,
+            "confidence": 0.9866,
+            "lyric_idx": 0,
+            "word_idx": 0,
+            "note_idx": 0
+          },
+          {
+            "phoneme": "\u025c\u02d0",
+            "start_time": 2.02,
+            "end_time": 2.04,
+            "confidence": 0.4155,
+            "lyric_idx": 1,
+            "word_idx": 0,
+            "note_idx": 0
+          }
+        ]
+      },
+      {
+        "text": "\u0279-\u0279-\u1d7b",
+        "start_time": 2.24,
+        "end_time": 2.32,
+        "duration": 0.07999999999999963,
+        "confidence": 0.6351666666666667,
+        "word_idx": 1,
+        "note_idx": 0,
+        "n_phonemes": 3,
+        "phoneme_events": [
+          {
+            "phoneme": "\u0279",
+            "start_time": 2.24,
+            "end_time": 2.26,
+            "confidence": 0.9858,
+            "lyric_idx": 2,
+            "word_idx": 1,
+            "note_idx": 0
+          },
+          {
+            "phoneme": "\u0279",
+            "start_time": 2.26,
+            "end_time": 2.28,
+            "confidence": 0.3917,
+            "lyric_idx": 3,
+            "word_idx": 1,
+            "note_idx": null
+          },
+          {
+            "phoneme": "\u1d7b",
+            "start_time": 2.3,
+            "end_time": 2.32,
+            "confidence": 0.528,
+            "lyric_idx": 4,
+            "word_idx": 1,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "m-\u025b",
+        "start_time": 2.42,
+        "end_time": 2.52,
+        "duration": 0.10000000000000009,
+        "confidence": 0.8161,
+        "word_idx": 2,
+        "note_idx": 1,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "m",
+            "start_time": 2.42,
+            "end_time": 2.46,
+            "confidence": 0.8839,
+            "lyric_idx": 5,
+            "word_idx": 2,
+            "note_idx": 1
+          },
+          {
+            "phoneme": "\u025b",
+            "start_time": 2.5,
+            "end_time": 2.52,
+            "confidence": 0.7483,
+            "lyric_idx": 6,
+            "word_idx": 2,
+            "note_idx": 1
+          }
+        ]
+      },
+      {
+        "text": "m-b-\u025a",
+        "start_time": 2.62,
+        "end_time": 2.74,
+        "duration": 0.1200000000000001,
+        "confidence": 0.8939333333333334,
+        "word_idx": 3,
+        "note_idx": 1,
+        "n_phonemes": 3,
+        "phoneme_events": [
+          {
+            "phoneme": "m",
+            "start_time": 2.62,
+            "end_time": 2.66,
+            "confidence": 0.9236,
+            "lyric_idx": 7,
+            "word_idx": 3,
+            "note_idx": 1
+          },
+          {
+            "phoneme": "b",
+            "start_time": 2.68,
+            "end_time": 2.7,
+            "confidence": 0.9208,
+            "lyric_idx": 8,
+            "word_idx": 3,
+            "note_idx": null
+          },
+          {
+            "phoneme": "\u025a",
+            "start_time": 2.72,
+            "end_time": 2.74,
+            "confidence": 0.8374,
+            "lyric_idx": 9,
+            "word_idx": 3,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "t",
+        "start_time": 2.9,
+        "end_time": 2.92,
+        "duration": 0.020000000000000018,
+        "confidence": 0.8918,
+        "word_idx": 4,
+        "note_idx": null,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "t",
+            "start_time": 2.9,
+            "end_time": 2.92,
+            "confidence": 0.8918,
+            "lyric_idx": 10,
+            "word_idx": 4,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "\u026a",
+        "start_time": 3.02,
+        "end_time": 3.04,
+        "duration": 0.020000000000000018,
+        "confidence": 0.3785,
+        "word_idx": 5,
+        "note_idx": null,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "\u026a",
+            "start_time": 3.02,
+            "end_time": 3.04,
+            "confidence": 0.3785,
+            "lyric_idx": 11,
+            "word_idx": 5,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "z",
+        "start_time": 3.3,
+        "end_time": 3.32,
+        "duration": 0.020000000000000018,
+        "confidence": 0.9128,
+        "word_idx": 6,
+        "note_idx": null,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "z",
+            "start_time": 3.3,
+            "end_time": 3.32,
+            "confidence": 0.9128,
+            "lyric_idx": 12,
+            "word_idx": 6,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "\u0279-\u026a",
+        "start_time": 3.42,
+        "end_time": 3.48,
+        "duration": 0.06000000000000005,
+        "confidence": 0.9458500000000001,
+        "word_idx": 7,
+        "note_idx": null,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "\u0279",
+            "start_time": 3.42,
+            "end_time": 3.44,
+            "confidence": 0.9876,
+            "lyric_idx": 13,
+            "word_idx": 7,
+            "note_idx": null
+          },
+          {
+            "phoneme": "\u026a",
+            "start_time": 3.46,
+            "end_time": 3.48,
+            "confidence": 0.9041,
+            "lyric_idx": 14,
+            "word_idx": 7,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "m-\u026a-\u014b-d-a\u028a",
+        "start_time": 3.58,
+        "end_time": 3.96,
+        "duration": 0.3799999999999999,
+        "confidence": 0.89458,
+        "word_idx": 8,
+        "note_idx": 3,
+        "n_phonemes": 5,
+        "phoneme_events": [
+          {
+            "phoneme": "m",
+            "start_time": 3.58,
+            "end_time": 3.62,
+            "confidence": 0.9855,
+            "lyric_idx": 15,
+            "word_idx": 8,
+            "note_idx": null
+          },
+          {
+            "phoneme": "\u026a",
+            "start_time": 3.64,
+            "end_time": 3.66,
+            "confidence": 0.9341,
+            "lyric_idx": 16,
+            "word_idx": 8,
+            "note_idx": null
+          },
+          {
+            "phoneme": "\u014b",
+            "start_time": 3.74,
+            "end_time": 3.78,
+            "confidence": 0.8549,
+            "lyric_idx": 17,
+            "word_idx": 8,
+            "note_idx": null
+          },
+          {
+            "phoneme": "d",
+            "start_time": 3.86,
+            "end_time": 3.88,
+            "confidence": 0.9592,
+            "lyric_idx": 18,
+            "word_idx": 8,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "a\u028a",
+            "start_time": 3.94,
+            "end_time": 3.96,
+            "confidence": 0.7392,
+            "lyric_idx": 19,
+            "word_idx": 8,
+            "note_idx": 3
+          }
+        ]
+      },
+      {
+        "text": "n-j-j-j-\u0254\u02d0\u0279",
+        "start_time": 4.22,
+        "end_time": 4.42,
+        "duration": 0.20000000000000018,
+        "confidence": 0.45192,
+        "word_idx": 9,
+        "note_idx": 3,
+        "n_phonemes": 5,
+        "phoneme_events": [
+          {
+            "phoneme": "n",
+            "start_time": 4.22,
+            "end_time": 4.26,
+            "confidence": 0.8526,
+            "lyric_idx": 20,
+            "word_idx": 9,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "j",
+            "start_time": 4.3,
+            "end_time": 4.32,
+            "confidence": 0.2833,
+            "lyric_idx": 21,
+            "word_idx": 9,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "j",
+            "start_time": 4.32,
+            "end_time": 4.36,
+            "confidence": 0.8299,
+            "lyric_idx": 22,
+            "word_idx": 9,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "j",
+            "start_time": 4.36,
+            "end_time": 4.38,
+            "confidence": 0.0628,
+            "lyric_idx": 23,
+            "word_idx": 9,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "\u0254\u02d0\u0279",
+            "start_time": 4.4,
+            "end_time": 4.42,
+            "confidence": 0.231,
+            "lyric_idx": 24,
+            "word_idx": 9,
+            "note_idx": 3
+          }
+        ]
+      },
+      {
+        "text": "\u0279",
+        "start_time": 4.6,
+        "end_time": 4.62,
+        "duration": 0.020000000000000462,
+        "confidence": 0.0733,
+        "word_idx": 10,
+        "note_idx": 3,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "\u0279",
+            "start_time": 4.6,
+            "end_time": 4.62,
+            "confidence": 0.0733,
+            "lyric_idx": 25,
+            "word_idx": 10,
+            "note_idx": 3
+          }
+        ]
+      },
+      {
+        "text": "f-e\u026a",
+        "start_time": 4.76,
+        "end_time": 4.88,
+        "duration": 0.1200000000000001,
+        "confidence": 0.96285,
+        "word_idx": 11,
+        "note_idx": 3,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "f",
+            "start_time": 4.76,
+            "end_time": 4.78,
+            "confidence": 0.9934,
+            "lyric_idx": 26,
+            "word_idx": 11,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "e\u026a",
+            "start_time": 4.86,
+            "end_time": 4.88,
+            "confidence": 0.9323,
+            "lyric_idx": 27,
+            "word_idx": 11,
+            "note_idx": 3
+          }
+        ]
+      },
+      {
+        "text": "s-w-w-\u025b-n-a\u026a",
+        "start_time": 5.14,
+        "end_time": 5.5,
+        "duration": 0.3600000000000003,
+        "confidence": 0.7366000000000001,
+        "word_idx": 12,
+        "note_idx": 4,
+        "n_phonemes": 6,
+        "phoneme_events": [
+          {
+            "phoneme": "s",
+            "start_time": 5.14,
+            "end_time": 5.16,
+            "confidence": 0.9762,
+            "lyric_idx": 28,
+            "word_idx": 12,
+            "note_idx": 3
+          },
+          {
+            "phoneme": "w",
+            "start_time": 5.24,
+            "end_time": 5.26,
+            "confidence": 0.1409,
+            "lyric_idx": 29,
+            "word_idx": 12,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "w",
+            "start_time": 5.26,
+            "end_time": 5.28,
+            "confidence": 0.9507,
+            "lyric_idx": 30,
+            "word_idx": 12,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "\u025b",
+            "start_time": 5.3,
+            "end_time": 5.32,
+            "confidence": 0.5338,
+            "lyric_idx": 31,
+            "word_idx": 12,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "n",
+            "start_time": 5.42,
+            "end_time": 5.44,
+            "confidence": 0.9893,
+            "lyric_idx": 32,
+            "word_idx": 12,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "a\u026a",
+            "start_time": 5.48,
+            "end_time": 5.5,
+            "confidence": 0.8287,
+            "lyric_idx": 33,
+            "word_idx": 12,
+            "note_idx": 4
+          }
+        ]
+      },
+      {
+        "text": "s",
+        "start_time": 5.66,
+        "end_time": 5.68,
+        "duration": 0.019999999999999574,
+        "confidence": 0.9929,
+        "word_idx": 13,
+        "note_idx": 4,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "s",
+            "start_time": 5.66,
+            "end_time": 5.68,
+            "confidence": 0.9929,
+            "lyric_idx": 34,
+            "word_idx": 13,
+            "note_idx": 4
+          }
+        ]
+      },
+      {
+        "text": "\u025b",
+        "start_time": 5.78,
+        "end_time": 5.8,
+        "duration": 0.019999999999999574,
+        "confidence": 0.8011,
+        "word_idx": 14,
+        "note_idx": 4,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "\u025b",
+            "start_time": 5.78,
+            "end_time": 5.8,
+            "confidence": 0.8011,
+            "lyric_idx": 35,
+            "word_idx": 14,
+            "note_idx": 4
+          }
+        ]
+      },
+      {
+        "text": "d-\u0259l-l-n-\u025b",
+        "start_time": 5.96,
+        "end_time": 6.22,
+        "duration": 0.2599999999999998,
+        "confidence": 0.62234,
+        "word_idx": 15,
+        "note_idx": 4,
+        "n_phonemes": 5,
+        "phoneme_events": [
+          {
+            "phoneme": "d",
+            "start_time": 5.96,
+            "end_time": 5.98,
+            "confidence": 0.4055,
+            "lyric_idx": 36,
+            "word_idx": 15,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "\u0259l",
+            "start_time": 6.0,
+            "end_time": 6.02,
+            "confidence": 0.6256,
+            "lyric_idx": 37,
+            "word_idx": 15,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "l",
+            "start_time": 6.06,
+            "end_time": 6.08,
+            "confidence": 0.2351,
+            "lyric_idx": 38,
+            "word_idx": 15,
+            "note_idx": 4
+          },
+          {
+            "phoneme": "n",
+            "start_time": 6.14,
+            "end_time": 6.18,
+            "confidence": 0.9666,
+            "lyric_idx": 39,
+            "word_idx": 15,
+            "note_idx": 5
+          },
+          {
+            "phoneme": "\u025b",
+            "start_time": 6.2,
+            "end_time": 6.22,
+            "confidence": 0.8789,
+            "lyric_idx": 40,
+            "word_idx": 15,
+            "note_idx": 5
+          }
+        ]
+      },
+      {
+        "text": "v-\u025a",
+        "start_time": 6.36,
+        "end_time": 6.44,
+        "duration": 0.08000000000000007,
+        "confidence": 0.90745,
+        "word_idx": 16,
+        "note_idx": 5,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "v",
+            "start_time": 6.36,
+            "end_time": 6.38,
+            "confidence": 0.9878,
+            "lyric_idx": 41,
+            "word_idx": 16,
+            "note_idx": 5
+          },
+          {
+            "phoneme": "\u025a",
+            "start_time": 6.42,
+            "end_time": 6.44,
+            "confidence": 0.8271,
+            "lyric_idx": 42,
+            "word_idx": 16,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "l-\u025b",
+        "start_time": 6.62,
+        "end_time": 6.7,
+        "duration": 0.08000000000000007,
+        "confidence": 0.7397,
+        "word_idx": 17,
+        "note_idx": null,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "l",
+            "start_time": 6.62,
+            "end_time": 6.66,
+            "confidence": 0.7859,
+            "lyric_idx": 43,
+            "word_idx": 17,
+            "note_idx": null
+          },
+          {
+            "phoneme": "\u025b",
+            "start_time": 6.68,
+            "end_time": 6.7,
+            "confidence": 0.6935,
+            "lyric_idx": 44,
+            "word_idx": 17,
+            "note_idx": null
+          }
+        ]
+      },
+      {
+        "text": "t-t\u0283-d\u0292",
+        "start_time": 6.96,
+        "end_time": 7.02,
+        "duration": 0.05999999999999961,
+        "confidence": 0.24373333333333336,
+        "word_idx": 18,
+        "note_idx": 6,
+        "n_phonemes": 3,
+        "phoneme_events": [
+          {
+            "phoneme": "t",
+            "start_time": 6.96,
+            "end_time": 6.98,
+            "confidence": 0.0752,
+            "lyric_idx": 45,
+            "word_idx": 18,
+            "note_idx": 6
+          },
+          {
+            "phoneme": "t\u0283",
+            "start_time": 6.98,
+            "end_time": 7.0,
+            "confidence": 0.5533,
+            "lyric_idx": 46,
+            "word_idx": 18,
+            "note_idx": 6
+          },
+          {
+            "phoneme": "d\u0292",
+            "start_time": 7.0,
+            "end_time": 7.02,
+            "confidence": 0.1027,
+            "lyric_idx": 47,
+            "word_idx": 18,
+            "note_idx": 6
+          }
+        ]
+      },
+      {
+        "text": "u\u02d0",
+        "start_time": 7.18,
+        "end_time": 7.2,
+        "duration": 0.020000000000000462,
+        "confidence": 0.6355,
+        "word_idx": 19,
+        "note_idx": 6,
+        "n_phonemes": 1,
+        "phoneme_events": [
+          {
+            "phoneme": "u\u02d0",
+            "start_time": 7.18,
+            "end_time": 7.2,
+            "confidence": 0.6355,
+            "lyric_idx": 48,
+            "word_idx": 19,
+            "note_idx": 6
+          }
+        ]
+      },
+      {
+        "text": "\u0261-o\u028a",
+        "start_time": 7.56,
+        "end_time": 7.66,
+        "duration": 0.10000000000000053,
+        "confidence": 0.719,
+        "word_idx": 20,
+        "note_idx": null,
+        "n_phonemes": 2,
+        "phoneme_events": [
+          {
+            "phoneme": "\u0261",
+            "start_time": 7.56,
+            "end_time": 7.58,
+            "confidence": 0.8068,
+            "lyric_idx": 49,
+            "word_idx": 20,
+            "note_idx": null
+          },
+          {
+            "phoneme": "o\u028a",
+            "start_time": 7.64,
+            "end_time": 7.66,
+            "confidence": 0.6312,
+            "lyric_idx": 50,
+            "word_idx": 20,
+            "note_idx": null
+          }
+        ]
+      }
+    ],
+    "phrase_events": [
+      {
+        "start_time": 1.904,
+        "end_time": 2.896,
+        "duration": 0.992,
+        "note_indices": [
+          0,
+          1,
+          2
+        ],
+        "word_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "confidence": 1.0,
+        "phrase_idx": 0
+      },
+      {
+        "start_time": 3.808,
+        "end_time": 6.384,
+        "duration": 2.5760000000000005,
+        "note_indices": [
+          3,
+          4,
+          5
+        ],
+        "word_indices": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "confidence": 1.0,
+        "phrase_idx": 1
+      },
+      {
+        "start_time": 6.944,
+        "end_time": 7.52,
+        "duration": 0.5759999999999996,
+        "note_indices": [
+          6
+        ],
+        "word_indices": [
+          18,
+          19
+        ],
+        "confidence": 1.0,
+        "phrase_idx": 2
+      }
+    ],
+    "voiced_regions": [
+      {
+        "label": "unvoiced",
+        "start_time": 0.004999999888241291,
+        "end_time": 1.9650000426918268,
+        "duration": 1.9600000428035855,
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "label": "voiced",
+        "start_time": 1.965000033378601,
+        "end_time": 6.984999904409051,
+        "duration": 5.01999987103045,
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "label": "unvoiced",
+        "start_time": 6.985000133514404,
+        "end_time": 7.124999770894647,
+        "duration": 0.13999963738024235,
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "label": "voiced",
+        "start_time": 7.125,
+        "end_time": 7.484999904409051,
+        "duration": 0.35999990440905094,
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "label": "unvoiced",
+        "start_time": 7.485000133514404,
+        "end_time": 7.604999789968133,
+        "duration": 0.11999965645372868,
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "label": "voiced",
+        "start_time": 7.605000019073486,
+        "end_time": 7.984999904409051,
+        "duration": 0.3799998853355646,
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "label": "unvoiced",
+        "start_time": 7.985000133514404,
+        "end_time": 9.294999847188592,
+        "duration": 1.3099997136741877,
+        "confidence": 1.0,
+        "metadata": {}
+      }
+    ],
+    "phoneme_segments": [
+      {
+        "phoneme": "h",
+        "start_time": 1.94,
+        "end_time": 1.98,
+        "confidence": 0.9866,
+        "frame_start": 97,
+        "frame_end": 98
+      },
+      {
+        "phoneme": "\u025c\u02d0",
+        "start_time": 2.02,
+        "end_time": 2.04,
+        "confidence": 0.4155,
+        "frame_start": 101,
+        "frame_end": 101
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 2.24,
+        "end_time": 2.26,
+        "confidence": 0.9858,
+        "frame_start": 112,
+        "frame_end": 112
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 2.26,
+        "end_time": 2.28,
+        "confidence": 0.3917,
+        "frame_start": 113,
+        "frame_end": 113
+      },
+      {
+        "phoneme": "\u1d7b",
+        "start_time": 2.3,
+        "end_time": 2.32,
+        "confidence": 0.528,
+        "frame_start": 115,
+        "frame_end": 115
+      },
+      {
+        "phoneme": "m",
+        "start_time": 2.42,
+        "end_time": 2.46,
+        "confidence": 0.8839,
+        "frame_start": 121,
+        "frame_end": 122
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 2.5,
+        "end_time": 2.52,
+        "confidence": 0.7483,
+        "frame_start": 125,
+        "frame_end": 125
+      },
+      {
+        "phoneme": "m",
+        "start_time": 2.62,
+        "end_time": 2.66,
+        "confidence": 0.9236,
+        "frame_start": 131,
+        "frame_end": 132
+      },
+      {
+        "phoneme": "b",
+        "start_time": 2.68,
+        "end_time": 2.7,
+        "confidence": 0.9208,
+        "frame_start": 134,
+        "frame_end": 134
+      },
+      {
+        "phoneme": "\u025a",
+        "start_time": 2.72,
+        "end_time": 2.74,
+        "confidence": 0.8374,
+        "frame_start": 136,
+        "frame_end": 136
+      },
+      {
+        "phoneme": "t",
+        "start_time": 2.9,
+        "end_time": 2.92,
+        "confidence": 0.8918,
+        "frame_start": 145,
+        "frame_end": 145
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.02,
+        "end_time": 3.04,
+        "confidence": 0.3785,
+        "frame_start": 151,
+        "frame_end": 151
+      },
+      {
+        "phoneme": "z",
+        "start_time": 3.3,
+        "end_time": 3.32,
+        "confidence": 0.9128,
+        "frame_start": 165,
+        "frame_end": 165
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 3.42,
+        "end_time": 3.44,
+        "confidence": 0.9876,
+        "frame_start": 171,
+        "frame_end": 171
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.46,
+        "end_time": 3.48,
+        "confidence": 0.9041,
+        "frame_start": 173,
+        "frame_end": 173
+      },
+      {
+        "phoneme": "m",
+        "start_time": 3.58,
+        "end_time": 3.62,
+        "confidence": 0.9855,
+        "frame_start": 179,
+        "frame_end": 180
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.64,
+        "end_time": 3.66,
+        "confidence": 0.9341,
+        "frame_start": 182,
+        "frame_end": 182
+      },
+      {
+        "phoneme": "\u014b",
+        "start_time": 3.74,
+        "end_time": 3.78,
+        "confidence": 0.8549,
+        "frame_start": 187,
+        "frame_end": 188
+      },
+      {
+        "phoneme": "d",
+        "start_time": 3.86,
+        "end_time": 3.88,
+        "confidence": 0.9592,
+        "frame_start": 193,
+        "frame_end": 193
+      },
+      {
+        "phoneme": "a\u028a",
+        "start_time": 3.94,
+        "end_time": 3.96,
+        "confidence": 0.7392,
+        "frame_start": 197,
+        "frame_end": 197
+      },
+      {
+        "phoneme": "n",
+        "start_time": 4.22,
+        "end_time": 4.26,
+        "confidence": 0.8526,
+        "frame_start": 211,
+        "frame_end": 212
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.3,
+        "end_time": 4.32,
+        "confidence": 0.2833,
+        "frame_start": 215,
+        "frame_end": 215
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.32,
+        "end_time": 4.36,
+        "confidence": 0.8299,
+        "frame_start": 216,
+        "frame_end": 217
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.36,
+        "end_time": 4.38,
+        "confidence": 0.0628,
+        "frame_start": 218,
+        "frame_end": 218
+      },
+      {
+        "phoneme": "\u0254\u02d0\u0279",
+        "start_time": 4.4,
+        "end_time": 4.42,
+        "confidence": 0.231,
+        "frame_start": 220,
+        "frame_end": 220
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 4.6,
+        "end_time": 4.62,
+        "confidence": 0.0733,
+        "frame_start": 230,
+        "frame_end": 230
+      },
+      {
+        "phoneme": "f",
+        "start_time": 4.76,
+        "end_time": 4.78,
+        "confidence": 0.9934,
+        "frame_start": 238,
+        "frame_end": 238
+      },
+      {
+        "phoneme": "e\u026a",
+        "start_time": 4.86,
+        "end_time": 4.88,
+        "confidence": 0.9323,
+        "frame_start": 243,
+        "frame_end": 243
+      },
+      {
+        "phoneme": "s",
+        "start_time": 5.14,
+        "end_time": 5.16,
+        "confidence": 0.9762,
+        "frame_start": 257,
+        "frame_end": 257
+      },
+      {
+        "phoneme": "w",
+        "start_time": 5.24,
+        "end_time": 5.26,
+        "confidence": 0.1409,
+        "frame_start": 262,
+        "frame_end": 262
+      },
+      {
+        "phoneme": "w",
+        "start_time": 5.26,
+        "end_time": 5.28,
+        "confidence": 0.9507,
+        "frame_start": 263,
+        "frame_end": 263
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 5.3,
+        "end_time": 5.32,
+        "confidence": 0.5338,
+        "frame_start": 265,
+        "frame_end": 265
+      },
+      {
+        "phoneme": "n",
+        "start_time": 5.42,
+        "end_time": 5.44,
+        "confidence": 0.9893,
+        "frame_start": 271,
+        "frame_end": 271
+      },
+      {
+        "phoneme": "a\u026a",
+        "start_time": 5.48,
+        "end_time": 5.5,
+        "confidence": 0.8287,
+        "frame_start": 274,
+        "frame_end": 274
+      },
+      {
+        "phoneme": "s",
+        "start_time": 5.66,
+        "end_time": 5.68,
+        "confidence": 0.9929,
+        "frame_start": 283,
+        "frame_end": 283
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 5.78,
+        "end_time": 5.8,
+        "confidence": 0.8011,
+        "frame_start": 289,
+        "frame_end": 289
+      },
+      {
+        "phoneme": "d",
+        "start_time": 5.96,
+        "end_time": 5.98,
+        "confidence": 0.4055,
+        "frame_start": 298,
+        "frame_end": 298
+      },
+      {
+        "phoneme": "\u0259l",
+        "start_time": 6.0,
+        "end_time": 6.02,
+        "confidence": 0.6256,
+        "frame_start": 300,
+        "frame_end": 300
+      },
+      {
+        "phoneme": "l",
+        "start_time": 6.06,
+        "end_time": 6.08,
+        "confidence": 0.2351,
+        "frame_start": 303,
+        "frame_end": 303
+      },
+      {
+        "phoneme": "n",
+        "start_time": 6.14,
+        "end_time": 6.18,
+        "confidence": 0.9666,
+        "frame_start": 307,
+        "frame_end": 308
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 6.2,
+        "end_time": 6.22,
+        "confidence": 0.8789,
+        "frame_start": 310,
+        "frame_end": 310
+      },
+      {
+        "phoneme": "v",
+        "start_time": 6.36,
+        "end_time": 6.38,
+        "confidence": 0.9878,
+        "frame_start": 318,
+        "frame_end": 318
+      },
+      {
+        "phoneme": "\u025a",
+        "start_time": 6.42,
+        "end_time": 6.44,
+        "confidence": 0.8271,
+        "frame_start": 321,
+        "frame_end": 321
+      },
+      {
+        "phoneme": "l",
+        "start_time": 6.62,
+        "end_time": 6.66,
+        "confidence": 0.7859,
+        "frame_start": 331,
+        "frame_end": 332
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 6.68,
+        "end_time": 6.7,
+        "confidence": 0.6935,
+        "frame_start": 334,
+        "frame_end": 334
+      },
+      {
+        "phoneme": "t",
+        "start_time": 6.96,
+        "end_time": 6.98,
+        "confidence": 0.0752,
+        "frame_start": 348,
+        "frame_end": 348
+      },
+      {
+        "phoneme": "t\u0283",
+        "start_time": 6.98,
+        "end_time": 7.0,
+        "confidence": 0.5533,
+        "frame_start": 349,
+        "frame_end": 349
+      },
+      {
+        "phoneme": "d\u0292",
+        "start_time": 7.0,
+        "end_time": 7.02,
+        "confidence": 0.1027,
+        "frame_start": 350,
+        "frame_end": 350
+      },
+      {
+        "phoneme": "u\u02d0",
+        "start_time": 7.18,
+        "end_time": 7.2,
+        "confidence": 0.6355,
+        "frame_start": 359,
+        "frame_end": 359
+      },
+      {
+        "phoneme": "\u0261",
+        "start_time": 7.56,
+        "end_time": 7.58,
+        "confidence": 0.8068,
+        "frame_start": 378,
+        "frame_end": 378
+      },
+      {
+        "phoneme": "o\u028a",
+        "start_time": 7.64,
+        "end_time": 7.66,
+        "confidence": 0.6312,
+        "frame_start": 382,
+        "frame_end": 382
+      }
+    ]
+  },
+  "reference": {
+    "source_path": "data\\test\\test.musicxml",
+    "duration_s": 9.28,
+    "tempo_bpm": 129.0,
+    "time_signature": [
+      4,
+      4
+    ],
+    "key_signature": "f minor",
+    "n_notes": 20,
+    "n_phonemes": 52,
+    "n_words": 18,
+    "n_phrases": 1,
+    "metadata": {
+      "parser": "musicxml_parser",
+      "n_raw_elements": 20,
+      "merge_ties": true,
+      "include_rests": true,
+      "phrase_gap_s": 0.5,
+      "n_phrases": 1,
+      "sources": {
+        "musicxml": ".\\data\\test\\test.musicxml",
+        "textgrid": ".\\data\\test\\test.TextGrid"
+      }
+    },
+    "notes": [
+      {
+        "onset_time": 0.0,
+        "offset_time": 1.860465,
+        "duration": 1.860465,
+        "pitch_midi": null,
+        "pitch_hz": null,
+        "pitch_name": null,
+        "lyric": null,
+        "measure": 1,
+        "beat": 1.0,
+        "duration_beats": 4.0,
+        "is_rest": true,
+        "is_tied": false,
+        "note_idx": 0
+      },
+      {
+        "onset_time": 1.860465,
+        "offset_time": 1.976744,
+        "duration": 0.116279,
+        "pitch_midi": null,
+        "pitch_hz": null,
+        "pitch_name": null,
+        "lyric": null,
+        "measure": 2,
+        "beat": 1.0,
+        "duration_beats": 0.25,
+        "is_rest": true,
+        "is_tied": false,
+        "note_idx": 1
+      },
+      {
+        "onset_time": 1.976744,
+        "offset_time": 2.093023,
+        "duration": 0.116279,
+        "pitch_midi": 62.0,
+        "pitch_hz": 293.6648,
+        "pitch_name": "D4",
+        "lyric": "i",
+        "measure": 2,
+        "beat": 1.25,
+        "duration_beats": 0.25,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 2
+      },
+      {
+        "onset_time": 2.093023,
+        "offset_time": 2.790698,
+        "duration": 0.6976749999999998,
+        "pitch_midi": 65.0,
+        "pitch_hz": 349.2282,
+        "pitch_name": "F4",
+        "lyric": "remember",
+        "measure": 2,
+        "beat": 1.5,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 3
+      },
+      {
+        "onset_time": 2.790698,
+        "offset_time": 3.255814,
+        "duration": 0.465116,
+        "pitch_midi": 62.0,
+        "pitch_hz": 293.6648,
+        "pitch_name": "D4",
+        "lyric": "tears",
+        "measure": 2,
+        "beat": 3.0,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 4
+      },
+      {
+        "onset_time": 3.255814,
+        "offset_time": 3.72093,
+        "duration": 0.465116,
+        "pitch_midi": 62.0,
+        "pitch_hz": 293.6648,
+        "pitch_name": "D4",
+        "lyric": "streaming",
+        "measure": 2,
+        "beat": 4.0,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 5
+      },
+      {
+        "onset_time": 3.72093,
+        "offset_time": 4.186046,
+        "duration": 0.465116,
+        "pitch_midi": 61.0,
+        "pitch_hz": 277.1826,
+        "pitch_name": "C#4",
+        "lyric": "down",
+        "measure": 3,
+        "beat": 1.0,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 6
+      },
+      {
+        "onset_time": 4.186047,
+        "offset_time": 4.534884,
+        "duration": 0.3488369999999996,
+        "pitch_midi": 61.0,
+        "pitch_hz": 277.1826,
+        "pitch_name": "C#4",
+        "lyric": "your",
+        "measure": 3,
+        "beat": 2.0,
+        "duration_beats": 0.5,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 7
+      },
+      {
+        "onset_time": 4.534884,
+        "offset_time": 5.116279,
+        "duration": 0.5813949999999997,
+        "pitch_midi": 60.0,
+        "pitch_hz": 261.6256,
+        "pitch_name": "C4",
+        "lyric": "face",
+        "measure": 3,
+        "beat": 2.75,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 8
+      },
+      {
+        "onset_time": 5.116279,
+        "offset_time": 5.348837,
+        "duration": 0.232558,
+        "pitch_midi": 56.0,
+        "pitch_hz": 207.6523,
+        "pitch_name": "G#3",
+        "lyric": "when",
+        "measure": 3,
+        "beat": 4.0,
+        "duration_beats": 0.5,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 9
+      },
+      {
+        "onset_time": 5.348837,
+        "offset_time": 5.465116,
+        "duration": 0.116279,
+        "pitch_midi": 55.0,
+        "pitch_hz": 195.9977,
+        "pitch_name": "G3",
+        "lyric": "i",
+        "measure": 3,
+        "beat": 4.5,
+        "duration_beats": 0.25,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 10
+      },
+      {
+        "onset_time": 5.465116,
+        "offset_time": 5.813953,
+        "duration": 0.3488369999999996,
+        "pitch_midi": 56.0,
+        "pitch_hz": 207.6523,
+        "pitch_name": "G#3",
+        "lyric": "said",
+        "measure": 3,
+        "beat": 4.75,
+        "duration_beats": 0.25,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 11
+      },
+      {
+        "onset_time": 5.813953,
+        "offset_time": 5.930232,
+        "duration": 0.116279,
+        "pitch_midi": 57.0,
+        "pitch_hz": 220.0,
+        "pitch_name": "A3",
+        "lyric": "i",
+        "measure": 4,
+        "beat": 1.5,
+        "duration_beats": 0.25,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 12
+      },
+      {
+        "onset_time": 5.930233,
+        "offset_time": 6.046512,
+        "duration": 0.116279,
+        "pitch_midi": 58.0,
+        "pitch_hz": 233.0819,
+        "pitch_name": "A#3",
+        "lyric": "will",
+        "measure": 4,
+        "beat": 1.75,
+        "duration_beats": 0.25,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 13
+      },
+      {
+        "onset_time": 6.046512,
+        "offset_time": 6.511628,
+        "duration": 0.465116,
+        "pitch_midi": 58.0,
+        "pitch_hz": 233.0819,
+        "pitch_name": "A#3",
+        "lyric": "never",
+        "measure": 4,
+        "beat": 2.0,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": false,
+        "note_idx": 14
+      },
+      {
+        "onset_time": 6.511628,
+        "offset_time": 7.093023,
+        "duration": 0.5813949999999997,
+        "pitch_midi": 58.0,
+        "pitch_hz": 233.0819,
+        "pitch_name": "A#3",
+        "lyric": "let",
+        "measure": 4,
+        "beat": 3.0,
+        "duration_beats": 1.0,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 15
+      },
+      {
+        "onset_time": 7.093023,
+        "offset_time": 7.44186,
+        "duration": 0.3488370000000005,
+        "pitch_midi": 56.0,
+        "pitch_hz": 207.6523,
+        "pitch_name": "G#3",
+        "lyric": "you",
+        "measure": 4,
+        "beat": 4.25,
+        "duration_beats": 0.5,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 16
+      },
+      {
+        "onset_time": 7.44186,
+        "offset_time": 7.790698,
+        "duration": 0.34883799999999976,
+        "pitch_midi": 53.0,
+        "pitch_hz": 174.6141,
+        "pitch_name": "F3",
+        "lyric": "go",
+        "measure": 5,
+        "beat": 1.0,
+        "duration_beats": 0.5,
+        "is_rest": false,
+        "is_tied": true,
+        "note_idx": 17
+      },
+      {
+        "onset_time": 7.790698,
+        "offset_time": 8.720931,
+        "duration": 0.930233,
+        "pitch_midi": null,
+        "pitch_hz": null,
+        "pitch_name": null,
+        "lyric": null,
+        "measure": 5,
+        "beat": 1.75,
+        "duration_beats": 2.0,
+        "is_rest": true,
+        "is_tied": false,
+        "note_idx": 18
+      },
+      {
+        "onset_time": 8.72093,
+        "offset_time": 9.186046,
+        "duration": 0.465116,
+        "pitch_midi": null,
+        "pitch_hz": null,
+        "pitch_name": null,
+        "lyric": null,
+        "measure": 5,
+        "beat": 3.75,
+        "duration_beats": 1.0,
+        "is_rest": true,
+        "is_tied": false,
+        "note_idx": 19
+      }
+    ],
+    "phonemes": [
+      {
+        "phoneme": "<sp>",
+        "start_time": 0.0,
+        "end_time": 1.97,
+        "confidence": 1.0,
+        "word_idx": 0,
+        "phoneme_idx": 0
+      },
+      {
+        "phoneme": "a\u026a",
+        "start_time": 1.97,
+        "end_time": 2.11,
+        "confidence": 1.0,
+        "word_idx": 1,
+        "phoneme_idx": 1
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 2.11,
+        "end_time": 2.28,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 2
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 2.28,
+        "end_time": 2.37,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 3
+      },
+      {
+        "phoneme": "m",
+        "start_time": 2.37,
+        "end_time": 2.47,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 4
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 2.47,
+        "end_time": 2.57,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 5
+      },
+      {
+        "phoneme": "m",
+        "start_time": 2.57,
+        "end_time": 2.67,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 6
+      },
+      {
+        "phoneme": "b",
+        "start_time": 2.67,
+        "end_time": 2.7,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 7
+      },
+      {
+        "phoneme": "\u025a",
+        "start_time": 2.7,
+        "end_time": 2.84,
+        "confidence": 1.0,
+        "word_idx": 2,
+        "phoneme_idx": 8
+      },
+      {
+        "phoneme": "t",
+        "start_time": 2.84,
+        "end_time": 3.0,
+        "confidence": 1.0,
+        "word_idx": 3,
+        "phoneme_idx": 9
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.0,
+        "end_time": 3.21,
+        "confidence": 1.0,
+        "word_idx": 3,
+        "phoneme_idx": 10
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 3.21,
+        "end_time": 3.24,
+        "confidence": 1.0,
+        "word_idx": 3,
+        "phoneme_idx": 11
+      },
+      {
+        "phoneme": "z",
+        "start_time": 3.24,
+        "end_time": 3.33,
+        "confidence": 1.0,
+        "word_idx": 3,
+        "phoneme_idx": 12
+      },
+      {
+        "phoneme": "s",
+        "start_time": 3.33,
+        "end_time": 3.36,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 13
+      },
+      {
+        "phoneme": "t",
+        "start_time": 3.36,
+        "end_time": 3.39,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 14
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 3.39,
+        "end_time": 3.5,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 15
+      },
+      {
+        "phoneme": "i\u02d0",
+        "start_time": 3.5,
+        "end_time": 3.53,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 16
+      },
+      {
+        "phoneme": "m",
+        "start_time": 3.53,
+        "end_time": 3.62,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 17
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 3.62,
+        "end_time": 3.72,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 18
+      },
+      {
+        "phoneme": "\u014b",
+        "start_time": 3.72,
+        "end_time": 3.81,
+        "confidence": 1.0,
+        "word_idx": 4,
+        "phoneme_idx": 19
+      },
+      {
+        "phoneme": "d",
+        "start_time": 3.81,
+        "end_time": 3.89,
+        "confidence": 1.0,
+        "word_idx": 5,
+        "phoneme_idx": 20
+      },
+      {
+        "phoneme": "a\u028a",
+        "start_time": 3.89,
+        "end_time": 4.19,
+        "confidence": 1.0,
+        "word_idx": 5,
+        "phoneme_idx": 21
+      },
+      {
+        "phoneme": "n",
+        "start_time": 4.19,
+        "end_time": 4.29,
+        "confidence": 1.0,
+        "word_idx": 5,
+        "phoneme_idx": 22
+      },
+      {
+        "phoneme": "j",
+        "start_time": 4.29,
+        "end_time": 4.36,
+        "confidence": 1.0,
+        "word_idx": 6,
+        "phoneme_idx": 23
+      },
+      {
+        "phoneme": "\u028a",
+        "start_time": 4.36,
+        "end_time": 4.5,
+        "confidence": 1.0,
+        "word_idx": 6,
+        "phoneme_idx": 24
+      },
+      {
+        "phoneme": "\u0279",
+        "start_time": 4.5,
+        "end_time": 4.65,
+        "confidence": 1.0,
+        "word_idx": 6,
+        "phoneme_idx": 25
+      },
+      {
+        "phoneme": "f",
+        "start_time": 4.65,
+        "end_time": 4.82,
+        "confidence": 1.0,
+        "word_idx": 7,
+        "phoneme_idx": 26
+      },
+      {
+        "phoneme": "e\u026a",
+        "start_time": 4.82,
+        "end_time": 5.09,
+        "confidence": 1.0,
+        "word_idx": 7,
+        "phoneme_idx": 27
+      },
+      {
+        "phoneme": "s",
+        "start_time": 5.09,
+        "end_time": 5.24,
+        "confidence": 1.0,
+        "word_idx": 7,
+        "phoneme_idx": 28
+      },
+      {
+        "phoneme": "w",
+        "start_time": 5.24,
+        "end_time": 5.28,
+        "confidence": 1.0,
+        "word_idx": 8,
+        "phoneme_idx": 29
+      },
+      {
+        "phoneme": "\u026a",
+        "start_time": 5.28,
+        "end_time": 5.39,
+        "confidence": 1.0,
+        "word_idx": 8,
+        "phoneme_idx": 30
+      },
+      {
+        "phoneme": "n",
+        "start_time": 5.39,
+        "end_time": 5.44,
+        "confidence": 1.0,
+        "word_idx": 8,
+        "phoneme_idx": 31
+      },
+      {
+        "phoneme": "a\u026a",
+        "start_time": 5.44,
+        "end_time": 5.6,
+        "confidence": 1.0,
+        "word_idx": 9,
+        "phoneme_idx": 32
+      },
+      {
+        "phoneme": "s",
+        "start_time": 5.6,
+        "end_time": 5.75,
+        "confidence": 1.0,
+        "word_idx": 10,
+        "phoneme_idx": 33
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 5.75,
+        "end_time": 5.821,
+        "confidence": 1.0,
+        "word_idx": 10,
+        "phoneme_idx": 34
+      },
+      {
+        "phoneme": "d",
+        "start_time": 5.821,
+        "end_time": 5.905,
+        "confidence": 1.0,
+        "word_idx": 10,
+        "phoneme_idx": 35
+      },
+      {
+        "phoneme": "a\u026a",
+        "start_time": 5.905,
+        "end_time": 6.02,
+        "confidence": 1.0,
+        "word_idx": 11,
+        "phoneme_idx": 36
+      },
+      {
+        "phoneme": "w",
+        "start_time": 6.02,
+        "end_time": 6.05,
+        "confidence": 1.0,
+        "word_idx": 12,
+        "phoneme_idx": 37
+      },
+      {
+        "phoneme": "\u0259",
+        "start_time": 6.05,
+        "end_time": 6.07,
+        "confidence": 1.0,
+        "word_idx": 12,
+        "phoneme_idx": 38
+      },
+      {
+        "phoneme": "l",
+        "start_time": 6.07,
+        "end_time": 6.1,
+        "confidence": 1.0,
+        "word_idx": 12,
+        "phoneme_idx": 39
+      },
+      {
+        "phoneme": "n",
+        "start_time": 6.1,
+        "end_time": 6.18,
+        "confidence": 1.0,
+        "word_idx": 13,
+        "phoneme_idx": 40
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 6.18,
+        "end_time": 6.31,
+        "confidence": 1.0,
+        "word_idx": 13,
+        "phoneme_idx": 41
+      },
+      {
+        "phoneme": "v",
+        "start_time": 6.31,
+        "end_time": 6.39,
+        "confidence": 1.0,
+        "word_idx": 13,
+        "phoneme_idx": 42
+      },
+      {
+        "phoneme": "\u025a",
+        "start_time": 6.39,
+        "end_time": 6.58,
+        "confidence": 1.0,
+        "word_idx": 13,
+        "phoneme_idx": 43
+      },
+      {
+        "phoneme": "l",
+        "start_time": 6.58,
+        "end_time": 6.65,
+        "confidence": 1.0,
+        "word_idx": 14,
+        "phoneme_idx": 44
+      },
+      {
+        "phoneme": "\u025b",
+        "start_time": 6.65,
+        "end_time": 6.88,
+        "confidence": 1.0,
+        "word_idx": 14,
+        "phoneme_idx": 45
+      },
+      {
+        "phoneme": "t",
+        "start_time": 6.88,
+        "end_time": 7.12,
+        "confidence": 1.0,
+        "word_idx": 14,
+        "phoneme_idx": 46
+      },
+      {
+        "phoneme": "j",
+        "start_time": 7.12,
+        "end_time": 7.16,
+        "confidence": 1.0,
+        "word_idx": 15,
+        "phoneme_idx": 47
+      },
+      {
+        "phoneme": "u\u02d0",
+        "start_time": 7.16,
+        "end_time": 7.52,
+        "confidence": 1.0,
+        "word_idx": 15,
+        "phoneme_idx": 48
+      },
+      {
+        "phoneme": "\u0261",
+        "start_time": 7.52,
+        "end_time": 7.62,
+        "confidence": 1.0,
+        "word_idx": 16,
+        "phoneme_idx": 49
+      },
+      {
+        "phoneme": "o\u028a",
+        "start_time": 7.62,
+        "end_time": 7.92,
+        "confidence": 1.0,
+        "word_idx": 16,
+        "phoneme_idx": 50
+      },
+      {
+        "phoneme": "<sp>",
+        "start_time": 7.92,
+        "end_time": 9.28,
+        "confidence": 1.0,
+        "word_idx": 17,
+        "phoneme_idx": 51
+      }
+    ],
+    "words": [
+      {
+        "text": "<SP>",
+        "start_time": 0.0,
+        "end_time": 1.97,
+        "phoneme_indices": [
+          0
+        ],
+        "confidence": 1.0,
+        "word_idx": 0
+      },
+      {
+        "text": "i",
+        "start_time": 1.97,
+        "end_time": 2.11,
+        "phoneme_indices": [
+          1
+        ],
+        "confidence": 1.0,
+        "word_idx": 1
+      },
+      {
+        "text": "remember",
+        "start_time": 2.11,
+        "end_time": 2.84,
+        "phoneme_indices": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "confidence": 1.0,
+        "word_idx": 2
+      },
+      {
+        "text": "tears",
+        "start_time": 2.84,
+        "end_time": 3.33,
+        "phoneme_indices": [
+          9,
+          10,
+          11,
+          12
+        ],
+        "confidence": 1.0,
+        "word_idx": 3
+      },
+      {
+        "text": "streaming",
+        "start_time": 3.33,
+        "end_time": 3.81,
+        "phoneme_indices": [
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "confidence": 1.0,
+        "word_idx": 4
+      },
+      {
+        "text": "down",
+        "start_time": 3.81,
+        "end_time": 4.29,
+        "phoneme_indices": [
+          20,
+          21,
+          22
+        ],
+        "confidence": 1.0,
+        "word_idx": 5
+      },
+      {
+        "text": "your",
+        "start_time": 4.29,
+        "end_time": 4.65,
+        "phoneme_indices": [
+          23,
+          24,
+          25
+        ],
+        "confidence": 1.0,
+        "word_idx": 6
+      },
+      {
+        "text": "face",
+        "start_time": 4.65,
+        "end_time": 5.24,
+        "phoneme_indices": [
+          26,
+          27,
+          28
+        ],
+        "confidence": 1.0,
+        "word_idx": 7
+      },
+      {
+        "text": "when",
+        "start_time": 5.24,
+        "end_time": 5.44,
+        "phoneme_indices": [
+          29,
+          30,
+          31
+        ],
+        "confidence": 1.0,
+        "word_idx": 8
+      },
+      {
+        "text": "i",
+        "start_time": 5.44,
+        "end_time": 5.6,
+        "phoneme_indices": [
+          32
+        ],
+        "confidence": 1.0,
+        "word_idx": 9
+      },
+      {
+        "text": "said",
+        "start_time": 5.6,
+        "end_time": 5.905,
+        "phoneme_indices": [
+          33,
+          34,
+          35
+        ],
+        "confidence": 1.0,
+        "word_idx": 10
+      },
+      {
+        "text": "i",
+        "start_time": 5.905,
+        "end_time": 6.02,
+        "phoneme_indices": [
+          36
+        ],
+        "confidence": 1.0,
+        "word_idx": 11
+      },
+      {
+        "text": "will",
+        "start_time": 6.02,
+        "end_time": 6.1,
+        "phoneme_indices": [
+          37,
+          38,
+          39
+        ],
+        "confidence": 1.0,
+        "word_idx": 12
+      },
+      {
+        "text": "never",
+        "start_time": 6.1,
+        "end_time": 6.58,
+        "phoneme_indices": [
+          40,
+          41,
+          42,
+          43
+        ],
+        "confidence": 1.0,
+        "word_idx": 13
+      },
+      {
+        "text": "let",
+        "start_time": 6.58,
+        "end_time": 7.12,
+        "phoneme_indices": [
+          44,
+          45,
+          46
+        ],
+        "confidence": 1.0,
+        "word_idx": 14
+      },
+      {
+        "text": "you",
+        "start_time": 7.12,
+        "end_time": 7.52,
+        "phoneme_indices": [
+          47,
+          48
+        ],
+        "confidence": 1.0,
+        "word_idx": 15
+      },
+      {
+        "text": "go",
+        "start_time": 7.52,
+        "end_time": 7.92,
+        "phoneme_indices": [
+          49,
+          50
+        ],
+        "confidence": 1.0,
+        "word_idx": 16
+      },
+      {
+        "text": "<SP>",
+        "start_time": 7.92,
+        "end_time": 9.28,
+        "phoneme_indices": [
+          51
+        ],
+        "confidence": 1.0,
+        "word_idx": 17
+      }
+    ],
+    "phrases": [
+      {
+        "start_time": 1.976744,
+        "end_time": 7.790698,
+        "note_indices": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "word_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "phrase_idx": 0
+      }
+    ]
+  },
+  "alignment": {
+    "predicted_audio_path": "data\\test\\test.wav",
+    "reference_source_path": "data\\test\\test.musicxml",
+    "n_note_matches": 6,
+    "n_phoneme_matches": 43,
+    "note_precision": 0.8571428571428571,
+    "note_recall": 0.3,
+    "unmatched_pred_notes": [
+      1
+    ],
+    "unmatched_ref_notes": [
+      2,
+      5,
+      7,
+      8,
+      10,
+      11,
+      12,
+      13,
+      15,
+      17,
+      0,
+      1,
+      18,
+      19
+    ],
+    "unmatched_pred_phonemes": [
+      2,
+      14,
+      21,
+      24,
+      29,
+      37,
+      46,
+      47
+    ],
+    "unmatched_ref_phonemes": [
+      11,
+      13,
+      14,
+      16,
+      35,
+      37,
+      39,
+      47,
+      51
+    ],
+    "unmatched_pred_words": [
+      2,
+      3,
+      5,
+      6,
+      8,
+      10,
+      14,
+      16,
+      18
+    ],
+    "unmatched_ref_words": [
+      0,
+      5,
+      9,
+      11,
+      12,
+      17
+    ],
+    "note_matches": [
+      {
+        "pred_idx": 3,
+        "ref_idx": 6,
+        "overlap_s": 0.378046,
+        "overlap_fraction": 0.8128,
+        "onset_deviation_s": 0.08707,
+        "offset_deviation_s": 1.045954,
+        "pitch_deviation_cents": -70.05
+      },
+      {
+        "pred_idx": 6,
+        "ref_idx": 16,
+        "overlap_s": 0.348837,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": -0.149023,
+        "offset_deviation_s": 0.07814,
+        "pitch_deviation_cents": -64.08
+      },
+      {
+        "pred_idx": 5,
+        "ref_idx": 14,
+        "overlap_s": 0.24,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.097488,
+        "offset_deviation_s": -0.127628,
+        "pitch_deviation_cents": -20.99
+      },
+      {
+        "pred_idx": 0,
+        "ref_idx": 3,
+        "overlap_s": 0.162977,
+        "overlap_fraction": 0.463,
+        "onset_deviation_s": -0.189023,
+        "offset_deviation_s": -0.534698,
+        "pitch_deviation_cents": -314.91
+      },
+      {
+        "pred_idx": 4,
+        "ref_idx": 9,
+        "overlap_s": 0.116837,
+        "overlap_fraction": 0.5024,
+        "onset_deviation_s": 0.115721,
+        "offset_deviation_s": 0.795163,
+        "pitch_deviation_cents": 22.66
+      },
+      {
+        "pred_idx": 2,
+        "ref_idx": 4,
+        "overlap_s": 0.016,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.089302,
+        "offset_deviation_s": -0.359814,
+        "pitch_deviation_cents": 184.07
+      }
+    ],
+    "phoneme_matches": [
+      {
+        "pred_idx": 5,
+        "ref_idx": 4,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 7,
+        "ref_idx": 6,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 15,
+        "ref_idx": 17,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 20,
+        "ref_idx": 22,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 22,
+        "ref_idx": 23,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 39,
+        "ref_idx": 40,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.04,
+        "label_match": true
+      },
+      {
+        "pred_idx": 17,
+        "ref_idx": 19,
+        "overlap_s": 0.04,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 43,
+        "ref_idx": 44,
+        "overlap_s": 0.03,
+        "overlap_fraction": 0.75,
+        "onset_deviation_s": 0.04,
+        "label_match": true
+      },
+      {
+        "pred_idx": 0,
+        "ref_idx": 0,
+        "overlap_s": 0.03,
+        "overlap_fraction": 0.75,
+        "onset_deviation_s": 1.94,
+        "label_match": false
+      },
+      {
+        "pred_idx": 25,
+        "ref_idx": 25,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.1,
+        "label_match": true
+      },
+      {
+        "pred_idx": 26,
+        "ref_idx": 26,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.11,
+        "label_match": true
+      },
+      {
+        "pred_idx": 28,
+        "ref_idx": 28,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 30,
+        "ref_idx": 29,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 31,
+        "ref_idx": 30,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": false
+      },
+      {
+        "pred_idx": 32,
+        "ref_idx": 31,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 36,
+        "ref_idx": 36,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.055,
+        "label_match": false
+      },
+      {
+        "pred_idx": 42,
+        "ref_idx": 43,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 44,
+        "ref_idx": 45,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 45,
+        "ref_idx": 46,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.08,
+        "label_match": true
+      },
+      {
+        "pred_idx": 48,
+        "ref_idx": 48,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 49,
+        "ref_idx": 49,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.04,
+        "label_match": true
+      },
+      {
+        "pred_idx": 50,
+        "ref_idx": 50,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 1,
+        "ref_idx": 1,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": false
+      },
+      {
+        "pred_idx": 3,
+        "ref_idx": 2,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.15,
+        "label_match": true
+      },
+      {
+        "pred_idx": 4,
+        "ref_idx": 3,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": false
+      },
+      {
+        "pred_idx": 6,
+        "ref_idx": 5,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 8,
+        "ref_idx": 7,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.01,
+        "label_match": true
+      },
+      {
+        "pred_idx": 9,
+        "ref_idx": 8,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 10,
+        "ref_idx": 9,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.06,
+        "label_match": true
+      },
+      {
+        "pred_idx": 11,
+        "ref_idx": 10,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 12,
+        "ref_idx": 12,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.06,
+        "label_match": true
+      },
+      {
+        "pred_idx": 13,
+        "ref_idx": 15,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 16,
+        "ref_idx": 18,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 18,
+        "ref_idx": 20,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 19,
+        "ref_idx": 21,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 23,
+        "ref_idx": 24,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.0,
+        "label_match": false
+      },
+      {
+        "pred_idx": 27,
+        "ref_idx": 27,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.04,
+        "label_match": true
+      },
+      {
+        "pred_idx": 33,
+        "ref_idx": 32,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.04,
+        "label_match": true
+      },
+      {
+        "pred_idx": 34,
+        "ref_idx": 33,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.06,
+        "label_match": true
+      },
+      {
+        "pred_idx": 35,
+        "ref_idx": 34,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.03,
+        "label_match": true
+      },
+      {
+        "pred_idx": 40,
+        "ref_idx": 41,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.02,
+        "label_match": true
+      },
+      {
+        "pred_idx": 41,
+        "ref_idx": 42,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.05,
+        "label_match": true
+      },
+      {
+        "pred_idx": 38,
+        "ref_idx": 38,
+        "overlap_s": 0.01,
+        "overlap_fraction": 0.5,
+        "onset_deviation_s": 0.01,
+        "label_match": false
+      }
+    ],
+    "word_matches": [
+      {
+        "pred_idx": 12,
+        "ref_idx": 8,
+        "overlap_s": 0.2,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": -0.1
+      },
+      {
+        "pred_idx": 9,
+        "ref_idx": 6,
+        "overlap_s": 0.13,
+        "overlap_fraction": 0.65,
+        "onset_deviation_s": -0.07
+      },
+      {
+        "pred_idx": 11,
+        "ref_idx": 7,
+        "overlap_s": 0.12,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.11
+      },
+      {
+        "pred_idx": 15,
+        "ref_idx": 13,
+        "overlap_s": 0.12,
+        "overlap_fraction": 0.4615,
+        "onset_deviation_s": -0.14
+      },
+      {
+        "pred_idx": 20,
+        "ref_idx": 16,
+        "overlap_s": 0.1,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.04
+      },
+      {
+        "pred_idx": 17,
+        "ref_idx": 14,
+        "overlap_s": 0.08,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.04
+      },
+      {
+        "pred_idx": 1,
+        "ref_idx": 2,
+        "overlap_s": 0.08,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.13
+      },
+      {
+        "pred_idx": 0,
+        "ref_idx": 1,
+        "overlap_s": 0.07,
+        "overlap_fraction": 0.7,
+        "onset_deviation_s": -0.03
+      },
+      {
+        "pred_idx": 7,
+        "ref_idx": 4,
+        "overlap_s": 0.06,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.09
+      },
+      {
+        "pred_idx": 19,
+        "ref_idx": 15,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.06
+      },
+      {
+        "pred_idx": 4,
+        "ref_idx": 3,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.06
+      },
+      {
+        "pred_idx": 13,
+        "ref_idx": 10,
+        "overlap_s": 0.02,
+        "overlap_fraction": 1.0,
+        "onset_deviation_s": 0.06
+      }
+    ],
+    "alignment_metadata": {
+      "config": {
+        "min_overlap_s": 0.01,
+        "max_onset_deviation_s": 0.2,
+        "phoneme_min_overlap_s": 0.005
+      },
+      "note": {
+        "n_matched": 6,
+        "n_unmatched_pred": 1,
+        "n_unmatched_ref": 14,
+        "n_ref_pitched": 16,
+        "mean_abs_onset_deviation_s": 0.1213,
+        "mean_abs_pitch_deviation_cents": 112.79
+      },
+      "phoneme": {
+        "n_matched": 43,
+        "n_unmatched_pred": 8,
+        "n_unmatched_ref": 9,
+        "label_match_rate": 0.8372093023255814
+      },
+      "word": {
+        "n_matched": 12,
+        "n_unmatched_pred": 9,
+        "n_unmatched_ref": 6
+      }
+    }
+  },
+  "metrics": {
+    "audio_path": "data\\test\\test.wav",
+    "reference_source_path": "data\\test\\test.musicxml",
+    "note_precision": 0.8571428571428571,
+    "note_recall": 0.3,
+    "n_note_matches": 6,
+    "n_reference_notes": 20,
+    "n_predicted_notes": 7,
+    "computation_metadata": {
+      "elapsed_s": 0.0003,
+      "config_used": {
+        "enabled": true,
+        "pitch": {
+          "cents_tolerance": 50,
+          "voiced_only": true
+        },
+        "timing": {
+          "onset_tolerance_ms": 50
+        },
+        "duration": {
+          "normalized": true
+        },
+        "lyric": {
+          "phoneme_tolerance_ms": 30
+        }
+      },
+      "has_fused": true,
+      "has_reference": true
+    },
+    "pitch": {
+      "pitch_accuracy": 0.3333333333333333,
+      "pitch_rmse_cents": 154.38986236149057,
+      "mace_cents": 112.79333333333334,
+      "note_pitch_accuracy": 0.3333333333333333,
+      "mean_pitch_deviation_cents": -43.88333333333333,
+      "n_evaluated": 6,
+      "tolerance_cents": 50.0,
+      "per_note": [
+        {
+          "event_idx": 3,
+          "value": -70.05,
+          "label": "C#4",
+          "confidence": null,
+          "metadata": {
+            "correct": false,
+            "ref_idx": 6
+          }
+        },
+        {
+          "event_idx": 6,
+          "value": -64.08,
+          "label": "G#3",
+          "confidence": null,
+          "metadata": {
+            "correct": false,
+            "ref_idx": 16
+          }
+        },
+        {
+          "event_idx": 5,
+          "value": -20.99,
+          "label": "A#3",
+          "confidence": null,
+          "metadata": {
+            "correct": true,
+            "ref_idx": 14
+          }
+        },
+        {
+          "event_idx": 0,
+          "value": -314.91,
+          "label": "F4",
+          "confidence": null,
+          "metadata": {
+            "correct": false,
+            "ref_idx": 3
+          }
+        },
+        {
+          "event_idx": 4,
+          "value": 22.66,
+          "label": "G#3",
+          "confidence": null,
+          "metadata": {
+            "correct": true,
+            "ref_idx": 9
+          }
+        },
+        {
+          "event_idx": 2,
+          "value": 184.07,
+          "label": "D4",
+          "confidence": null,
+          "metadata": {
+            "correct": false,
+            "ref_idx": 4
+          }
+        }
+      ],
+      "metadata": {
+        "mean_pitch_stability": 11.508228571428573
+      }
+    },
+    "timing": {
+      "mean_onset_error_ms": 8.589166666666669,
+      "std_onset_error_ms": 126.45565655124153,
+      "mean_abs_onset_error_ms": 121.27116666666666,
+      "median_onset_error_ms": 88.186,
+      "mean_offset_error_ms": 149.51949999999997,
+      "mean_abs_offset_error_ms": 490.2328333333333,
+      "timing_accuracy": 0.0,
+      "ioi_mae_ms": 496.86833333333334,
+      "n_evaluated": 6,
+      "tolerance_ms": 50.0,
+      "per_note": [
+        {
+          "event_idx": 3,
+          "value": 87.07,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 6,
+            "offset_dev_ms": 1045.954
+          }
+        },
+        {
+          "event_idx": 6,
+          "value": -149.023,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 16,
+            "offset_dev_ms": 78.14
+          }
+        },
+        {
+          "event_idx": 5,
+          "value": 97.488,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 14,
+            "offset_dev_ms": -127.62799999999999
+          }
+        },
+        {
+          "event_idx": 0,
+          "value": -189.023,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 3,
+            "offset_dev_ms": -534.698
+          }
+        },
+        {
+          "event_idx": 4,
+          "value": 115.721,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 9,
+            "offset_dev_ms": 795.1629999999999
+          }
+        },
+        {
+          "event_idx": 2,
+          "value": 89.302,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 4,
+            "offset_dev_ms": -359.814
+          }
+        }
+      ],
+      "metadata": {}
+    },
+    "duration": {
+      "mean_duration_error_s": 0.1409303333333333,
+      "mean_abs_duration_error_s": 0.4808993333333332,
+      "std_duration_error_s": 0.5300013259111297,
+      "mean_duration_ratio": 1.6148897372954238,
+      "mean_relative_duration_error": 1.2632453229189449,
+      "n_evaluated": 6,
+      "per_note": [
+        {
+          "event_idx": 3,
+          "value": 0.958884,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "pred_dur_s": 1.424,
+            "ref_dur_s": 0.465116,
+            "ratio": 3.061601836961102,
+            "ref_idx": 6
+          }
+        },
+        {
+          "event_idx": 6,
+          "value": 0.22716299999999945,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "pred_dur_s": 0.576,
+            "ref_dur_s": 0.3488370000000005,
+            "ratio": 1.651200990720592,
+            "ref_idx": 16
+          }
+        },
+        {
+          "event_idx": 5,
+          "value": -0.22511599999999998,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "pred_dur_s": 0.24,
+            "ref_dur_s": 0.465116,
+            "ratio": 0.5160003096001857,
+            "ref_idx": 14
+          }
+        },
+        {
+          "event_idx": 0,
+          "value": -0.34567499999999984,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "pred_dur_s": 0.352,
+            "ref_dur_s": 0.6976749999999998,
+            "ratio": 0.5045329128892394,
+            "ref_idx": 3
+          }
+        },
+        {
+          "event_idx": 4,
+          "value": 0.6794420000000001,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "pred_dur_s": 0.912,
+            "ref_dur_s": 0.232558,
+            "ratio": 3.921602352961412,
+            "ref_idx": 9
+          }
+        },
+        {
+          "event_idx": 2,
+          "value": -0.44911599999999996,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "pred_dur_s": 0.016,
+            "ref_dur_s": 0.465116,
+            "ratio": 0.03440002064001239,
+            "ref_idx": 4
+          }
+        }
+      ],
+      "metadata": {}
+    },
+    "lyric": {
+      "mean_phoneme_boundary_error_ms": 85.46511627906976,
+      "mean_abs_phoneme_boundary_error_ms": 85.46511627906976,
+      "std_phoneme_boundary_error_ms": 287.48066457425665,
+      "phoneme_overlap_accuracy": 1.0,
+      "word_alignment_accuracy": 0.6666666666666666,
+      "label_match_rate": 0.8372093023255814,
+      "n_phoneme_matches": 43,
+      "n_word_matches": 12,
+      "tolerance_ms": 30.0,
+      "per_phoneme": [
+        {
+          "event_idx": 5,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 4,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 7,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 6,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 15,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 17,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 20,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 22,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 22,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 23,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 39,
+          "value": 40.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 40,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 17,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 19,
+            "overlap_s": 0.04,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 43,
+          "value": 40.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 44,
+            "overlap_s": 0.03,
+            "overlap_fraction": 0.75,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 0,
+          "value": 1940.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 0,
+            "overlap_s": 0.03,
+            "overlap_fraction": 0.75,
+            "label_match": false
+          }
+        },
+        {
+          "event_idx": 25,
+          "value": 100.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 25,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 26,
+          "value": 110.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 26,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 28,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 28,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 30,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 29,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 31,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 30,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": false
+          }
+        },
+        {
+          "event_idx": 32,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 31,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 36,
+          "value": 55.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 36,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": false
+          }
+        },
+        {
+          "event_idx": 42,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 43,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 44,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 45,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 45,
+          "value": 80.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 46,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 48,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 48,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 49,
+          "value": 40.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 49,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 50,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 50,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 1,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 1,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": false
+          }
+        },
+        {
+          "event_idx": 3,
+          "value": 150.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 2,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 4,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 3,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": false
+          }
+        },
+        {
+          "event_idx": 6,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 5,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 8,
+          "value": 10.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 7,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 9,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 8,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 10,
+          "value": 60.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 9,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 11,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 10,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 12,
+          "value": 60.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 12,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 13,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 15,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 16,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 18,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 18,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 20,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 19,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 21,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 23,
+          "value": 0.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 24,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": false
+          }
+        },
+        {
+          "event_idx": 27,
+          "value": 40.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 27,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 33,
+          "value": 40.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 32,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 34,
+          "value": 60.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 33,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 35,
+          "value": 30.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 34,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 40,
+          "value": 20.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 41,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 41,
+          "value": 50.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 42,
+            "overlap_s": 0.02,
+            "overlap_fraction": 1.0,
+            "label_match": true
+          }
+        },
+        {
+          "event_idx": 38,
+          "value": 10.0,
+          "label": null,
+          "confidence": null,
+          "metadata": {
+            "ref_idx": 38,
+            "overlap_s": 0.01,
+            "overlap_fraction": 0.5,
+            "label_match": false
+          }
+        }
+      ],
+      "metadata": {}
+    }
+  },
+  "scores": {
+    "audio_path": "data\\test\\test.wav",
+    "reference_source_path": "data\\test\\test.musicxml",
+    "overall_score": 30.55359772705364,
+    "weights_used": {
+      "pitch": 0.4,
+      "timing": 0.3,
+      "duration": 0.15,
+      "lyric": 0.15
+    },
+    "score_metadata": {
+      "elapsed_s": 0.0002,
+      "config_used": {
+        "enabled": true,
+        "weights": {
+          "pitch": 0.4,
+          "timing": 0.3,
+          "duration": 0.15,
+          "lyric": 0.15
+        },
+        "pitch": {
+          "cents_tolerance": 50,
+          "weight_accuracy": 0.5,
+          "weight_intonation": 0.3,
+          "weight_stability": 0.2
+        },
+        "timing": {
+          "onset_tolerance_ms": 50,
+          "weight_accuracy": 0.5,
+          "weight_mae": 0.3,
+          "weight_stability": 0.2
+        },
+        "duration": {
+          "weight_relative": 0.6,
+          "weight_ratio": 0.2,
+          "weight_phrase": 0.2
+        },
+        "lyric": {
+          "weight_word": 0.35,
+          "weight_overlap": 0.25,
+          "weight_label": 0.25,
+          "weight_timing": 0.15
+        },
+        "interpretation": {
+          "excellent_threshold": 90,
+          "good_threshold": 75,
+          "fair_threshold": 55
+        }
+      },
+      "n_note_matches": 6,
+      "categories_computed": [
+        "pitch",
+        "timing",
+        "duration",
+        "lyric"
+      ]
+    },
+    "pitch_score": {
+      "category": "pitch",
+      "score": 33.85257905413251,
+      "confidence": 1.0,
+      "n_evaluated": 6,
+      "components": [
+        {
+          "component": "accuracy",
+          "raw_value": 0.3333333333333333,
+          "score": 33.33333333333333,
+          "weight": 0.5,
+          "confidence": 1.0,
+          "metadata": {
+            "tolerance_cents": 50.0
+          }
+        },
+        {
+          "component": "intonation",
+          "raw_value": 112.79333333333334,
+          "score": 43.60333333333333,
+          "weight": 0.3,
+          "confidence": 1.0,
+          "metadata": {
+            "mace_cents": 112.79333333333334,
+            "n_evaluated": 6
+          }
+        },
+        {
+          "component": "stability",
+          "raw_value": 154.38986236149057,
+          "score": 20.524561937329242,
+          "weight": 0.2,
+          "confidence": 1.0,
+          "metadata": {
+            "rmse_cents": 154.38986236149057
+          }
+        }
+      ],
+      "metadata": {
+        "weights": {
+          "accuracy": 0.5,
+          "intonation": 0.3,
+          "stability": 0.2
+        }
+      }
+    },
+    "timing_score": {
+      "category": "timing",
+      "score": 16.067237879328445,
+      "confidence": 1.0,
+      "n_evaluated": 6,
+      "components": [
+        {
+          "component": "accuracy",
+          "raw_value": 0.0,
+          "score": 0.0,
+          "weight": 0.5,
+          "confidence": 1.0,
+          "metadata": {
+            "tolerance_ms": 50.0
+          }
+        },
+        {
+          "component": "onset_mae",
+          "raw_value": 121.27116666666666,
+          "score": 39.36441666666667,
+          "weight": 0.3,
+          "confidence": 1.0,
+          "metadata": {
+            "mean_abs_onset_error_ms": 121.27116666666666
+          }
+        },
+        {
+          "component": "rhythm_stability",
+          "raw_value": 496.86833333333334,
+          "score": 21.289564396642213,
+          "weight": 0.2,
+          "confidence": 1.0,
+          "metadata": {
+            "ioi_mae_ms": 496.86833333333334,
+            "std_onset_error_ms": 126.45565655124153
+          }
+        }
+      ],
+      "metadata": {
+        "weights": {
+          "accuracy": 0.5,
+          "onset_mae": 0.3,
+          "rhythm_stability": 0.2
+        }
+      }
+    },
+    "duration_score": {
+      "category": "duration",
+      "score": 7.702205254091524,
+      "confidence": 1.0,
+      "n_evaluated": 6,
+      "components": [
+        {
+          "component": "relative_error",
+          "raw_value": 1.2632453229189449,
+          "score": 0.0,
+          "weight": 0.6,
+          "confidence": 1.0,
+          "metadata": {}
+        },
+        {
+          "component": "ratio",
+          "raw_value": 1.6148897372954238,
+          "score": 38.51102627045762,
+          "weight": 0.2,
+          "confidence": 1.0,
+          "metadata": {
+            "mean_duration_ratio": 1.6148897372954238
+          }
+        },
+        {
+          "component": "phrase_duration",
+          "raw_value": 1.2632453229189449,
+          "score": 0.0,
+          "weight": 0.2,
+          "confidence": 1.0,
+          "metadata": {
+            "std_duration_error_s": 0.5300013259111297,
+            "mean_relative_duration_error": 1.2632453229189449
+          }
+        }
+      ],
+      "metadata": {
+        "weights": {
+          "relative_error": 0.6,
+          "ratio": 0.2,
+          "phrase_duration": 0.2
+        }
+      }
+    },
+    "lyric_score": {
+      "category": "lyric",
+      "score": 73.58042635658914,
+      "confidence": 1.0,
+      "n_evaluated": 55,
+      "components": [
+        {
+          "component": "word_accuracy",
+          "raw_value": 0.6666666666666666,
+          "score": 66.66666666666666,
+          "weight": 0.35,
+          "confidence": 1.0,
+          "metadata": {}
+        },
+        {
+          "component": "overlap",
+          "raw_value": 1.0,
+          "score": 100.0,
+          "weight": 0.25,
+          "confidence": 1.0,
+          "metadata": {}
+        },
+        {
+          "component": "label_match",
+          "raw_value": 0.8372093023255814,
+          "score": 83.72093023255815,
+          "weight": 0.25,
+          "confidence": 1.0,
+          "metadata": {}
+        },
+        {
+          "component": "phoneme_timing",
+          "raw_value": 85.46511627906976,
+          "score": 28.779069767441865,
+          "weight": 0.15,
+          "confidence": 1.0,
+          "metadata": {
+            "mean_abs_boundary_error_ms": 85.46511627906976
+          }
+        }
+      ],
+      "metadata": {
+        "weights": {
+          "word_accuracy": 0.35,
+          "overlap": 0.25,
+          "label_match": 0.25,
+          "phoneme_timing": 0.15
+        }
+      }
+    }
+  },
+  "interpretation": {
+    "audio_path": "data\\test\\test.wav",
+    "overall_level": "needs_work",
+    "strengths": [],
+    "weaknesses": [
+      "Pitch intonation needs significant improvement",
+      "Significant timing inconsistencies detected",
+      "Note duration control needs improvement",
+      "Some phoneme timing inaccuracies detected"
+    ],
+    "category_levels": {
+      "pitch": "needs_work",
+      "timing": "needs_work",
+      "duration": "needs_work",
+      "lyric": "fair"
+    },
+    "metadata": {
+      "thresholds": {
+        "excellent": 90.0,
+        "good": 75.0,
+        "fair": 55.0
+      },
+      "overall_score": 30.55359772705364
+    }
+  }
+}

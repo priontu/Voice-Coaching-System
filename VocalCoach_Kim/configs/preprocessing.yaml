@@ -1,0 +1,43 @@
+# configs/preprocessing.yaml
+# Shared audio preprocessing parameters.
+# All models default to these values; model-specific configs may override them.
+#
+# Canonical timing constants (Phase 2):
+#   SAMPLE_RATE    = 16000 Hz
+#   HOP_LENGTH     = 160 samples  → 10 ms per frame, 100 fps
+#   FRAME_DURATION = 0.01 s
+#
+# Per-model native frame rates (for reference — do NOT change these):
+#   torchcrepe pitch:  hop=160 → 100 fps  ← canonical
+#   Wav2Vec2 phoneme:  hop=320 →  50 fps
+#   WebRTC VAD:        hop=320 →  50 fps
+#   CNN+BiLSTM onset:  hop=256 → ~62.5 fps
+
+audio:
+  sample_rate: 16000       # Hz — canonical rate for all models
+  mono: true               # mix multichannel audio to mono
+  normalize: true          # peak-normalize to [-1, 1]
+
+# Canonical spectrogram parameters (used by AudioPreprocessor and new code)
+spectrogram:
+  n_fft: 1024
+  hop_length: 160          # canonical: 10ms frames at 16kHz (100fps)
+  n_mels: 80
+  fmin: 0.0
+  fmax: 8000.0
+  top_db: 80.0
+
+# Onset/offset model overrides — the trained checkpoint uses hop=256
+# AudioPreprocessor.process_for_onset_offset() applies this automatically.
+onset_offset_spectrogram:
+  hop_length: 256          # ~16ms frames (~62.5fps); matches trained checkpoint
+
+vad_framing:
+  # WebRTC VAD requires 10, 20, or 30 ms frames at 8/16/32/48 kHz
+  frame_duration_ms: 20    # → hop=320 at 16kHz, 50fps
+
+# Temporal alignment
+alignment:
+  canonical_hop: 160       # all fusion outputs use this hop
+  canonical_fps: 100       # = sample_rate / canonical_hop
+  center_frames: true      # frame timestamps point to frame centers, not starts

@@ -1,0 +1,22 @@
+# configs/system.yaml
+# System-wide defaults shared across all VocalCoach modules.
+
+system:
+  project_name: VocalCoach
+  version: "1.0.0"
+
+device:
+  # "auto" selects CUDA > MPS > CPU at runtime.
+  # Override with "cpu", "cuda", "cuda:0", or "mps".
+  preference: auto
+
+logging:
+  level: INFO    # DEBUG | INFO | WARNING | ERROR
+  format: "%(asctime)s [%(name)s] %(levelname)s: %(message)s"
+  datefmt: "%H:%M:%S"
+
+paths:
+  checkpoints_dir: checkpoints
+  data_dir: data
+  results_dir: results
+  logs_dir: logs

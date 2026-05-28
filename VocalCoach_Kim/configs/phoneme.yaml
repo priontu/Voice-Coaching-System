@@ -1,0 +1,33 @@
+# configs/phoneme.yaml
+# Configuration for the phoneme boundary detection module.
+
+model:
+  name: "facebook/wav2vec2-lv-60-espeak-cv-ft"
+  batch_size: 1
+  use_fp16: false
+
+audio:
+  sample_rate: 16000   # must match preprocessing.yaml
+
+ctc:
+  collapse_repeated_tokens: true
+  remove_blank_tokens: true
+  blank_token_id: 0
+
+post_processing:
+  # Long-segment splitting: phonemes > max_segment_ms are split at the
+  # internal frame with the highest alternative-token probability.
+  max_segment_ms: 300.0
+  min_split_prob: 0.25
+
+  # Blank-region scan: recover brief consonants suppressed by CTC blank
+  # dominance in sustained-vowel singing.
+  blank_region_scan: true
+  min_phoneme_prob: 0.05
+  min_gap_frames: 2      # skip gaps shorter than this (noise guard; 2 = 40 ms)
+
+espeak:
+  # Windows paths; set via environment variables for portability.
+  path: "C:\\Program Files\\eSpeak NG\\espeak-ng.exe"
+  library: "C:\\Program Files\\eSpeak NG\\libespeak-ng.dll"
+  dir: "C:\\Program Files\\eSpeak NG"
