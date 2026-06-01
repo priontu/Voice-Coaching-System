@@ -1,0 +1,12 @@
+{
+  "summary_json": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/summary.json",
+  "num_recordings": 20,
+  "num_aligned_pairs": 610,
+  "plots": {
+    "timing_scatter": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_3/outputs/plots/timing_scatter.png",
+    "error_distributions": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_3/outputs/plots/error_distributions.png",
+    "per_recording_mae": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_3/outputs/plots/per_recording_mae.png",
+    "phoneme_errors": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_3/outputs/plots/phoneme_errors.png",
+    "error_by_technique": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_3/outputs/plots/error_by_technique.png"
+  }
+}

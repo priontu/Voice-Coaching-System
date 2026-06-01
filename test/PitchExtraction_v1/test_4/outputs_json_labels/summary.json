@@ -1,0 +1,126 @@
+{
+  "dataset_root": "/mnt/archive/GTSinger/English/EN-Alto-1",
+  "weights": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/PitchExtraction_v1/weights.pth",
+  "device": "cpu",
+  "group": "Control_Group",
+  "align_mode": "all",
+  "num_recordings": 1,
+  "manifest_path": "test/PitchExtraction_v1/test_4/outputs_json_labels/manifest.json",
+  "frame_seconds": 0.010666666666666666,
+  "settings": {
+    "max_lag_sec": 2.0,
+    "local_window_sec": 8.0,
+    "local_hop_sec": 4.0,
+    "max_warp_sec": 2.0,
+    "max_dtw_frames": 800
+  },
+  "recordings": [
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+      "frames": 841,
+      "nanopitch_native_frames": 897,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 457,
+          "pitch_acc_50": 0.08315098285675049,
+          "mace_cents": 137.4873809814453,
+          "pitch_rmse_cents": 181.52024841308594
+        },
+        "global_lag": {
+          "comparison_frames": 423,
+          "pitch_acc_50": 0.08983451873064041,
+          "mace_cents": 169.37550354003906,
+          "pitch_rmse_cents": 238.6337890625,
+          "lag_frames": -20,
+          "lag_sec": -0.21333333333333332
+        },
+        "local_lag": {
+          "comparison_frames": 570,
+          "pitch_acc_50": 0.13508771359920502,
+          "mace_cents": 166.249755859375,
+          "pitch_rmse_cents": 239.7564239501953,
+          "num_windows": 2,
+          "lag_sec_values": [
+            0.11733333333333333,
+            1.9946666666666666
+          ],
+          "windows": [
+            {
+              "comparison_frames": 398,
+              "pitch_acc_50": 0.10050251334905624,
+              "mace_cents": 158.6628875732422,
+              "pitch_rmse_cents": 230.07518005371094,
+              "start_frame": 0,
+              "end_frame": 750,
+              "lag_frames": 11,
+              "lag_sec": 0.11733333333333333
+            },
+            {
+              "comparison_frames": 172,
+              "pitch_acc_50": 0.21511627733707428,
+              "mace_cents": 183.8053741455078,
+              "pitch_rmse_cents": 260.78399658203125,
+              "start_frame": 375,
+              "end_frame": 841,
+              "lag_frames": 187,
+              "lag_sec": 1.9946666666666666
+            }
+          ]
+        },
+        "dtw": {
+          "comparison_frames": 237,
+          "pitch_acc_50": 0.08016877621412277,
+          "mace_cents": 128.623291015625,
+          "pitch_rmse_cents": 158.3189697265625,
+          "path_length": 430,
+          "frame_stride": 2,
+          "band_frames": 188,
+          "effective_frames": 421
+        }
+      },
+      "contour_csv": "test/PitchExtraction_v1/test_4/outputs_json_labels/contours/Breathy_all_is_found_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    }
+  ],
+  "aggregate": {
+    "num_recordings": 1,
+    "dtw": {
+      "mean_pitch_acc_50": 0.08016877621412277,
+      "mean_mace_cents": 128.623291015625,
+      "mean_pitch_rmse_cents": 158.3189697265625,
+      "total_comparison_frames": 237,
+      "frame_stride_values": [
+        2
+      ]
+    },
+    "global_lag": {
+      "mean_pitch_acc_50": 0.08983451873064041,
+      "mean_mace_cents": 169.37550354003906,
+      "mean_pitch_rmse_cents": 238.6337890625,
+      "total_comparison_frames": 423,
+      "lag_sec_values": [
+        -0.21333333333333332
+      ]
+    },
+    "local_lag": {
+      "mean_pitch_acc_50": 0.13508771359920502,
+      "mean_mace_cents": 166.249755859375,
+      "mean_pitch_rmse_cents": 239.7564239501953,
+      "total_comparison_frames": 570,
+      "mean_num_windows": 2.0
+    },
+    "raw": {
+      "mean_pitch_acc_50": 0.08315098285675049,
+      "mean_mace_cents": 137.4873809814453,
+      "mean_pitch_rmse_cents": 181.52024841308594,
+      "total_comparison_frames": 457
+    }
+  },
+  "notes": [
+    "raw compares NanoPitch and MusicXML at the same feature frame.",
+    "global_lag shifts the whole MusicXML contour by one estimated lag.",
+    "local_lag estimates a lag per overlapping window; use it as a timing diagnostic, not a final score.",
+    "dtw allows local warping; it can reveal pitch agreement hidden by alignment errors, but it can overstate real onset timing quality."
+  ]
+}

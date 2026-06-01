@@ -1,0 +1,92 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0003.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "\u026a n h \u028c w z d e\u026a p \u00e6 n t \u0279 u\u02d0",
+  "phonemes": [
+    {
+      "phoneme": "\u026a",
+      "start_sec": 0.7624553846153846,
+      "end_sec": 0.78252,
+      "confidence": 0.9341731071472168
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 1.1637476923076924,
+      "end_sec": 1.1838123076923077,
+      "confidence": 0.9964683055877686
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 1.2239415384615384,
+      "end_sec": 1.244006153846154,
+      "confidence": 0.989404559135437
+    },
+    {
+      "phoneme": "\u028c",
+      "start_sec": 1.2841353846153847,
+      "end_sec": 1.3042,
+      "confidence": 0.2201041579246521
+    },
+    {
+      "phoneme": "w",
+      "start_sec": 1.4245876923076923,
+      "end_sec": 1.4446523076923077,
+      "confidence": 0.5640847682952881
+    },
+    {
+      "phoneme": "z",
+      "start_sec": 3.2504676923076925,
+      "end_sec": 3.270532307692308,
+      "confidence": 0.9137404561042786
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 3.631695384615385,
+      "end_sec": 3.6517600000000003,
+      "confidence": 0.9230198264122009
+    },
+    {
+      "phoneme": "e\u026a",
+      "start_sec": 3.7119538461538464,
+      "end_sec": 3.7320184615384617,
+      "confidence": 0.4161544442176819
+    },
+    {
+      "phoneme": "p",
+      "start_sec": 4.032987692307692,
+      "end_sec": 4.053052307692308,
+      "confidence": 0.9267282485961914
+    },
+    {
+      "phoneme": "\u00e6",
+      "start_sec": 4.1533753846153845,
+      "end_sec": 4.17344,
+      "confidence": 0.4964248538017273
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 4.614861538461539,
+      "end_sec": 4.634926153846154,
+      "confidence": 0.9921492338180542
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 4.755313846153847,
+      "end_sec": 4.775378461538462,
+      "confidence": 0.8510803580284119
+    },
+    {
+      "phoneme": "\u0279",
+      "start_sec": 4.855636923076923,
+      "end_sec": 4.9158307692307694,
+      "confidence": 0.7178828120231628
+    },
+    {
+      "phoneme": "u\u02d0",
+      "start_sec": 4.95596,
+      "end_sec": 4.976024615384616,
+      "confidence": 0.6443476676940918
+    }
+  ]
+}

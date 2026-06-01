@@ -1,0 +1,714 @@
+{
+  "dataset_root": "/mnt/archive/GTSinger/English/EN-Alto-1",
+  "weights": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/PitchExtraction_v1/weights.pth",
+  "device": "cuda",
+  "group": "Control_Group",
+  "num_recordings": 30,
+  "manifest_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/manifest.json",
+  "recordings": [
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+      "frames": 841,
+      "nanopitch_native_frames": 897,
+      "best_lag_frames": -95,
+      "best_lag_sec": -1.0133333333333332,
+      "unshifted": {
+        "comparison_frames": 235,
+        "pitch_acc_50": 0.01702127605676651,
+        "mace_cents": 441.6170959472656,
+        "pitch_rmse_cents": 494.9097595214844
+      },
+      "lag_corrected": {
+        "comparison_frames": 182,
+        "pitch_acc_50": 0.19780220091342926,
+        "mace_cents": 334.8586730957031,
+        "pitch_rmse_cents": 428.3680725097656
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Breathy_all_is_found_Control_Group_0000_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Breathy_all_is_found_Control_Group_0000_contours.png"
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0000.wav",
+      "frames": 752,
+      "nanopitch_native_frames": 802,
+      "best_lag_frames": 187,
+      "best_lag_sec": 1.9946666666666666,
+      "unshifted": {
+        "comparison_frames": 113,
+        "pitch_acc_50": 0.0,
+        "mace_cents": 848.0930786132812,
+        "pitch_rmse_cents": 909.4003295898438
+      },
+      "lag_corrected": {
+        "comparison_frames": 265,
+        "pitch_acc_50": 0.13584905862808228,
+        "mace_cents": 459.039794921875,
+        "pitch_rmse_cents": 607.8242797851562
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0000_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Glissando_for_the_first_time_in_forever_Control_Group_0000_contours.png"
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0000.wav",
+      "frames": 691,
+      "nanopitch_native_frames": 737,
+      "best_lag_frames": 96,
+      "best_lag_sec": 1.024,
+      "unshifted": {
+        "comparison_frames": 299,
+        "pitch_acc_50": 0.016722407191991806,
+        "mace_cents": 354.66461181640625,
+        "pitch_rmse_cents": 431.6844177246094
+      },
+      "lag_corrected": {
+        "comparison_frames": 366,
+        "pitch_acc_50": 0.0765027329325676,
+        "mace_cents": 243.03602600097656,
+        "pitch_rmse_cents": 318.8200988769531
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000_contours.png"
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0000.wav",
+      "frames": 1142,
+      "nanopitch_native_frames": 1218,
+      "best_lag_frames": 166,
+      "best_lag_sec": 1.7706666666666666,
+      "unshifted": {
+        "comparison_frames": 124,
+        "pitch_acc_50": 0.016129031777381897,
+        "mace_cents": 462.8665771484375,
+        "pitch_rmse_cents": 516.7929077148438
+      },
+      "lag_corrected": {
+        "comparison_frames": 273,
+        "pitch_acc_50": 0.0,
+        "mace_cents": 194.13424682617188,
+        "pitch_rmse_cents": 272.7143859863281
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0000_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Pharyngeal_beauty_and_the_beast_Control_Group_0000_contours.png"
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0000.wav",
+      "frames": 636,
+      "nanopitch_native_frames": 679,
+      "best_lag_frames": -187,
+      "best_lag_sec": -1.9946666666666666,
+      "unshifted": {
+        "comparison_frames": 212,
+        "pitch_acc_50": 0.0,
+        "mace_cents": 532.4522705078125,
+        "pitch_rmse_cents": 606.533203125
+      },
+      "lag_corrected": {
+        "comparison_frames": 90,
+        "pitch_acc_50": 0.3222222328186035,
+        "mace_cents": 289.0419616699219,
+        "pitch_rmse_cents": 426.16632080078125
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Vibrato_edelweiss_Control_Group_0000_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Vibrato_edelweiss_Control_Group_0000_contours.png"
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0001.wav",
+      "frames": 1041,
+      "nanopitch_native_frames": 1110,
+      "best_lag_frames": -18,
+      "best_lag_sec": -0.192,
+      "unshifted": {
+        "comparison_frames": 564,
+        "pitch_acc_50": 0.07269503176212311,
+        "mace_cents": 290.0242614746094,
+        "pitch_rmse_cents": 366.1313781738281
+      },
+      "lag_corrected": {
+        "comparison_frames": 553,
+        "pitch_acc_50": 0.057866185903549194,
+        "mace_cents": 276.62823486328125,
+        "pitch_rmse_cents": 342.24749755859375
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Breathy_all_is_found_Control_Group_0001_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Breathy_all_is_found_Control_Group_0001_contours.png"
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0001.wav",
+      "frames": 698,
+      "nanopitch_native_frames": 745,
+      "best_lag_frames": -96,
+      "best_lag_sec": -1.024,
+      "unshifted": {
+        "comparison_frames": 344,
+        "pitch_acc_50": 0.08139535039663315,
+        "mace_cents": 386.478515625,
+        "pitch_rmse_cents": 496.50921630859375
+      },
+      "lag_corrected": {
+        "comparison_frames": 286,
+        "pitch_acc_50": 0.10139860212802887,
+        "mace_cents": 258.0375061035156,
+        "pitch_rmse_cents": 369.7893981933594
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0001_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Glissando_for_the_first_time_in_forever_Control_Group_0001_contours.png"
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0001.wav",
+      "frames": 1086,
+      "nanopitch_native_frames": 1159,
+      "best_lag_frames": -113,
+      "best_lag_sec": -1.2053333333333334,
+      "unshifted": {
+        "comparison_frames": 342,
+        "pitch_acc_50": 0.020467836409807205,
+        "mace_cents": 452.7563171386719,
+        "pitch_rmse_cents": 547.4125366210938
+      },
+      "lag_corrected": {
+        "comparison_frames": 254,
+        "pitch_acc_50": 0.04724409431219101,
+        "mace_cents": 292.23187255859375,
+        "pitch_rmse_cents": 394.7693176269531
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0001_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0001_contours.png"
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0001.wav",
+      "frames": 755,
+      "nanopitch_native_frames": 805,
+      "best_lag_frames": 179,
+      "best_lag_sec": 1.9093333333333333,
+      "unshifted": {
+        "comparison_frames": 177,
+        "pitch_acc_50": 0.02259887009859085,
+        "mace_cents": 614.133056640625,
+        "pitch_rmse_cents": 719.9990234375
+      },
+      "lag_corrected": {
+        "comparison_frames": 266,
+        "pitch_acc_50": 0.2631579041481018,
+        "mace_cents": 224.58428955078125,
+        "pitch_rmse_cents": 390.1283264160156
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0001_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Pharyngeal_beauty_and_the_beast_Control_Group_0001_contours.png"
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0001.wav",
+      "frames": 641,
+      "nanopitch_native_frames": 684,
+      "best_lag_frames": 169,
+      "best_lag_sec": 1.8026666666666666,
+      "unshifted": {
+        "comparison_frames": 361,
+        "pitch_acc_50": 0.04432132840156555,
+        "mace_cents": 350.6131286621094,
+        "pitch_rmse_cents": 421.01165771484375
+      },
+      "lag_corrected": {
+        "comparison_frames": 348,
+        "pitch_acc_50": 0.03448275849223137,
+        "mace_cents": 171.12599182128906,
+        "pitch_rmse_cents": 200.2758331298828
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Vibrato_edelweiss_Control_Group_0001_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Vibrato_edelweiss_Control_Group_0001_contours.png"
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0002.wav",
+      "frames": 679,
+      "nanopitch_native_frames": 724,
+      "best_lag_frames": 11,
+      "best_lag_sec": 0.11733333333333333,
+      "unshifted": {
+        "comparison_frames": 258,
+        "pitch_acc_50": 0.03488372266292572,
+        "mace_cents": 254.9076690673828,
+        "pitch_rmse_cents": 314.5804748535156
+      },
+      "lag_corrected": {
+        "comparison_frames": 268,
+        "pitch_acc_50": 0.06343283504247665,
+        "mace_cents": 230.62210083007812,
+        "pitch_rmse_cents": 294.35736083984375
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Breathy_all_is_found_Control_Group_0002_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Breathy_all_is_found_Control_Group_0002_contours.png"
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0002.wav",
+      "frames": 630,
+      "nanopitch_native_frames": 672,
+      "best_lag_frames": 187,
+      "best_lag_sec": 1.9946666666666666,
+      "unshifted": {
+        "comparison_frames": 242,
+        "pitch_acc_50": 0.08264462649822235,
+        "mace_cents": 321.15203857421875,
+        "pitch_rmse_cents": 423.739990234375
+      },
+      "lag_corrected": {
+        "comparison_frames": 240,
+        "pitch_acc_50": 0.07083333283662796,
+        "mace_cents": 291.96197509765625,
+        "pitch_rmse_cents": 391.8730773925781
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0002_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Glissando_for_the_first_time_in_forever_Control_Group_0002_contours.png"
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0002.wav",
+      "frames": 1565,
+      "nanopitch_native_frames": 1669,
+      "best_lag_frames": 171,
+      "best_lag_sec": 1.8239999999999998,
+      "unshifted": {
+        "comparison_frames": 669,
+        "pitch_acc_50": 0.028400598093867302,
+        "mace_cents": 402.46044921875,
+        "pitch_rmse_cents": 504.1308288574219
+      },
+      "lag_corrected": {
+        "comparison_frames": 853,
+        "pitch_acc_50": 0.01289566233754158,
+        "mace_cents": 251.69676208496094,
+        "pitch_rmse_cents": 335.5190734863281
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0002_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0002_contours.png"
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0002.wav",
+      "frames": 650,
+      "nanopitch_native_frames": 694,
+      "best_lag_frames": 137,
+      "best_lag_sec": 1.4613333333333334,
+      "unshifted": {
+        "comparison_frames": 270,
+        "pitch_acc_50": 0.05925925821065903,
+        "mace_cents": 300.5517883300781,
+        "pitch_rmse_cents": 404.01397705078125
+      },
+      "lag_corrected": {
+        "comparison_frames": 285,
+        "pitch_acc_50": 0.04912280663847923,
+        "mace_cents": 274.6883850097656,
+        "pitch_rmse_cents": 358.0787353515625
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0002_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Pharyngeal_beauty_and_the_beast_Control_Group_0002_contours.png"
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0002.wav",
+      "frames": 700,
+      "nanopitch_native_frames": 747,
+      "best_lag_frames": 42,
+      "best_lag_sec": 0.448,
+      "unshifted": {
+        "comparison_frames": 344,
+        "pitch_acc_50": 0.06395348906517029,
+        "mace_cents": 258.5167236328125,
+        "pitch_rmse_cents": 333.3623352050781
+      },
+      "lag_corrected": {
+        "comparison_frames": 364,
+        "pitch_acc_50": 0.0357142873108387,
+        "mace_cents": 271.23944091796875,
+        "pitch_rmse_cents": 343.3509216308594
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Vibrato_edelweiss_Control_Group_0002_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Vibrato_edelweiss_Control_Group_0002_contours.png"
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0003.wav",
+      "frames": 612,
+      "nanopitch_native_frames": 653,
+      "best_lag_frames": 20,
+      "best_lag_sec": 0.21333333333333332,
+      "unshifted": {
+        "comparison_frames": 234,
+        "pitch_acc_50": 0.0,
+        "mace_cents": 367.7264404296875,
+        "pitch_rmse_cents": 452.2875061035156
+      },
+      "lag_corrected": {
+        "comparison_frames": 228,
+        "pitch_acc_50": 0.048245612531900406,
+        "mace_cents": 272.40087890625,
+        "pitch_rmse_cents": 367.8254699707031
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Breathy_all_is_found_Control_Group_0003_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Breathy_all_is_found_Control_Group_0003_contours.png"
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0003.wav",
+      "frames": 942,
+      "nanopitch_native_frames": 1005,
+      "best_lag_frames": 187,
+      "best_lag_sec": 1.9946666666666666,
+      "unshifted": {
+        "comparison_frames": 385,
+        "pitch_acc_50": 0.09870129823684692,
+        "mace_cents": 363.9384765625,
+        "pitch_rmse_cents": 530.2362670898438
+      },
+      "lag_corrected": {
+        "comparison_frames": 387,
+        "pitch_acc_50": 0.11627907305955887,
+        "mace_cents": 243.60044860839844,
+        "pitch_rmse_cents": 351.52978515625
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0003_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Glissando_for_the_first_time_in_forever_Control_Group_0003_contours.png"
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0003.wav",
+      "frames": 1036,
+      "nanopitch_native_frames": 1105,
+      "best_lag_frames": 150,
+      "best_lag_sec": 1.5999999999999999,
+      "unshifted": {
+        "comparison_frames": 551,
+        "pitch_acc_50": 0.04718693345785141,
+        "mace_cents": 435.4281311035156,
+        "pitch_rmse_cents": 530.409423828125
+      },
+      "lag_corrected": {
+        "comparison_frames": 600,
+        "pitch_acc_50": 0.05666666850447655,
+        "mace_cents": 248.0972900390625,
+        "pitch_rmse_cents": 325.08148193359375
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0003_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0003_contours.png"
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0003.wav",
+      "frames": 797,
+      "nanopitch_native_frames": 850,
+      "best_lag_frames": -138,
+      "best_lag_sec": -1.472,
+      "unshifted": {
+        "comparison_frames": 110,
+        "pitch_acc_50": 0.072727270424366,
+        "mace_cents": 676.3825073242188,
+        "pitch_rmse_cents": 839.8806762695312
+      },
+      "lag_corrected": {
+        "comparison_frames": 84,
+        "pitch_acc_50": 0.0,
+        "mace_cents": 370.3118591308594,
+        "pitch_rmse_cents": 500.2080078125
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0003_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Pharyngeal_beauty_and_the_beast_Control_Group_0003_contours.png"
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0003.wav",
+      "frames": 645,
+      "nanopitch_native_frames": 688,
+      "best_lag_frames": 114,
+      "best_lag_sec": 1.216,
+      "unshifted": {
+        "comparison_frames": 338,
+        "pitch_acc_50": 0.0,
+        "mace_cents": 270.10479736328125,
+        "pitch_rmse_cents": 331.7716064453125
+      },
+      "lag_corrected": {
+        "comparison_frames": 282,
+        "pitch_acc_50": 0.152482271194458,
+        "mace_cents": 125.4718246459961,
+        "pitch_rmse_cents": 169.8549346923828
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Vibrato_edelweiss_Control_Group_0003_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Vibrato_edelweiss_Control_Group_0003_contours.png"
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0004",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0004.wav",
+      "frames": 987,
+      "nanopitch_native_frames": 1053,
+      "best_lag_frames": 20,
+      "best_lag_sec": 0.21333333333333332,
+      "unshifted": {
+        "comparison_frames": 493,
+        "pitch_acc_50": 0.09127788990736008,
+        "mace_cents": 301.4150085449219,
+        "pitch_rmse_cents": 385.3063659667969
+      },
+      "lag_corrected": {
+        "comparison_frames": 478,
+        "pitch_acc_50": 0.0815899595618248,
+        "mace_cents": 285.4850158691406,
+        "pitch_rmse_cents": 367.99896240234375
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Breathy_all_is_found_Control_Group_0004_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Breathy_all_is_found_Control_Group_0004_contours.png"
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0004",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0004.wav",
+      "frames": 867,
+      "nanopitch_native_frames": 925,
+      "best_lag_frames": -31,
+      "best_lag_sec": -0.33066666666666666,
+      "unshifted": {
+        "comparison_frames": 404,
+        "pitch_acc_50": 0.07920791953802109,
+        "mace_cents": 255.47271728515625,
+        "pitch_rmse_cents": 349.13995361328125
+      },
+      "lag_corrected": {
+        "comparison_frames": 360,
+        "pitch_acc_50": 0.15555556118488312,
+        "mace_cents": 282.2752990722656,
+        "pitch_rmse_cents": 419.366455078125
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0004_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Glissando_for_the_first_time_in_forever_Control_Group_0004_contours.png"
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0004",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0004.wav",
+      "frames": 1016,
+      "nanopitch_native_frames": 1083,
+      "best_lag_frames": 180,
+      "best_lag_sec": 1.92,
+      "unshifted": {
+        "comparison_frames": 496,
+        "pitch_acc_50": 0.08870967477560043,
+        "mace_cents": 359.00726318359375,
+        "pitch_rmse_cents": 467.98388671875
+      },
+      "lag_corrected": {
+        "comparison_frames": 510,
+        "pitch_acc_50": 0.06862745434045792,
+        "mace_cents": 276.9731140136719,
+        "pitch_rmse_cents": 397.43377685546875
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0004_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0004_contours.png"
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0004",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0004.wav",
+      "frames": 973,
+      "nanopitch_native_frames": 1038,
+      "best_lag_frames": 187,
+      "best_lag_sec": 1.9946666666666666,
+      "unshifted": {
+        "comparison_frames": 453,
+        "pitch_acc_50": 0.16335541009902954,
+        "mace_cents": 327.8113708496094,
+        "pitch_rmse_cents": 463.73077392578125
+      },
+      "lag_corrected": {
+        "comparison_frames": 450,
+        "pitch_acc_50": 0.07555555552244186,
+        "mace_cents": 204.42398071289062,
+        "pitch_rmse_cents": 293.98046875
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0004_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Pharyngeal_beauty_and_the_beast_Control_Group_0004_contours.png"
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0004",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0004.wav",
+      "frames": 689,
+      "nanopitch_native_frames": 735,
+      "best_lag_frames": -7,
+      "best_lag_sec": -0.07466666666666666,
+      "unshifted": {
+        "comparison_frames": 341,
+        "pitch_acc_50": 0.020527860149741173,
+        "mace_cents": 407.7023010253906,
+        "pitch_rmse_cents": 530.3273315429688
+      },
+      "lag_corrected": {
+        "comparison_frames": 334,
+        "pitch_acc_50": 0.011976048350334167,
+        "mace_cents": 399.1336975097656,
+        "pitch_rmse_cents": 521.4400024414062
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Vibrato_edelweiss_Control_Group_0004_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Vibrato_edelweiss_Control_Group_0004_contours.png"
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0005",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0005.wav",
+      "frames": 666,
+      "nanopitch_native_frames": 711,
+      "best_lag_frames": 13,
+      "best_lag_sec": 0.13866666666666666,
+      "unshifted": {
+        "comparison_frames": 301,
+        "pitch_acc_50": 0.06312292069196701,
+        "mace_cents": 250.85426330566406,
+        "pitch_rmse_cents": 298.825927734375
+      },
+      "lag_corrected": {
+        "comparison_frames": 305,
+        "pitch_acc_50": 0.062295082956552505,
+        "mace_cents": 247.28309631347656,
+        "pitch_rmse_cents": 296.13983154296875
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Breathy_all_is_found_Control_Group_0005_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Breathy_all_is_found_Control_Group_0005_contours.png"
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0005",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0005.wav",
+      "frames": 1310,
+      "nanopitch_native_frames": 1397,
+      "best_lag_frames": 28,
+      "best_lag_sec": 0.29866666666666664,
+      "unshifted": {
+        "comparison_frames": 599,
+        "pitch_acc_50": 0.07512520998716354,
+        "mace_cents": 286.9971923828125,
+        "pitch_rmse_cents": 382.727783203125
+      },
+      "lag_corrected": {
+        "comparison_frames": 594,
+        "pitch_acc_50": 0.17676767706871033,
+        "mace_cents": 239.3709259033203,
+        "pitch_rmse_cents": 336.21221923828125
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0005_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Glissando_for_the_first_time_in_forever_Control_Group_0005_contours.png"
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0005",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0005.wav",
+      "frames": 666,
+      "nanopitch_native_frames": 710,
+      "best_lag_frames": -69,
+      "best_lag_sec": -0.736,
+      "unshifted": {
+        "comparison_frames": 288,
+        "pitch_acc_50": 0.2291666716337204,
+        "mace_cents": 184.391845703125,
+        "pitch_rmse_cents": 298.6780700683594
+      },
+      "lag_corrected": {
+        "comparison_frames": 226,
+        "pitch_acc_50": 0.1504424810409546,
+        "mace_cents": 339.39453125,
+        "pitch_rmse_cents": 504.8352966308594
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0005_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0005_contours.png"
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0005",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0005.wav",
+      "frames": 1039,
+      "nanopitch_native_frames": 1109,
+      "best_lag_frames": 187,
+      "best_lag_sec": 1.9946666666666666,
+      "unshifted": {
+        "comparison_frames": 207,
+        "pitch_acc_50": 0.03381642326712608,
+        "mace_cents": 491.6932067871094,
+        "pitch_rmse_cents": 600.6348266601562
+      },
+      "lag_corrected": {
+        "comparison_frames": 371,
+        "pitch_acc_50": 0.14016172289848328,
+        "mace_cents": 196.08106994628906,
+        "pitch_rmse_cents": 280.3013916015625
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0005_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Pharyngeal_beauty_and_the_beast_Control_Group_0005_contours.png"
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0005",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0005.wav",
+      "frames": 683,
+      "nanopitch_native_frames": 729,
+      "best_lag_frames": 63,
+      "best_lag_sec": 0.6719999999999999,
+      "unshifted": {
+        "comparison_frames": 357,
+        "pitch_acc_50": 0.19887955486774445,
+        "mace_cents": 121.70489501953125,
+        "pitch_rmse_cents": 160.64422607421875
+      },
+      "lag_corrected": {
+        "comparison_frames": 359,
+        "pitch_acc_50": 0.10027854889631271,
+        "mace_cents": 109.89250946044922,
+        "pitch_rmse_cents": 133.5716094970703
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/contours/Vibrato_edelweiss_Control_Group_0005_contours.csv",
+      "plot_png": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_3/outputs/plots/Vibrato_edelweiss_Control_Group_0005_contours.png"
+    }
+  ],
+  "aggregate": {
+    "num_recordings": 30,
+    "mean_unshifted_pitch_acc_50": 0.060743262122074766,
+    "mean_lag_corrected_pitch_acc_50": 0.09551494705180327,
+    "mean_unshifted_mace_cents": 379.0639333089193,
+    "mean_lag_corrected_mace_cents": 263.4374267578125,
+    "best_lag_sec_values": [
+      -1.0133333333333332,
+      1.9946666666666666,
+      1.024,
+      1.7706666666666666,
+      -1.9946666666666666,
+      -0.192,
+      -1.024,
+      -1.2053333333333334,
+      1.9093333333333333,
+      1.8026666666666666,
+      0.11733333333333333,
+      1.9946666666666666,
+      1.8239999999999998,
+      1.4613333333333334,
+      0.448,
+      0.21333333333333332,
+      1.9946666666666666,
+      1.5999999999999999,
+      -1.472,
+      1.216,
+      0.21333333333333332,
+      -0.33066666666666666,
+      1.92,
+      1.9946666666666666,
+      -0.07466666666666666,
+      0.13866666666666666,
+      0.29866666666666664,
+      -0.736,
+      1.9946666666666666,
+      0.6719999999999999
+    ]
+  },
+  "notes": [
+    "Unshifted metrics compare NanoPitch to MusicXML at the same timestamp.",
+    "Lag-corrected metrics shift the MusicXML reference by the estimated best global lag.",
+    "If lag-corrected metrics improve a lot, timing alignment is a major issue."
+  ]
+}

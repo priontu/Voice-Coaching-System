@@ -1,0 +1,1 @@
+language Chinese<asr_text>都坏的都坏的<|file_sep|>AP <P_0> <NOTE_4> 都 <P_60> <NOTE_DOT_4> 坏 <P_66> <NOTE_2> 的 <P_0> <NOTE_4> SP <P_0> <NOTE_DOT_16> 都 <P_64> <NOTE_2> 坏 <P_58> <NOTE_2> 的 <P_0> <NOTE_4> AP <P_56> <NOTE_DOT_8> <BPM_109><|im_end|>

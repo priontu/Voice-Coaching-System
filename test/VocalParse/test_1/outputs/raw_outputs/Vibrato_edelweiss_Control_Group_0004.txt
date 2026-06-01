@@ -1,0 +1,1 @@
+language Chinese<asr_text>落岑snow梅雨blue漫grow<|file_sep|>AP <P_0> <NOTE_8> 落 <P_65> <NOTE_2> 岑 <P_60> <NOTE_4> snow <P_63> <NOTE_4> 梅 <P_61> <NOTE_4> 雨 <P_60> <NOTE_4> blue <P_56> <NOTE_2> 漫 <P_60> <NOTE_4> grow <P_63> <NOTE_2> AP <P_0> <NOTE_4> <BPM_120><|im_end|>

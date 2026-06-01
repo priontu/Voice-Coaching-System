@@ -1,0 +1,1 @@
+language Chinese<asr_text>超得熟得赛<|file_sep|>SP <P_0> <NOTE_DOT_2> 超 <P_56> <NOTE_DOT_4> 得 <P_60> <NOTE_DOT_16> 熟 <P_63> <NOTE_8> <P_63> <NOTE_8> 得 <P_63> <NOTE_8> 赛 <P_56> <NOTE_DOT_2> SP <P_0> <NOTE_DOT_4> AP <P_0> <NOTE_8> <BPM_80><|im_end|>

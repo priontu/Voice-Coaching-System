@@ -1,0 +1,134 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0000.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "a\u026a m f \u0254\u02d0\u0279 t i j \u026a z o\u028a l a\u026a \u00e6 m p \u0279 \u026a \u0279 i a\u026a m",
+  "phonemes": [
+    {
+      "phoneme": "a\u026a",
+      "start_sec": 0.9428174386920981,
+      "end_sec": 0.9628773841961853,
+      "confidence": 0.8007130026817322
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 1.2035967302452317,
+      "end_sec": 1.2236566757493188,
+      "confidence": 0.9359851479530334
+    },
+    {
+      "phoneme": "f",
+      "start_sec": 1.3239564032697548,
+      "end_sec": 1.3640762942779292,
+      "confidence": 0.796396791934967
+    },
+    {
+      "phoneme": "\u0254\u02d0\u0279",
+      "start_sec": 1.444316076294278,
+      "end_sec": 1.4643760217983652,
+      "confidence": 0.29329007863998413
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 1.7853351498637604,
+      "end_sec": 1.8053950953678475,
+      "confidence": 0.7386249899864197
+    },
+    {
+      "phoneme": "i",
+      "start_sec": 1.8856348773841962,
+      "end_sec": 1.9056948228882835,
+      "confidence": 0.9360448122024536
+    },
+    {
+      "phoneme": "j",
+      "start_sec": 2.066174386920981,
+      "end_sec": 2.086234332425068,
+      "confidence": 0.8767489790916443
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 2.14641416893733,
+      "end_sec": 2.1664741144414172,
+      "confidence": 0.13120855391025543
+    },
+    {
+      "phoneme": "z",
+      "start_sec": 2.6278528610354224,
+      "end_sec": 2.6479128065395097,
+      "confidence": 0.7617360353469849
+    },
+    {
+      "phoneme": "o\u028a",
+      "start_sec": 2.808392370572207,
+      "end_sec": 2.8284523160762944,
+      "confidence": 0.2991257309913635
+    },
+    {
+      "phoneme": "l",
+      "start_sec": 3.189531335149864,
+      "end_sec": 3.2095912806539513,
+      "confidence": 0.9741734862327576
+    },
+    {
+      "phoneme": "a\u026a",
+      "start_sec": 3.2697711171662127,
+      "end_sec": 3.2898310626703,
+      "confidence": 0.6918434500694275
+    },
+    {
+      "phoneme": "\u00e6",
+      "start_sec": 3.7311498637602183,
+      "end_sec": 3.7512098092643056,
+      "confidence": 0.6496894359588623
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 3.9718692098092645,
+      "end_sec": 3.991929155313352,
+      "confidence": 0.8893420696258545
+    },
+    {
+      "phoneme": "p",
+      "start_sec": 4.112288828337875,
+      "end_sec": 4.132348773841962,
+      "confidence": 0.9241401553153992
+    },
+    {
+      "phoneme": "\u0279",
+      "start_sec": 4.232648501362398,
+      "end_sec": 4.272768392370573,
+      "confidence": 0.9607499241828918
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 4.29282833787466,
+      "end_sec": 4.312888283378747,
+      "confidence": 0.29565492272377014
+    },
+    {
+      "phoneme": "\u0279",
+      "start_sec": 4.513487738419619,
+      "end_sec": 4.533547683923706,
+      "confidence": 0.5461320281028748
+    },
+    {
+      "phoneme": "i",
+      "start_sec": 4.5937275204359675,
+      "end_sec": 4.633847411444142,
+      "confidence": 0.8495018482208252
+    },
+    {
+      "phoneme": "a\u026a",
+      "start_sec": 6.559602179836513,
+      "end_sec": 6.5796621253406,
+      "confidence": 0.7067247033119202
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 6.920681198910082,
+      "end_sec": 6.94074114441417,
+      "confidence": 0.981857419013977
+    }
+  ]
+}

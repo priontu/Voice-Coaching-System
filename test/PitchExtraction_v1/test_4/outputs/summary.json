@@ -1,0 +1,393 @@
+{
+  "dataset_root": "/mnt/archive/GTSinger/English/EN-Alto-1",
+  "weights": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/PitchExtraction_v1/weights.pth",
+  "device": "cuda",
+  "decoder": "offline",
+  "group": "Control_Group",
+  "align_mode": "all",
+  "num_recordings": 5,
+  "manifest_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_4/outputs/manifest.json",
+  "frame_seconds": 0.010666666666666666,
+  "settings": {
+    "max_lag_sec": 2.0,
+    "local_window_sec": 8.0,
+    "local_hop_sec": 4.0,
+    "max_warp_sec": 2.0,
+    "max_dtw_frames": 2500
+  },
+  "recordings": [
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+      "frames": 841,
+      "nanopitch_native_frames": 897,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 445,
+          "pitch_acc_50": 0.0853932574391365,
+          "mace_cents": 127.21961212158203,
+          "pitch_rmse_cents": 146.74758911132812
+        },
+        "global_lag": {
+          "comparison_frames": 439,
+          "pitch_acc_50": 0.09567198157310486,
+          "mace_cents": 146.35414123535156,
+          "pitch_rmse_cents": 207.32701110839844,
+          "lag_frames": 12,
+          "lag_sec": 0.128
+        },
+        "local_lag": {
+          "comparison_frames": 560,
+          "pitch_acc_50": 0.13928571343421936,
+          "mace_cents": 154.0712127685547,
+          "pitch_rmse_cents": 212.0106201171875,
+          "num_windows": 2,
+          "lag_sec_values": [
+            0.10666666666666666,
+            2.005333333333333
+          ],
+          "windows": [
+            {
+              "comparison_frames": 392,
+              "pitch_acc_50": 0.09948979318141937,
+              "mace_cents": 146.89755249023438,
+              "pitch_rmse_cents": 202.4391632080078,
+              "start_frame": 0,
+              "end_frame": 750,
+              "lag_frames": 10,
+              "lag_sec": 0.10666666666666666
+            },
+            {
+              "comparison_frames": 168,
+              "pitch_acc_50": 0.2321428507566452,
+              "mace_cents": 170.8097381591797,
+              "pitch_rmse_cents": 232.81875610351562,
+              "start_frame": 375,
+              "end_frame": 841,
+              "lag_frames": 188,
+              "lag_sec": 2.005333333333333
+            }
+          ]
+        },
+        "dtw": {
+          "comparison_frames": 470,
+          "pitch_acc_50": 0.09787233918905258,
+          "mace_cents": 118.85870361328125,
+          "pitch_rmse_cents": 131.9149169921875,
+          "path_length": 867,
+          "frame_stride": 1,
+          "band_frames": 188,
+          "effective_frames": 841
+        }
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_4/outputs/contours/Breathy_all_is_found_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0000.wav",
+      "frames": 752,
+      "nanopitch_native_frames": 802,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 268,
+          "pitch_acc_50": 0.03731343150138855,
+          "mace_cents": 284.6545715332031,
+          "pitch_rmse_cents": 403.444580078125
+        },
+        "global_lag": {
+          "comparison_frames": 268,
+          "pitch_acc_50": 0.06343283504247665,
+          "mace_cents": 296.5437927246094,
+          "pitch_rmse_cents": 429.27276611328125,
+          "lag_frames": -8,
+          "lag_sec": -0.08533333333333333
+        },
+        "local_lag": {
+          "comparison_frames": 406,
+          "pitch_acc_50": 0.1034482792019844,
+          "mace_cents": 320.7443542480469,
+          "pitch_rmse_cents": 475.2907409667969,
+          "num_windows": 2,
+          "lag_sec_values": [
+            -0.08533333333333333,
+            -1.4186666666666665
+          ],
+          "windows": [
+            {
+              "comparison_frames": 268,
+              "pitch_acc_50": 0.06343283504247665,
+              "mace_cents": 296.5437927246094,
+              "pitch_rmse_cents": 429.27276611328125,
+              "start_frame": 0,
+              "end_frame": 750,
+              "lag_frames": -8,
+              "lag_sec": -0.08533333333333333
+            },
+            {
+              "comparison_frames": 138,
+              "pitch_acc_50": 0.18115942180156708,
+              "mace_cents": 367.7426452636719,
+              "pitch_rmse_cents": 553.8416137695312,
+              "start_frame": 375,
+              "end_frame": 752,
+              "lag_frames": -133,
+              "lag_sec": -1.4186666666666665
+            }
+          ]
+        },
+        "dtw": {
+          "comparison_frames": 289,
+          "pitch_acc_50": 0.13840830326080322,
+          "mace_cents": 251.1307830810547,
+          "pitch_rmse_cents": 372.3174133300781,
+          "path_length": 774,
+          "frame_stride": 1,
+          "band_frames": 188,
+          "effective_frames": 752
+        }
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_4/outputs/contours/Glissando_for_the_first_time_in_forever_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0000.wav",
+      "frames": 691,
+      "nanopitch_native_frames": 737,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 447,
+          "pitch_acc_50": 0.008948545902967453,
+          "mace_cents": 234.19017028808594,
+          "pitch_rmse_cents": 301.3267822265625
+        },
+        "global_lag": {
+          "comparison_frames": 358,
+          "pitch_acc_50": 0.15642458200454712,
+          "mace_cents": 212.305908203125,
+          "pitch_rmse_cents": 307.1576232910156,
+          "lag_frames": -57,
+          "lag_sec": -0.608
+        },
+        "local_lag": {
+          "comparison_frames": 358,
+          "pitch_acc_50": 0.15642458200454712,
+          "mace_cents": 212.305908203125,
+          "pitch_rmse_cents": 307.1576232910156,
+          "num_windows": 1,
+          "lag_sec_values": [
+            -0.608
+          ],
+          "windows": [
+            {
+              "comparison_frames": 358,
+              "pitch_acc_50": 0.15642458200454712,
+              "mace_cents": 212.305908203125,
+              "pitch_rmse_cents": 307.1576232910156,
+              "start_frame": 0,
+              "end_frame": 691,
+              "lag_frames": -57,
+              "lag_sec": -0.608
+            }
+          ]
+        },
+        "dtw": {
+          "comparison_frames": 520,
+          "pitch_acc_50": 0.09038461744785309,
+          "mace_cents": 159.05331420898438,
+          "pitch_rmse_cents": 199.50173950195312,
+          "path_length": 789,
+          "frame_stride": 1,
+          "band_frames": 188,
+          "effective_frames": 691
+        }
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_4/outputs/contours/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0000.wav",
+      "frames": 1142,
+      "nanopitch_native_frames": 1218,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 204,
+          "pitch_acc_50": 0.0,
+          "mace_cents": 173.4044189453125,
+          "pitch_rmse_cents": 204.0673065185547
+        },
+        "global_lag": {
+          "comparison_frames": 204,
+          "pitch_acc_50": 0.0,
+          "mace_cents": 169.80357360839844,
+          "pitch_rmse_cents": 200.5072021484375,
+          "lag_frames": 8,
+          "lag_sec": 0.08533333333333333
+        },
+        "local_lag": {
+          "comparison_frames": 392,
+          "pitch_acc_50": 0.0,
+          "mace_cents": 165.80592346191406,
+          "pitch_rmse_cents": 196.2243194580078,
+          "num_windows": 3,
+          "lag_sec_values": [
+            0.42666666666666664,
+            0.08533333333333333,
+            -0.13866666666666666
+          ],
+          "windows": [
+            {
+              "comparison_frames": 24,
+              "pitch_acc_50": 0.0,
+              "mace_cents": 242.88282775878906,
+              "pitch_rmse_cents": 295.0382995605469,
+              "start_frame": 0,
+              "end_frame": 750,
+              "lag_frames": 40,
+              "lag_sec": 0.42666666666666664
+            },
+            {
+              "comparison_frames": 204,
+              "pitch_acc_50": 0.0,
+              "mace_cents": 169.80357360839844,
+              "pitch_rmse_cents": 200.5072021484375,
+              "start_frame": 375,
+              "end_frame": 1125,
+              "lag_frames": 8,
+              "lag_sec": 0.08533333333333333
+            },
+            {
+              "comparison_frames": 164,
+              "pitch_acc_50": 0.0,
+              "mace_cents": 149.5537109375,
+              "pitch_rmse_cents": 171.1328582763672,
+              "start_frame": 750,
+              "end_frame": 1142,
+              "lag_frames": -13,
+              "lag_sec": -0.13866666666666666
+            }
+          ]
+        },
+        "dtw": {
+          "comparison_frames": 254,
+          "pitch_acc_50": 0.0,
+          "mace_cents": 152.84707641601562,
+          "pitch_rmse_cents": 181.96337890625,
+          "path_length": 1192,
+          "frame_stride": 1,
+          "band_frames": 188,
+          "effective_frames": 1142
+        }
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_4/outputs/contours/Pharyngeal_beauty_and_the_beast_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0000.wav",
+      "frames": 636,
+      "nanopitch_native_frames": 679,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 367,
+          "pitch_acc_50": 0.07084468752145767,
+          "mace_cents": 349.5183410644531,
+          "pitch_rmse_cents": 455.0055236816406
+        },
+        "global_lag": {
+          "comparison_frames": 276,
+          "pitch_acc_50": 0.09420289844274521,
+          "mace_cents": 198.46206665039062,
+          "pitch_rmse_cents": 260.914306640625,
+          "lag_frames": 68,
+          "lag_sec": 0.7253333333333333
+        },
+        "local_lag": {
+          "comparison_frames": 276,
+          "pitch_acc_50": 0.09420289844274521,
+          "mace_cents": 198.46206665039062,
+          "pitch_rmse_cents": 260.914306640625,
+          "num_windows": 1,
+          "lag_sec_values": [
+            0.7253333333333333
+          ],
+          "windows": [
+            {
+              "comparison_frames": 276,
+              "pitch_acc_50": 0.09420289844274521,
+              "mace_cents": 198.46206665039062,
+              "pitch_rmse_cents": 260.914306640625,
+              "start_frame": 0,
+              "end_frame": 636,
+              "lag_frames": 68,
+              "lag_sec": 0.7253333333333333
+            }
+          ]
+        },
+        "dtw": {
+          "comparison_frames": 423,
+          "pitch_acc_50": 0.09456264972686768,
+          "mace_cents": 321.5932922363281,
+          "pitch_rmse_cents": 430.9532775878906,
+          "path_length": 679,
+          "frame_stride": 1,
+          "band_frames": 188,
+          "effective_frames": 636
+        }
+      },
+      "contour_csv": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PitchExtraction_v1/test_4/outputs/contours/Vibrato_edelweiss_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    }
+  ],
+  "aggregate": {
+    "num_recordings": 5,
+    "dtw": {
+      "mean_pitch_acc_50": 0.08424558192491531,
+      "mean_mace_cents": 200.6966339111328,
+      "mean_pitch_rmse_cents": 263.33014526367185,
+      "total_comparison_frames": 1956,
+      "frame_stride_values": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "global_lag": {
+      "mean_pitch_acc_50": 0.08194645941257477,
+      "mean_mace_cents": 204.693896484375,
+      "mean_pitch_rmse_cents": 281.03578186035156,
+      "total_comparison_frames": 1545,
+      "lag_sec_values": [
+        0.128,
+        -0.08533333333333333,
+        -0.608,
+        0.08533333333333333,
+        0.7253333333333333
+      ]
+    },
+    "local_lag": {
+      "mean_pitch_acc_50": 0.09867229461669921,
+      "mean_mace_cents": 210.27789306640625,
+      "mean_pitch_rmse_cents": 290.31952209472655,
+      "total_comparison_frames": 1992,
+      "mean_num_windows": 1.8
+    },
+    "raw": {
+      "mean_pitch_acc_50": 0.04049998447299004,
+      "mean_mace_cents": 233.79742279052735,
+      "mean_pitch_rmse_cents": 302.1183563232422,
+      "total_comparison_frames": 1731
+    }
+  },
+  "notes": [
+    "raw compares NanoPitch and the runtime reference labels at the same feature frame.",
+    "For GTSinger, runtime reference labels prefer the audio-aligned JSON notes when present.",
+    "global_lag shifts the reference contour by one estimated lag.",
+    "local_lag estimates a lag per overlapping window; use it as a timing diagnostic, not a final score.",
+    "dtw allows local warping; it can reveal pitch agreement hidden by alignment errors, but it can overstate real onset timing quality."
+  ]
+}

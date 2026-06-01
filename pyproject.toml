@@ -1,0 +1,19 @@
+[project]
+name = "voice-coaching-system"
+version = "0.1.0"
+description = "Preprocessing and modeling framework for reference-guided singing voice coaching."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.23",
+  "torch>=2.0",
+  "torchaudio>=2.0",
+  "lightning>=2.2",
+]
+
+[project.optional-dependencies]
+rmvpe = [
+  "rmvpe-onnx",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

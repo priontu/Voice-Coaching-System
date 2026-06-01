@@ -1,0 +1,361 @@
+{
+  "dataset_root": "/mnt/archive/GTSinger/English/EN-Alto-1",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "group": "Control_Group",
+  "num_recordings": 20,
+  "manifest_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/manifest.json",
+  "aggregate": {
+    "num_recordings": 20,
+    "mean_boundary_mae_sec": 0.6136232992432146,
+    "mean_start_mae_sec": 0.6933670065483042,
+    "mean_end_mae_sec": 0.5338795919381252,
+    "mean_phoneme_sequence_exact_rate": 0.05165606229172546
+  },
+  "recordings": [
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Breathy_all_is_found_Control_Group_0000.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Breathy_all_is_found_Control_Group_0000_matches.csv",
+      "transcript": "w \u025b \u00f0 \u0259 n \u0254\u02d0\u0279 \u03b8 w \u026a \u014b d m i\u02d0 t s \u00f0 \u0259 s i\u02d0",
+      "metrics": {
+        "predicted_count": 19,
+        "reference_count": 25,
+        "aligned_count": 19,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 1.133958789591428,
+        "end_mae_sec": 0.8401210408571762,
+        "boundary_mae_sec": 0.9870399152243021
+      }
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0000.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0000.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Glissando_for_the_first_time_in_forever_Control_Group_0000.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Glissando_for_the_first_time_in_forever_Control_Group_0000_matches.csv",
+      "transcript": "\u00f0 \u0259 w \u026a n d o\u028a z a\u028a p \u0259 n s s t \u00e6 d o\u02d0\u0279 a\u026a d \u026a d \u0259 n \u0254 d \u025b t e\u026a d d \u00e6 \u025b n i\u02d0 m o\u02d0",
+      "metrics": {
+        "predicted_count": 37,
+        "reference_count": 46,
+        "aligned_count": 37,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 0.5290506081081078,
+        "end_mae_sec": 0.37035337837837784,
+        "boundary_mae_sec": 0.4497019932432428
+      }
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0000.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0000.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0000_matches.csv",
+      "transcript": "a\u026a m f \u0254\u02d0\u0279 t i j \u026a z o\u028a l a\u026a \u00e6 m p \u0279 \u026a \u0279 i a\u026a m",
+      "metrics": {
+        "predicted_count": 21,
+        "reference_count": 22,
+        "aligned_count": 21,
+        "phoneme_sequence_exact_rate": 0.047619047619047616,
+        "start_mae_sec": 0.35029972752043587,
+        "end_mae_sec": 0.5327733229531592,
+        "boundary_mae_sec": 0.4415365252367976
+      }
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0000.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0000.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Pharyngeal_beauty_and_the_beast_Control_Group_0000.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Pharyngeal_beauty_and_the_beast_Control_Group_0000_matches.csv",
+      "transcript": "t \u0251 r \u025b s \u0251 r \u025b s t a\u02d0",
+      "metrics": {
+        "predicted_count": 11,
+        "reference_count": 15,
+        "aligned_count": 11,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 0.9295294557416273,
+        "end_mae_sec": 0.14828139952153155,
+        "boundary_mae_sec": 0.5389054276315792
+      }
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0000.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0000.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Vibrato_edelweiss_Control_Group_0000.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Vibrato_edelweiss_Control_Group_0000_matches.csv",
+      "transcript": "d o\u028a w a\u026a s h \u025b d o\u028a w a\u026a z \u025b",
+      "metrics": {
+        "predicted_count": 13,
+        "reference_count": 17,
+        "aligned_count": 13,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 1.330411470186618,
+        "end_mae_sec": 0.978794264906691,
+        "boundary_mae_sec": 1.1546028675466546
+      }
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0001.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0001.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Breathy_all_is_found_Control_Group_0001.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Breathy_all_is_found_Control_Group_0001_matches.csv",
+      "transcript": "\u00f0 \u025b z \u0250 \u0279 \u026a v \u025a f u\u02d0 l \u028c v m \u025b m \u025a \u0279 i s l i\u02d0 m a\u026a d \u0251\u02d0\u0279 l \u026a \u014b s e\u026a f \u00e6 n d d s \u00e6 h n",
+      "metrics": {
+        "predicted_count": 40,
+        "reference_count": 44,
+        "aligned_count": 40,
+        "phoneme_sequence_exact_rate": 0.025,
+        "start_mae_sec": 0.5420214801444042,
+        "end_mae_sec": 0.3404410649819492,
+        "boundary_mae_sec": 0.4412312725631766
+      }
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0001.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0001.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Glissando_for_the_first_time_in_forever_Control_Group_0001.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Glissando_for_the_first_time_in_forever_Control_Group_0001_matches.csv",
+      "transcript": "h u\u02d0 n u\u02d0 w i\u02d0 o\u028a n \u0250 s a\u028a z \u0259 n d s \u00e6 l \u00e6 p l e\u026a t s f \u0254\u02d0\u0279 j i\u02d0 z \u00e6 v \u0279 u\u02d0 m n d \u00f0 \u026a z \u025b m t i h \u0254\u02d0 l z",
+      "metrics": {
+        "predicted_count": 47,
+        "reference_count": 53,
+        "aligned_count": 47,
+        "phoneme_sequence_exact_rate": 0.02127659574468085,
+        "start_mae_sec": 0.47369897344726736,
+        "end_mae_sec": 0.3761231289786085,
+        "boundary_mae_sec": 0.424911051212938
+      }
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0001.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0001.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0001.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0001_matches.csv",
+      "transcript": "t e\u026a n i t a\u026a n i \u0261 \u028c l \u026a \u027e \u0259l l e\u026a \u0279 i a\u026a l e\u02d0 v \u0251\u0303 n d \u025a d \u0259 k e\u026a t\u0283 \u0259 n f l o\u02d0",
+      "metrics": {
+        "predicted_count": 36,
+        "reference_count": 40,
+        "aligned_count": 36,
+        "phoneme_sequence_exact_rate": 0.1388888888888889,
+        "start_mae_sec": 0.6461528258362166,
+        "end_mae_sec": 0.4746303825451744,
+        "boundary_mae_sec": 0.5603916041906956
+      }
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0001.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0001.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Pharyngeal_beauty_and_the_beast_Control_Group_0001.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Pharyngeal_beauty_and_the_beast_Control_Group_0001_matches.csv",
+      "transcript": "t \u0279 u\u02d0 \u0279 \u00e6 z h i\u02d0 k \u00e6 n b i b \u025b l i\u02d0 v \u0259 n f \u0279 \u025b n n z",
+      "metrics": {
+        "predicted_count": 26,
+        "reference_count": 29,
+        "aligned_count": 26,
+        "phoneme_sequence_exact_rate": 0.07692307692307693,
+        "start_mae_sec": 0.24683716035208583,
+        "end_mae_sec": 0.3729313050133947,
+        "boundary_mae_sec": 0.30988423268274023
+      }
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0001",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0001.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0001.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Vibrato_edelweiss_Control_Group_0001.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Vibrato_edelweiss_Control_Group_0001_matches.csv",
+      "transcript": "v \u0279 i m o\u028a n i n j u\u02d0 \u0261 \u0279 i t m i",
+      "metrics": {
+        "predicted_count": 16,
+        "reference_count": 18,
+        "aligned_count": 16,
+        "phoneme_sequence_exact_rate": 0.0625,
+        "start_mae_sec": 0.573752749266862,
+        "end_mae_sec": 0.26805663489736065,
+        "boundary_mae_sec": 0.4209046920821113
+      }
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0002.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0002.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Breathy_all_is_found_Control_Group_0002.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Breathy_all_is_found_Control_Group_0002_matches.csv",
+      "transcript": "f \u0254\u02d0\u0279 \u0279 \u026a n \u00f0 \u0259 h \u026a s \u0279 \u026a v \u025a \u0254\u02d0 l \u00f0 \u1d7b h \u026a z f \u025b n",
+      "metrics": {
+        "predicted_count": 24,
+        "reference_count": 22,
+        "aligned_count": 22,
+        "phoneme_sequence_exact_rate": 0.09090909090909091,
+        "start_mae_sec": 0.6498232183329136,
+        "end_mae_sec": 0.9236412742382271,
+        "boundary_mae_sec": 0.7867322462855704
+      }
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0002.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0002.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Glissando_for_the_first_time_in_forever_Control_Group_0002.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Glissando_for_the_first_time_in_forever_Control_Group_0002_matches.csv",
+      "transcript": "w a\u026a h \u00e6 v \u0250 b o\u028a \u0279 u\u02d0 w \u026a z n o\u028a b \u0251\u02d0 z f a\u026a n \u0259 n d i \u00f0 \u025c\u02d0 \u0279 o\u028a p \u0259 n n \u00e6 p \u00f0 \u025a \u0261 e\u026a t s",
+      "metrics": {
+        "predicted_count": 41,
+        "reference_count": 47,
+        "aligned_count": 41,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 0.510337313432836,
+        "end_mae_sec": 0.42544892610120133,
+        "boundary_mae_sec": 0.4678931197670186
+      }
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0002.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0002.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0002.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0002_matches.csv",
+      "transcript": "\u0279 a\u026a t h i\u02d0 n \u0251\u02d0 t s o\u028a f \u0251\u02d0\u0279 f \u0279 \u028c m j u\u02d0 s \u028c m t m z a\u026a f i.5 h \u00e6 p i s \u028c m t a\u026a m z \u0250 f u\u02d0 b u\u02d0 i\u02d0 m a\u026a d \u0279 i\u02d0 m s \u0254\u02d0 \u00e6 w \u026a \u0283 a\u026a k \u0289",
+      "metrics": {
+        "predicted_count": 59,
+        "reference_count": 72,
+        "aligned_count": 59,
+        "phoneme_sequence_exact_rate": 0.01694915254237288,
+        "start_mae_sec": 1.2927182419577987,
+        "end_mae_sec": 1.1049982946568446,
+        "boundary_mae_sec": 1.1988582683073217
+      }
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0002.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0002.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Pharyngeal_beauty_and_the_beast_Control_Group_0002.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Pharyngeal_beauty_and_the_beast_Control_Group_0002_matches.csv",
+      "transcript": "\u00f0 \u025b n s \u028c m b \u028c d i b \u00e6 n z \u028c n \u025b k s p \u025b k t \u1d7b d l i h i",
+      "metrics": {
+        "predicted_count": 29,
+        "reference_count": 30,
+        "aligned_count": 29,
+        "phoneme_sequence_exact_rate": 0.2413793103448276,
+        "start_mae_sec": 0.21836621736097286,
+        "end_mae_sec": 0.21260525463424368,
+        "boundary_mae_sec": 0.21548573599760829
+      }
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0002",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0002.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0002.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Vibrato_edelweiss_Control_Group_0002.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Vibrato_edelweiss_Control_Group_0002_matches.csv",
+      "transcript": "s m o\u028a h \u025b n d w t k l i n \u00e6 n b \u0279 t",
+      "metrics": {
+        "predicted_count": 18,
+        "reference_count": 22,
+        "aligned_count": 18,
+        "phoneme_sequence_exact_rate": 0.2777777777777778,
+        "start_mae_sec": 0.5318183990442058,
+        "end_mae_sec": 0.3970062724014338,
+        "boundary_mae_sec": 0.4644123357228198
+      }
+    },
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0003.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0003.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Breathy_all_is_found_Control_Group_0003.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Breathy_all_is_found_Control_Group_0003_matches.csv",
+      "transcript": "\u026a n h \u028c w z d e\u026a p \u00e6 n t \u0279 u\u02d0",
+      "metrics": {
+        "predicted_count": 14,
+        "reference_count": 21,
+        "aligned_count": 14,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 0.9223657142857143,
+        "end_mae_sec": 0.6537967032967035,
+        "boundary_mae_sec": 0.7880812087912089
+      }
+    },
+    {
+      "recording_id": "Glissando_for_the_first_time_in_forever_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0003.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0003.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Glissando_for_the_first_time_in_forever_Control_Group_0003.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Glissando_for_the_first_time_in_forever_Control_Group_0003_matches.csv",
+      "transcript": "\u00f0 \u00e6 b i \u00e6 k t \u025a \u0279 i l a\u026a f p i\u02d0 p \u0259l \u026a t w \u026a l b i t o\u028a \u027e \u0259l l i s t \u0279 e\u026a n d\u0292 w \u00e6 l n a\u026a m a\u026a s \u0254\u02d0 \u0279 \u025b d i f \u0254\u02d0\u0279 d e\u026a z t\u0283 e\u026a n d\u0292",
+      "metrics": {
+        "predicted_count": 58,
+        "reference_count": 67,
+        "aligned_count": 58,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 1.01553365846957,
+        "end_mae_sec": 0.9192872303887899,
+        "boundary_mae_sec": 0.9674104444291803
+      }
+    },
+    {
+      "recording_id": "Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0003.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Mixed_Voice_and_Falsetto/Arriety's song/Control_Group/0003.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0003.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Mixed_Voice_and_Falsetto_Arriety_s_song_Control_Group_0003_matches.csv",
+      "transcript": "f u\u02d0 m a\u026a h e\u026a \u0279 b l o\u028a \u026a n \u00f0 \u0259 w \u026a \u014b n d s i\u02d0 \u00f0 \u0259 s k a\u026a \u026a n \u00f0 \u0259 s \u028c m \u025a \u0279 e\u026a \u014b p \u026a k f l a\u028a \u025a f \u0279 \u028c m \u00f0 \u0259 \u0261 \u0251\u02d0\u0279 d \u0259 n f \u0254\u02d0\u0279 j u\u02d0",
+      "metrics": {
+        "predicted_count": 59,
+        "reference_count": 66,
+        "aligned_count": 59,
+        "phoneme_sequence_exact_rate": 0.03389830508474576,
+        "start_mae_sec": 0.4894322647998036,
+        "end_mae_sec": 0.3744556619995088,
+        "boundary_mae_sec": 0.4319439633996562
+      }
+    },
+    {
+      "recording_id": "Pharyngeal_beauty_and_the_beast_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0003.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0003.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Pharyngeal_beauty_and_the_beast_Control_Group_0003.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Pharyngeal_beauty_and_the_beast_Control_Group_0003_matches.csv",
+      "transcript": "d\u0292 \u028c s t \u0259 l \u026a r o\u028a t\u0283 e\u026a d\u0292 s m \u0251\u02d0 l t \u0259 s e\u026a d \u0259 l i\u02d0 h i\u02d0 s t",
+      "metrics": {
+        "predicted_count": 28,
+        "reference_count": 31,
+        "aligned_count": 28,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 0.8568206704851745,
+        "end_mae_sec": 0.5935371462264144,
+        "boundary_mae_sec": 0.7251789083557946
+      }
+    },
+    {
+      "recording_id": "Vibrato_edelweiss_Control_Group_0003",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0003.wav",
+      "textgrid_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0003.TextGrid",
+      "prediction_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/predictions/Vibrato_edelweiss_Control_Group_0003.json",
+      "matches_path": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/matches/Vibrato_edelweiss_Control_Group_0003_matches.csv",
+      "transcript": "j l \u0289 k \u00e6 p e\u026a ts m i h i m i h i",
+      "metrics": {
+        "predicted_count": 16,
+        "reference_count": 17,
+        "aligned_count": 16,
+        "phoneme_sequence_exact_rate": 0.0,
+        "start_mae_sec": 0.6244111926020408,
+        "end_mae_sec": 0.37030915178571433,
+        "boundary_mae_sec": 0.4973601721938775
+      }
+    }
+  ],
+  "notes": [
+    "Boundaries are rough CTC frame-collapse estimates.",
+    "This is not forced alignment and should be treated as a baseline only.",
+    "Sequence comparison is by index, so insertions/deletions can inflate boundary error."
+  ]
+}

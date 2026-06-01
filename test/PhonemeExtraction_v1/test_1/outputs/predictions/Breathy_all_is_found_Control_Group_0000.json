@@ -1,0 +1,122 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "w \u025b \u00f0 \u0259 n \u0254\u02d0\u0279 \u03b8 w \u026a \u014b d m i\u02d0 t s \u00f0 \u0259 s i\u02d0",
+  "phonemes": [
+    {
+      "phoneme": "w",
+      "start_sec": 2.686595078299776,
+      "end_sec": 2.7066442953020133,
+      "confidence": 0.9811881184577942
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 2.7667919463087247,
+      "end_sec": 2.786841163310962,
+      "confidence": 0.24925383925437927
+    },
+    {
+      "phoneme": "\u00f0",
+      "start_sec": 3.2479731543624157,
+      "end_sec": 3.268022371364653,
+      "confidence": 0.9500458836555481
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 3.2880715883668903,
+      "end_sec": 3.308120805369127,
+      "confidence": 0.9523869156837463
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 3.408366890380313,
+      "end_sec": 3.4284161073825503,
+      "confidence": 0.9980721473693848
+    },
+    {
+      "phoneme": "\u0254\u02d0\u0279",
+      "start_sec": 3.4885637583892617,
+      "end_sec": 3.5086129753914985,
+      "confidence": 0.2337622493505478
+    },
+    {
+      "phoneme": "\u03b8",
+      "start_sec": 3.7492035794183445,
+      "end_sec": 3.7893020134228186,
+      "confidence": 0.7070115208625793
+    },
+    {
+      "phoneme": "w",
+      "start_sec": 3.8694988814317672,
+      "end_sec": 3.889548098434004,
+      "confidence": 0.9709001183509827
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 3.9496957494407154,
+      "end_sec": 3.9697449664429527,
+      "confidence": 0.7024756073951721
+    },
+    {
+      "phoneme": "\u014b",
+      "start_sec": 5.2328456375838925,
+      "end_sec": 5.292993288590604,
+      "confidence": 0.6977347930272421
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 5.413288590604027,
+      "end_sec": 5.4333378076062635,
+      "confidence": 0.9911995530128479
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 5.8142729306487695,
+      "end_sec": 5.834322147651006,
+      "confidence": 0.9972137808799744
+    },
+    {
+      "phoneme": "i\u02d0",
+      "start_sec": 5.874420581655481,
+      "end_sec": 5.894469798657718,
+      "confidence": 0.8186153173446655
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 6.115011185682326,
+      "end_sec": 6.135060402684563,
+      "confidence": 0.9376790523529053
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 6.135060402684563,
+      "end_sec": 6.155109619686801,
+      "confidence": 0.9439112544059753
+    },
+    {
+      "phoneme": "\u00f0",
+      "start_sec": 6.255355704697986,
+      "end_sec": 6.275404921700224,
+      "confidence": 0.9700774550437927
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 6.335552572706935,
+      "end_sec": 6.355601789709172,
+      "confidence": 0.7805284857749939
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 6.937029082774049,
+      "end_sec": 6.957078299776286,
+      "confidence": 0.9951732754707336
+    },
+    {
+      "phoneme": "i\u02d0",
+      "start_sec": 7.177619686800894,
+      "end_sec": 7.197668903803131,
+      "confidence": 0.5133751630783081
+    }
+  ]
+}

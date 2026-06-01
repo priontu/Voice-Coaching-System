@@ -1,0 +1,86 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0000.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "d o\u028a w a\u026a s h \u025b d o\u028a w a\u026a z \u025b",
+  "phonemes": [
+    {
+      "phoneme": "d",
+      "start_sec": 0.6621479289940828,
+      "end_sec": 0.6822130177514792,
+      "confidence": 0.8904186487197876
+    },
+    {
+      "phoneme": "o\u028a",
+      "start_sec": 0.7424082840236687,
+      "end_sec": 0.7624733727810651,
+      "confidence": 0.46137282252311707
+    },
+    {
+      "phoneme": "w",
+      "start_sec": 1.2841656804733728,
+      "end_sec": 1.3042307692307693,
+      "confidence": 0.8935315012931824
+    },
+    {
+      "phoneme": "a\u026a",
+      "start_sec": 1.4045562130177514,
+      "end_sec": 1.424621301775148,
+      "confidence": 0.13541120290756226
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 2.48807100591716,
+      "end_sec": 2.508136094674556,
+      "confidence": 0.5793724656105042
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 3.0498934911242603,
+      "end_sec": 3.0900236686390534,
+      "confidence": 0.9547019302845001
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 3.170284023668639,
+      "end_sec": 3.1903491124260355,
+      "confidence": 0.3832569718360901
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 4.2738639053254435,
+      "end_sec": 4.29392899408284,
+      "confidence": 0.24608741700649261
+    },
+    {
+      "phoneme": "o\u028a",
+      "start_sec": 4.414319526627219,
+      "end_sec": 4.434384615384615,
+      "confidence": 0.38788512349128723
+    },
+    {
+      "phoneme": "w",
+      "start_sec": 4.835686390532544,
+      "end_sec": 4.8758165680473375,
+      "confidence": 0.7273560762405396
+    },
+    {
+      "phoneme": "a\u026a",
+      "start_sec": 4.97614201183432,
+      "end_sec": 4.9962071005917155,
+      "confidence": 0.4895414412021637
+    },
+    {
+      "phoneme": "z",
+      "start_sec": 5.939266272189349,
+      "end_sec": 5.959331360946745,
+      "confidence": 0.8070493340492249
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 6.6415443786982244,
+      "end_sec": 6.661609467455621,
+      "confidence": 0.3157949447631836
+    }
+  ]
+}
