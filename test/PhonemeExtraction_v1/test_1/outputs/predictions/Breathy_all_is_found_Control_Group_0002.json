@@ -1,0 +1,152 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0002.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "f \u0254\u02d0\u0279 \u0279 \u026a n \u00f0 \u0259 h \u026a s \u0279 \u026a v \u025a \u0254\u02d0 l \u00f0 \u1d7b h \u026a z f \u025b n",
+  "phonemes": [
+    {
+      "phoneme": "f",
+      "start_sec": 0.06010803324099723,
+      "end_sec": 0.08014404432132964,
+      "confidence": 0.9883944988250732
+    },
+    {
+      "phoneme": "\u0254\u02d0\u0279",
+      "start_sec": 0.14025207756232688,
+      "end_sec": 0.16028808864265928,
+      "confidence": 0.22464591264724731
+    },
+    {
+      "phoneme": "\u0279",
+      "start_sec": 0.30054016620498614,
+      "end_sec": 0.340612188365651,
+      "confidence": 0.6525448858737946
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 0.4007202216066482,
+      "end_sec": 0.4207562326869806,
+      "confidence": 0.9680795669555664
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 0.5610083102493075,
+      "end_sec": 0.6010803324099723,
+      "confidence": 0.9484019875526428
+    },
+    {
+      "phoneme": "\u00f0",
+      "start_sec": 0.6211163434903048,
+      "end_sec": 0.6411523545706371,
+      "confidence": 0.6808288097381592
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 0.6611883656509695,
+      "end_sec": 0.681224376731302,
+      "confidence": 0.8666208982467651
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 0.7413324099722992,
+      "end_sec": 0.781404432132964,
+      "confidence": 0.7477546334266663
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 0.8014404432132964,
+      "end_sec": 0.8214764542936288,
+      "confidence": 0.9271730184555054
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 0.9416925207756233,
+      "end_sec": 0.9617285318559556,
+      "confidence": 0.890279233455658
+    },
+    {
+      "phoneme": "\u0279",
+      "start_sec": 1.0418725761772853,
+      "end_sec": 1.0619085872576177,
+      "confidence": 0.9575954675674438
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 1.08194459833795,
+      "end_sec": 1.1019806094182825,
+      "confidence": 0.8734645843505859
+    },
+    {
+      "phoneme": "v",
+      "start_sec": 1.2422326869806095,
+      "end_sec": 1.2622686980609419,
+      "confidence": 0.9916085600852966
+    },
+    {
+      "phoneme": "\u025a",
+      "start_sec": 1.322376731301939,
+      "end_sec": 1.3424127423822716,
+      "confidence": 0.8394781351089478
+    },
+    {
+      "phoneme": "\u0254\u02d0",
+      "start_sec": 1.903421052631579,
+      "end_sec": 1.9234570637119113,
+      "confidence": 0.32838475704193115
+    },
+    {
+      "phoneme": "l",
+      "start_sec": 2.1238171745152354,
+      "end_sec": 2.1638891966759,
+      "confidence": 0.6284895837306976
+    },
+    {
+      "phoneme": "\u00f0",
+      "start_sec": 2.24403324099723,
+      "end_sec": 2.2640692520775625,
+      "confidence": 0.8653318881988525
+    },
+    {
+      "phoneme": "\u1d7b",
+      "start_sec": 2.3041412742382272,
+      "end_sec": 2.3241772853185596,
+      "confidence": 0.23766492307186127
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 2.444393351800554,
+      "end_sec": 2.4644293628808867,
+      "confidence": 0.3200216293334961
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 2.5245373961218838,
+      "end_sec": 2.544573407202216,
+      "confidence": 0.9137141108512878
+    },
+    {
+      "phoneme": "z",
+      "start_sec": 2.8651495844875345,
+      "end_sec": 2.885185595567867,
+      "confidence": 0.9260729551315308
+    },
+    {
+      "phoneme": "f",
+      "start_sec": 3.025437673130194,
+      "end_sec": 3.0454736842105263,
+      "confidence": 0.9575838446617126
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 3.1055817174515234,
+      "end_sec": 3.125617728531856,
+      "confidence": 0.5326529741287231
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 6.231199445983379,
+      "end_sec": 6.251235457063712,
+      "confidence": 0.7931321263313293
+    }
+  ]
+}

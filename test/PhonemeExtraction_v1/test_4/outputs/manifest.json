@@ -1,0 +1,11 @@
+{
+  "summary_json": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_1/outputs/summary.json",
+  "max_plot_sec": 20.0,
+  "plots": [
+    "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_4/outputs/plots/Arrietys_song.png",
+    "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_4/outputs/plots/all_is_found.png",
+    "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_4/outputs/plots/beauty_and_the_beast.png",
+    "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_4/outputs/plots/edelweiss.png",
+    "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/test/PhonemeExtraction_v1/test_4/outputs/plots/for_the_first_time_in_forever.png"
+  ]
+}

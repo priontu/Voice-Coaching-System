@@ -1,0 +1,176 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0003.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "d\u0292 \u028c s t \u0259 l \u026a r o\u028a t\u0283 e\u026a d\u0292 s m \u0251\u02d0 l t \u0259 s e\u026a d \u0259 l i\u02d0 h i\u02d0 s t",
+  "phonemes": [
+    {
+      "phoneme": "d\u0292",
+      "start_sec": 0.8815566037735848,
+      "end_sec": 0.9015919811320754,
+      "confidence": 0.9493832588195801
+    },
+    {
+      "phoneme": "\u028c",
+      "start_sec": 0.9817334905660376,
+      "end_sec": 1.0017688679245282,
+      "confidence": 0.7700656652450562
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 1.1620518867924527,
+      "end_sec": 1.1820872641509432,
+      "confidence": 0.9936559200286865
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 1.282264150943396,
+      "end_sec": 1.3022995283018866,
+      "confidence": 0.8378652334213257
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 1.3624056603773584,
+      "end_sec": 1.382441037735849,
+      "confidence": 0.5140668749809265
+    },
+    {
+      "phoneme": "l",
+      "start_sec": 1.562759433962264,
+      "end_sec": 1.5827948113207546,
+      "confidence": 0.9859334826469421
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 1.6228655660377356,
+      "end_sec": 1.6429009433962263,
+      "confidence": 0.8891724944114685
+    },
+    {
+      "phoneme": "r",
+      "start_sec": 1.8232193396226413,
+      "end_sec": 1.8432547169811317,
+      "confidence": 0.7117050886154175
+    },
+    {
+      "phoneme": "o\u028a",
+      "start_sec": 1.883325471698113,
+      "end_sec": 1.9033608490566036,
+      "confidence": 0.5563182830810547
+    },
+    {
+      "phoneme": "t\u0283",
+      "start_sec": 2.203891509433962,
+      "end_sec": 2.2239268867924524,
+      "confidence": 0.8331698179244995
+    },
+    {
+      "phoneme": "e\u026a",
+      "start_sec": 2.4042452830188674,
+      "end_sec": 2.424280660377358,
+      "confidence": 0.8529302477836609
+    },
+    {
+      "phoneme": "d\u0292",
+      "start_sec": 3.8467924528301882,
+      "end_sec": 3.866827830188679,
+      "confidence": 0.40670260787010193
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 5.830294811320754,
+      "end_sec": 5.850330188679244,
+      "confidence": 0.9900450110435486
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 5.990577830188679,
+      "end_sec": 6.010613207547169,
+      "confidence": 0.9973155856132507
+    },
+    {
+      "phoneme": "\u0251\u02d0",
+      "start_sec": 6.070719339622641,
+      "end_sec": 6.090754716981131,
+      "confidence": 0.25628113746643066
+    },
+    {
+      "phoneme": "l",
+      "start_sec": 6.190931603773584,
+      "end_sec": 6.231002358490565,
+      "confidence": 0.6674574911594391
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 6.311143867924527,
+      "end_sec": 6.3311792452830185,
+      "confidence": 0.9815101623535156
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 6.39128537735849,
+      "end_sec": 6.41132075471698,
+      "confidence": 0.698846697807312
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 6.531533018867924,
+      "end_sec": 6.571603773584905,
+      "confidence": 0.9470756649971008
+    },
+    {
+      "phoneme": "e\u026a",
+      "start_sec": 6.711851415094339,
+      "end_sec": 6.73188679245283,
+      "confidence": 0.6886250376701355
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 7.012382075471697,
+      "end_sec": 7.032417452830188,
+      "confidence": 0.8852261900901794
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 7.052452830188678,
+      "end_sec": 7.072488207547169,
+      "confidence": 0.4651050567626953
+    },
+    {
+      "phoneme": "l",
+      "start_sec": 7.272841981132075,
+      "end_sec": 7.292877358490565,
+      "confidence": 0.9879863858222961
+    },
+    {
+      "phoneme": "i\u02d0",
+      "start_sec": 7.3329481132075465,
+      "end_sec": 7.352983490566037,
+      "confidence": 0.49797818064689636
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 7.45316037735849,
+      "end_sec": 7.47319575471698,
+      "confidence": 0.7086812853813171
+    },
+    {
+      "phoneme": "i\u02d0",
+      "start_sec": 7.5132665094339615,
+      "end_sec": 7.533301886792452,
+      "confidence": 0.5317366719245911
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 8.014150943396226,
+      "end_sec": 8.034186320754715,
+      "confidence": 0.7381811141967773
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 8.114327830188678,
+      "end_sec": 8.13436320754717,
+      "confidence": 0.9647379517555237
+    }
+  ]
+}

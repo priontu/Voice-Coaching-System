@@ -1,0 +1,1 @@
+language Chinese<asr_text>And so life goes on day after day with<|file_sep|>SP <P_0> <NOTE_16> AP <P_0> <NOTE_4> And <P_60> <NOTE_4> so <P_68> <NOTE_4> life <P_68> <NOTE_4> goes <P_68> <NOTE_4> on <P_66> <NOTE_2> day <P_66> <NOTE_4> after <P_67> <NOTE_DOT_8> day <P_66> <NOTE_8> <P_64> <NOTE_2> AP <P_0> <NOTE_DOT_4> with <P_61> <NOTE_DOT_4> AP <P_0> <NOTE_4> <BPM_130><|im_end|>

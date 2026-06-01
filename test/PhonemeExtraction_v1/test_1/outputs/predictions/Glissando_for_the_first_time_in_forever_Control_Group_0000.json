@@ -1,0 +1,230 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Glissando/for the first time in forever/Control_Group/0000.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "\u00f0 \u0259 w \u026a n d o\u028a z a\u028a p \u0259 n s s t \u00e6 d o\u02d0\u0279 a\u026a d \u026a d \u0259 n \u0254 d \u025b t e\u026a d d \u00e6 \u025b n i\u02d0 m o\u02d0",
+  "phonemes": [
+    {
+      "phoneme": "\u00f0",
+      "start_sec": 3.405525,
+      "end_sec": 3.4255574999999996,
+      "confidence": 0.9629750847816467
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 3.4255574999999996,
+      "end_sec": 3.4455899999999997,
+      "confidence": 0.9229151010513306
+    },
+    {
+      "phoneme": "w",
+      "start_sec": 3.5056874999999996,
+      "end_sec": 3.5257199999999997,
+      "confidence": 0.9717466831207275
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 3.5457525,
+      "end_sec": 3.5657849999999995,
+      "confidence": 0.604445219039917
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 3.6459149999999996,
+      "end_sec": 3.6659474999999997,
+      "confidence": 0.9508453607559204
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 3.68598,
+      "end_sec": 3.7060124999999995,
+      "confidence": 0.9561046361923218
+    },
+    {
+      "phoneme": "o\u028a",
+      "start_sec": 3.7260449999999996,
+      "end_sec": 3.7460774999999997,
+      "confidence": 0.45199477672576904
+    },
+    {
+      "phoneme": "z",
+      "start_sec": 3.8662724999999996,
+      "end_sec": 3.8863049999999997,
+      "confidence": 0.6098852157592773
+    },
+    {
+      "phoneme": "a\u028a",
+      "start_sec": 3.9864675,
+      "end_sec": 4.0065,
+      "confidence": 0.4535401165485382
+    },
+    {
+      "phoneme": "p",
+      "start_sec": 4.2268574999999995,
+      "end_sec": 4.24689,
+      "confidence": 0.9077704548835754
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 4.286955,
+      "end_sec": 4.3069875,
+      "confidence": 0.9451678991317749
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 4.40715,
+      "end_sec": 4.4271825,
+      "confidence": 0.9970322847366333
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 4.507312499999999,
+      "end_sec": 4.5273449999999995,
+      "confidence": 0.9858714938163757
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 4.787767499999999,
+      "end_sec": 4.807799999999999,
+      "confidence": 0.8926632404327393
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 4.847865,
+      "end_sec": 4.8678975,
+      "confidence": 0.8331608772277832
+    },
+    {
+      "phoneme": "\u00e6",
+      "start_sec": 4.9079625,
+      "end_sec": 4.927994999999999,
+      "confidence": 0.7056212425231934
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 5.168385,
+      "end_sec": 5.1884175,
+      "confidence": 0.538061797618866
+    },
+    {
+      "phoneme": "o\u02d0\u0279",
+      "start_sec": 5.248514999999999,
+      "end_sec": 5.2685474999999995,
+      "confidence": 0.20126590132713318
+    },
+    {
+      "phoneme": "a\u026a",
+      "start_sec": 5.6091,
+      "end_sec": 5.6291325,
+      "confidence": 0.8702690601348877
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 5.7493275,
+      "end_sec": 5.76936,
+      "confidence": 0.3826225996017456
+    },
+    {
+      "phoneme": "\u026a",
+      "start_sec": 5.809424999999999,
+      "end_sec": 5.829457499999999,
+      "confidence": 0.6867087483406067
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 5.889555,
+      "end_sec": 5.9095875,
+      "confidence": 0.6128604412078857
+    },
+    {
+      "phoneme": "\u0259",
+      "start_sec": 5.92962,
+      "end_sec": 5.949652499999999,
+      "confidence": 0.8731354475021362
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 6.0097499999999995,
+      "end_sec": 6.0297825,
+      "confidence": 0.9946253895759583
+    },
+    {
+      "phoneme": "\u0254",
+      "start_sec": 6.0698475,
+      "end_sec": 6.089879999999999,
+      "confidence": 0.2461472600698471
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 6.1900425,
+      "end_sec": 6.210075,
+      "confidence": 0.8519430756568909
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 6.230107499999999,
+      "end_sec": 6.250139999999999,
+      "confidence": 0.39789390563964844
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 6.33027,
+      "end_sec": 6.3503025,
+      "confidence": 0.5108986496925354
+    },
+    {
+      "phoneme": "e\u026a",
+      "start_sec": 6.390367499999999,
+      "end_sec": 6.410399999999999,
+      "confidence": 0.3061586320400238
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 6.530594999999999,
+      "end_sec": 6.550627499999999,
+      "confidence": 0.47933632135391235
+    },
+    {
+      "phoneme": "d",
+      "start_sec": 6.6107249999999995,
+      "end_sec": 6.6307575,
+      "confidence": 0.8480251431465149
+    },
+    {
+      "phoneme": "\u00e6",
+      "start_sec": 6.670822499999999,
+      "end_sec": 6.690854999999999,
+      "confidence": 0.509942352771759
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 6.9512775,
+      "end_sec": 6.971309999999999,
+      "confidence": 0.6535561084747314
+    },
+    {
+      "phoneme": "n",
+      "start_sec": 7.2317325,
+      "end_sec": 7.251765,
+      "confidence": 0.9942890405654907
+    },
+    {
+      "phoneme": "i\u02d0",
+      "start_sec": 7.271797499999999,
+      "end_sec": 7.291829999999999,
+      "confidence": 0.3928884267807007
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 7.53222,
+      "end_sec": 7.552252499999999,
+      "confidence": 0.9980350136756897
+    },
+    {
+      "phoneme": "o\u02d0",
+      "start_sec": 7.592317499999999,
+      "end_sec": 7.612349999999999,
+      "confidence": 0.13362029194831848
+    }
+  ]
+}

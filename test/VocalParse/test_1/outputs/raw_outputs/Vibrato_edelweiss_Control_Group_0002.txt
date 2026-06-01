@@ -1,0 +1,1 @@
+language Chinese<asr_text>small and white clean and bright<|file_sep|>SP <P_0> <NOTE_DOT_32> small <P_56> <NOTE_2> and <P_60> <NOTE_4> white <P_66> <NOTE_DOT_2> AP <P_0> <NOTE_DOT_8> clean <P_64> <NOTE_DOT_4> and <P_60> <NOTE_4> bright <P_57> <NOTE_2> AP <P_0> <NOTE_DOT_8> <BPM_109><|im_end|>

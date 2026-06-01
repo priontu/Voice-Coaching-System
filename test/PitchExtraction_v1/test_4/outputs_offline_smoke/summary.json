@@ -1,0 +1,52 @@
+{
+  "dataset_root": "/mnt/archive/GTSinger/English/EN-Alto-1",
+  "weights": "/mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/PitchExtraction_v1/weights.pth",
+  "device": "cpu",
+  "decoder": "offline",
+  "group": "Control_Group",
+  "align_mode": "raw",
+  "num_recordings": 1,
+  "manifest_path": "test/PitchExtraction_v1/test_4/outputs_offline_smoke/manifest.json",
+  "frame_seconds": 0.010666666666666666,
+  "settings": {
+    "max_lag_sec": 2.0,
+    "local_window_sec": 8.0,
+    "local_hop_sec": 4.0,
+    "max_warp_sec": 2.0,
+    "max_dtw_frames": 2500
+  },
+  "recordings": [
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+      "frames": 841,
+      "nanopitch_native_frames": 897,
+      "metrics": {
+        "raw": {
+          "comparison_frames": 445,
+          "pitch_acc_50": 0.0853932574391365,
+          "mace_cents": 127.2616958618164,
+          "pitch_rmse_cents": 146.77320861816406
+        }
+      },
+      "contour_csv": "test/PitchExtraction_v1/test_4/outputs_offline_smoke/contours/Breathy_all_is_found_Control_Group_0000_alignment.csv",
+      "plot_png": null
+    }
+  ],
+  "aggregate": {
+    "num_recordings": 1,
+    "raw": {
+      "mean_pitch_acc_50": 0.0853932574391365,
+      "mean_mace_cents": 127.2616958618164,
+      "mean_pitch_rmse_cents": 146.77320861816406,
+      "total_comparison_frames": 445
+    }
+  },
+  "notes": [
+    "raw compares NanoPitch and the runtime reference labels at the same feature frame.",
+    "For GTSinger, runtime reference labels prefer the audio-aligned JSON notes when present.",
+    "global_lag shifts the reference contour by one estimated lag.",
+    "local_lag estimates a lag per overlapping window; use it as a timing diagnostic, not a final score.",
+    "dtw allows local warping; it can reveal pitch agreement hidden by alignment errors, but it can overstate real onset timing quality."
+  ]
+}

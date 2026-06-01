@@ -1,0 +1,1 @@
+language Chinese<asr_text>But not too far or you'll be drowned<|file_sep|>But <P_61> <NOTE_16> not <P_60> <NOTE_8> too <P_62> <NOTE_DOT_8> far <P_60> <NOTE_DOT_8> AP <P_0> <NOTE_8> or <P_54> <NOTE_DOT_16> you'll <P_55> <NOTE_8> be <P_56> <NOTE_8> <P_57> <NOTE_DOT_8> drowned <P_57> <NOTE_1> <P_56> <NOTE_DOT_2> SP <P_0> <NOTE_DOT_8> <BPM_120><|im_end|>

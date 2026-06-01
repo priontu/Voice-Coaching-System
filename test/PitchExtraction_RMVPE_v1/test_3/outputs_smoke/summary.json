@@ -1,0 +1,247 @@
+{
+  "dataset_root": "/mnt/archive/GTSinger/English/EN-Alto-1",
+  "model_path": null,
+  "device": "cpu",
+  "providers": null,
+  "group": "Control_Group",
+  "selection": "round_robin",
+  "num_recordings": 1,
+  "manifest_path": "test/PitchExtraction_RMVPE_v1/test_3/outputs_smoke/manifest.json",
+  "settings": {
+    "thresholds": [
+      0.4,
+      0.45,
+      0.5,
+      0.55
+    ],
+    "stable_trim_sec": 0.08,
+    "min_note_voiced_ratio": 0.5
+  },
+  "aggregate_frame_metrics": {
+    "conf_0p4": {
+      "comparison_frames": 507,
+      "pitch_acc_50": 0.7712031602859497,
+      "pitch_acc_100": 0.9605522751808167,
+      "mace_cents": 39.372135162353516,
+      "median_abs_cents": 31.856801986694336,
+      "pitch_rmse_cents": 57.6091194152832
+    },
+    "conf_0p45": {
+      "comparison_frames": 507,
+      "pitch_acc_50": 0.7712031602859497,
+      "pitch_acc_100": 0.9605522751808167,
+      "mace_cents": 39.372135162353516,
+      "median_abs_cents": 31.856801986694336,
+      "pitch_rmse_cents": 57.6091194152832
+    },
+    "conf_0p5": {
+      "comparison_frames": 505,
+      "pitch_acc_50": 0.7742574214935303,
+      "pitch_acc_100": 0.9623762369155884,
+      "mace_cents": 39.13528823852539,
+      "median_abs_cents": 31.789836883544922,
+      "pitch_rmse_cents": 57.340576171875
+    },
+    "conf_0p55": {
+      "comparison_frames": 504,
+      "pitch_acc_50": 0.773809552192688,
+      "pitch_acc_100": 0.9623016119003296,
+      "mace_cents": 39.14507293701172,
+      "median_abs_cents": 31.362245559692383,
+      "pitch_rmse_cents": 57.37720489501953
+    }
+  },
+  "aggregate_stable_frame_metrics": {
+    "conf_0p4": {
+      "comparison_frames": 452,
+      "pitch_acc_50": 0.7986725568771362,
+      "pitch_acc_100": 0.982300877571106,
+      "mace_cents": 34.84038543701172,
+      "median_abs_cents": 30.375545501708984,
+      "pitch_rmse_cents": 41.687049865722656
+    },
+    "conf_0p45": {
+      "comparison_frames": 452,
+      "pitch_acc_50": 0.7986725568771362,
+      "pitch_acc_100": 0.982300877571106,
+      "mace_cents": 34.84038543701172,
+      "median_abs_cents": 30.375545501708984,
+      "pitch_rmse_cents": 41.687049865722656
+    },
+    "conf_0p5": {
+      "comparison_frames": 452,
+      "pitch_acc_50": 0.7986725568771362,
+      "pitch_acc_100": 0.982300877571106,
+      "mace_cents": 34.84038543701172,
+      "median_abs_cents": 30.375545501708984,
+      "pitch_rmse_cents": 41.687049865722656
+    },
+    "conf_0p55": {
+      "comparison_frames": 452,
+      "pitch_acc_50": 0.7986725568771362,
+      "pitch_acc_100": 0.982300877571106,
+      "mace_cents": 34.84038543701172,
+      "median_abs_cents": 30.375545501708984,
+      "pitch_rmse_cents": 41.687049865722656
+    }
+  },
+  "aggregate_note_median_metrics": {
+    "conf_0p4": {
+      "comparison_frames": 7,
+      "pitch_acc_50": 0.8571428656578064,
+      "pitch_acc_100": 1.0,
+      "mace_cents": 31.40130043029785,
+      "median_abs_cents": 26.323728561401367,
+      "pitch_rmse_cents": 35.7822380065918
+    },
+    "conf_0p45": {
+      "comparison_frames": 7,
+      "pitch_acc_50": 0.8571428656578064,
+      "pitch_acc_100": 1.0,
+      "mace_cents": 31.40130043029785,
+      "median_abs_cents": 26.323728561401367,
+      "pitch_rmse_cents": 35.7822380065918
+    },
+    "conf_0p5": {
+      "comparison_frames": 7,
+      "pitch_acc_50": 0.8571428656578064,
+      "pitch_acc_100": 1.0,
+      "mace_cents": 31.40130043029785,
+      "median_abs_cents": 26.323728561401367,
+      "pitch_rmse_cents": 35.7822380065918
+    },
+    "conf_0p55": {
+      "comparison_frames": 7,
+      "pitch_acc_50": 0.8571428656578064,
+      "pitch_acc_100": 1.0,
+      "mace_cents": 31.40130043029785,
+      "median_abs_cents": 26.323728561401367,
+      "pitch_rmse_cents": 35.7822380065918
+    }
+  },
+  "recordings": [
+    {
+      "recording_id": "Breathy_all_is_found_Control_Group_0000",
+      "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Breathy/all is found/Control_Group/0000.wav",
+      "rmvpe_frames": 897,
+      "reference_voiced_frames": 574,
+      "stable_reference_voiced_frames": 470,
+      "num_reference_notes": 7,
+      "thresholds": {
+        "conf_0p4": {
+          "frame": {
+            "comparison_frames": 507,
+            "pitch_acc_50": 0.7712031602859497,
+            "pitch_acc_100": 0.9605522751808167,
+            "mace_cents": 39.372135162353516,
+            "median_abs_cents": 31.856801986694336,
+            "pitch_rmse_cents": 57.6091194152832
+          },
+          "stable_frame": {
+            "comparison_frames": 452,
+            "pitch_acc_50": 0.7986725568771362,
+            "pitch_acc_100": 0.982300877571106,
+            "mace_cents": 34.84038543701172,
+            "median_abs_cents": 30.375545501708984,
+            "pitch_rmse_cents": 41.687049865722656
+          },
+          "note_median": {
+            "comparison_frames": 7,
+            "pitch_acc_50": 0.8571428656578064,
+            "pitch_acc_100": 1.0,
+            "mace_cents": 31.40130043029785,
+            "median_abs_cents": 26.323728561401367,
+            "pitch_rmse_cents": 35.7822380065918
+          },
+          "note_events": 7
+        },
+        "conf_0p45": {
+          "frame": {
+            "comparison_frames": 507,
+            "pitch_acc_50": 0.7712031602859497,
+            "pitch_acc_100": 0.9605522751808167,
+            "mace_cents": 39.372135162353516,
+            "median_abs_cents": 31.856801986694336,
+            "pitch_rmse_cents": 57.6091194152832
+          },
+          "stable_frame": {
+            "comparison_frames": 452,
+            "pitch_acc_50": 0.7986725568771362,
+            "pitch_acc_100": 0.982300877571106,
+            "mace_cents": 34.84038543701172,
+            "median_abs_cents": 30.375545501708984,
+            "pitch_rmse_cents": 41.687049865722656
+          },
+          "note_median": {
+            "comparison_frames": 7,
+            "pitch_acc_50": 0.8571428656578064,
+            "pitch_acc_100": 1.0,
+            "mace_cents": 31.40130043029785,
+            "median_abs_cents": 26.323728561401367,
+            "pitch_rmse_cents": 35.7822380065918
+          },
+          "note_events": 7
+        },
+        "conf_0p5": {
+          "frame": {
+            "comparison_frames": 505,
+            "pitch_acc_50": 0.7742574214935303,
+            "pitch_acc_100": 0.9623762369155884,
+            "mace_cents": 39.13528823852539,
+            "median_abs_cents": 31.789836883544922,
+            "pitch_rmse_cents": 57.340576171875
+          },
+          "stable_frame": {
+            "comparison_frames": 452,
+            "pitch_acc_50": 0.7986725568771362,
+            "pitch_acc_100": 0.982300877571106,
+            "mace_cents": 34.84038543701172,
+            "median_abs_cents": 30.375545501708984,
+            "pitch_rmse_cents": 41.687049865722656
+          },
+          "note_median": {
+            "comparison_frames": 7,
+            "pitch_acc_50": 0.8571428656578064,
+            "pitch_acc_100": 1.0,
+            "mace_cents": 31.40130043029785,
+            "median_abs_cents": 26.323728561401367,
+            "pitch_rmse_cents": 35.7822380065918
+          },
+          "note_events": 7
+        },
+        "conf_0p55": {
+          "frame": {
+            "comparison_frames": 504,
+            "pitch_acc_50": 0.773809552192688,
+            "pitch_acc_100": 0.9623016119003296,
+            "mace_cents": 39.14507293701172,
+            "median_abs_cents": 31.362245559692383,
+            "pitch_rmse_cents": 57.37720489501953
+          },
+          "stable_frame": {
+            "comparison_frames": 452,
+            "pitch_acc_50": 0.7986725568771362,
+            "pitch_acc_100": 0.982300877571106,
+            "mace_cents": 34.84038543701172,
+            "median_abs_cents": 30.375545501708984,
+            "pitch_rmse_cents": 41.687049865722656
+          },
+          "note_median": {
+            "comparison_frames": 7,
+            "pitch_acc_50": 0.8571428656578064,
+            "pitch_acc_100": 1.0,
+            "mace_cents": 31.40130043029785,
+            "median_abs_cents": 26.323728561401367,
+            "pitch_rmse_cents": 35.7822380065918
+          },
+          "note_events": 7
+        }
+      }
+    }
+  ],
+  "notes": [
+    "This test sweeps four confidence thresholds above the previous best 0.35.",
+    "Recommended coaching score is note-level median F0 on stable note interiors.",
+    "Frame metrics are included only for comparison."
+  ]
+}

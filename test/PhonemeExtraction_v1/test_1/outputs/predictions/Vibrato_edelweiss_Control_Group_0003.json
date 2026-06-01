@@ -1,0 +1,104 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Vibrato/edelweiss/Control_Group/0003.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "j l \u0289 k \u00e6 p e\u026a ts m i h i m i h i",
+  "phonemes": [
+    {
+      "phoneme": "j",
+      "start_sec": 0.040073979591836735,
+      "end_sec": 0.08014795918367347,
+      "confidence": 0.6738928556442261
+    },
+    {
+      "phoneme": "l",
+      "start_sec": 1.202219387755102,
+      "end_sec": 1.2222563775510205,
+      "confidence": 0.9887272119522095
+    },
+    {
+      "phoneme": "\u0289",
+      "start_sec": 1.2823673469387755,
+      "end_sec": 1.3024043367346938,
+      "confidence": 0.18924057483673096
+    },
+    {
+      "phoneme": "k",
+      "start_sec": 1.7031441326530612,
+      "end_sec": 1.7231811224489797,
+      "confidence": 0.9851037859916687
+    },
+    {
+      "phoneme": "\u00e6",
+      "start_sec": 1.8834770408163266,
+      "end_sec": 1.903514030612245,
+      "confidence": 0.6604284048080444
+    },
+    {
+      "phoneme": "p",
+      "start_sec": 2.3643647959183673,
+      "end_sec": 2.3844017857142856,
+      "confidence": 0.9278784990310669
+    },
+    {
+      "phoneme": "e\u026a",
+      "start_sec": 2.5046237244897958,
+      "end_sec": 2.5246607142857145,
+      "confidence": 0.3477742671966553
+    },
+    {
+      "phoneme": "ts",
+      "start_sec": 3.005548469387755,
+      "end_sec": 3.0255854591836733,
+      "confidence": 0.6743158102035522
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 3.746917091836735,
+      "end_sec": 3.7869910714285715,
+      "confidence": 0.9049723148345947
+    },
+    {
+      "phoneme": "i",
+      "start_sec": 3.827065051020408,
+      "end_sec": 3.847102040816327,
+      "confidence": 0.8052391409873962
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 3.967323979591837,
+      "end_sec": 3.987360969387755,
+      "confidence": 0.6661452054977417
+    },
+    {
+      "phoneme": "i",
+      "start_sec": 4.127619897959184,
+      "end_sec": 4.147656887755102,
+      "confidence": 0.5643771290779114
+    },
+    {
+      "phoneme": "m",
+      "start_sec": 5.65043112244898,
+      "end_sec": 5.670468112244898,
+      "confidence": 0.9956932663917542
+    },
+    {
+      "phoneme": "i",
+      "start_sec": 5.690505102040817,
+      "end_sec": 5.710542091836735,
+      "confidence": 0.6822664737701416
+    },
+    {
+      "phoneme": "h",
+      "start_sec": 5.870838010204082,
+      "end_sec": 5.890875,
+      "confidence": 0.8248964548110962
+    },
+    {
+      "phoneme": "i",
+      "start_sec": 5.991059948979592,
+      "end_sec": 6.01109693877551,
+      "confidence": 0.41518306732177734
+    }
+  ]
+}

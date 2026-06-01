@@ -1,0 +1,1 @@
+language Chinese<asr_text>You look happy to me me<|file_sep|>You <P_57> <NOTE_2> look <P_60> <NOTE_4> happy <P_62> <NOTE_DOT_4> to <P_63> <NOTE_DOT_4> me <P_64> <NOTE_8> <P_65> <NOTE_DOT_2> AP <P_0> <NOTE_DOT_8> me <P_63> <NOTE_8> <P_64> <NOTE_2> <BPM_125><|im_end|>

@@ -1,0 +1,74 @@
+{
+  "wav_path": "/mnt/archive/GTSinger/English/EN-Alto-1/Pharyngeal/beauty and the beast/Control_Group/0000.wav",
+  "model_name": "facebook/wav2vec2-lv-60-espeak-cv-ft",
+  "sample_rate": 16000,
+  "transcript": "t \u0251 r \u025b s \u0251 r \u025b s t a\u02d0",
+  "phonemes": [
+    {
+      "phoneme": "t",
+      "start_sec": 7.008634868421053,
+      "end_sec": 7.028659539473685,
+      "confidence": 0.6247175335884094
+    },
+    {
+      "phoneme": "\u0251",
+      "start_sec": 7.208881578947369,
+      "end_sec": 7.2289062500000005,
+      "confidence": 0.5426782369613647
+    },
+    {
+      "phoneme": "r",
+      "start_sec": 7.4692023026315795,
+      "end_sec": 7.489226973684211,
+      "confidence": 0.9607505202293396
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 7.5493009868421055,
+      "end_sec": 7.569325657894737,
+      "confidence": 0.4863146245479584
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 7.789597039473684,
+      "end_sec": 7.809621710526317,
+      "confidence": 0.9675110578536987
+    },
+    {
+      "phoneme": "\u0251",
+      "start_sec": 7.949794407894737,
+      "end_sec": 7.969819078947369,
+      "confidence": 0.776155948638916
+    },
+    {
+      "phoneme": "r",
+      "start_sec": 8.35028782894737,
+      "end_sec": 8.3703125,
+      "confidence": 0.9548625946044922
+    },
+    {
+      "phoneme": "\u025b",
+      "start_sec": 8.430386513157895,
+      "end_sec": 8.450411184210527,
+      "confidence": 0.24899926781654358
+    },
+    {
+      "phoneme": "s",
+      "start_sec": 8.73075657894737,
+      "end_sec": 8.750781250000001,
+      "confidence": 0.9791181087493896
+    },
+    {
+      "phoneme": "t",
+      "start_sec": 8.850904605263159,
+      "end_sec": 8.87092927631579,
+      "confidence": 0.981137752532959
+    },
+    {
+      "phoneme": "a\u02d0",
+      "start_sec": 8.99107730263158,
+      "end_sec": 9.01110197368421,
+      "confidence": 0.3918633759021759
+    }
+  ]
+}
