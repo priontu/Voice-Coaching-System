@@ -13,7 +13,7 @@ pipeline:
 
   # Checkpoint resolution for models that require weights
   checkpoints:
-    onset_offset: "checkpoints/best.pt"   # path to your .pt file
+    onset_offset: "checkpoints/best.ckpt"   # path to your .pt file
     phoneme: null                 # null → downloads from HuggingFace
 
   # Whether to write per-model JSON outputs alongside the unified result
@@ -77,7 +77,7 @@ reference:
   include_rests: true               # include rest notes in reference note list
 
   # Prediction ↔ reference alignment thresholds
-  alignment_tolerance_ms: 200       # max |pred_onset - ref_onset| to form a match
+  alignment_tolerance_ms: 100       # max |pred_onset - ref_onset| to form a match
   min_overlap_s: 0.01               # minimum temporal overlap for note/word matches
   phoneme_min_overlap_s: 0.005      # minimum temporal overlap for phoneme matches
   match_phoneme_label: false        # if true, label mismatch penalises phoneme sorting

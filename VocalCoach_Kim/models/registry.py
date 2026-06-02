@@ -193,14 +193,16 @@ class ModelRegistry:
             return PitchInferenceModel(config=pipeline_cfg)
 
         def _onset_factory(**kwargs):
-            from models.onset_offset.detector import OnsetOffsetInferenceModel
             checkpoint_path = kwargs.get("checkpoint_path") or _resolve_checkpoint()
+            if checkpoint_path and str(checkpoint_path).endswith(".ckpt"):
+                from models.onset_offset.detector import Wav2Vec2OnsetOffsetInferenceModel
+                return Wav2Vec2OnsetOffsetInferenceModel(checkpoint_path=checkpoint_path)
+            from models.onset_offset.detector import OnsetOffsetInferenceModel
             config_path = kwargs.get("config_path", "configs/onset_offset.yaml")
-            inst = OnsetOffsetInferenceModel(
+            return OnsetOffsetInferenceModel(
                 checkpoint_path=checkpoint_path,
                 config_path=config_path,
             )
-            return inst
 
         self.register("phoneme", _phoneme_factory)
         self.register("pitch", _pitch_factory)

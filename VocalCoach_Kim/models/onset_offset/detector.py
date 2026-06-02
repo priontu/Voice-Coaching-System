@@ -263,3 +263,121 @@ class OnsetOffsetInferenceModel(BaseInferenceModel):
         if not self._is_loaded:
             self.load_model()
         return self._detector.detect(str(audio_path))
+
+
+# ---------------------------------------------------------------------------
+# Wav2Vec2-based onset/offset detector (v5)
+# ---------------------------------------------------------------------------
+
+class Wav2Vec2NoteDetector:
+    """
+    Inference wrapper for the Wav2Vec2-based onset/offset model.
+
+    Loads from a PyTorch Lightning .ckpt checkpoint and exposes the same
+    predict_probs_from_array() interface as NoteDetector so the pipeline
+    can use either model without modification.
+    """
+
+    # wav2vec2-base CNN stride product: 5 × 2^6 = 320 samples @ 16 kHz → 50 Hz
+    FRAME_RATE_HZ: float = 50.0
+
+    def __init__(
+        self,
+        model,
+        device: torch.device,
+        onset_threshold: float = 0.3,
+        offset_threshold: float = 0.3,
+        min_distance_frames: int = 3,
+    ) -> None:
+        self.model = model.to(device).eval()
+        self.device = device
+        self.onset_threshold = onset_threshold
+        self.offset_threshold = offset_threshold
+        self.min_distance_frames = min_distance_frames
+
+    @classmethod
+    def from_checkpoint(
+        cls,
+        checkpoint_path: str,
+        onset_threshold: float = 0.3,
+        offset_threshold: float = 0.3,
+        min_distance_frames: int = 3,
+    ) -> "Wav2Vec2NoteDetector":
+        """Load from a PyTorch Lightning .ckpt file produced by OnsetOffsetLightningModule."""
+        from models.onset_offset.model_v5 import Wav2Vec2OnsetDetector, Wav2Vec2ModelConfig
+
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        ckpt = torch.load(checkpoint_path, map_location=device, weights_only=False)
+        raw_sd = ckpt["state_dict"]
+        # Lightning stored the model as self.model → strip the "model." prefix
+        sd = {k[len("model."):]: v for k, v in raw_sd.items() if k.startswith("model.")}
+
+        # Reconstruct config from saved hyper_parameters if present
+        hp = ckpt.get("hyper_parameters", {})
+        model_hp = hp.get("model", {})
+        config = Wav2Vec2ModelConfig(
+            pretrained_model_name=model_hp.get("pretrained_model_name", "facebook/wav2vec2-base"),
+            freeze_feature_extractor=model_hp.get("freeze_feature_extractor", True),
+            freeze_transformer=model_hp.get("freeze_transformer", False),
+            dropout=model_hp.get("dropout", 0.1),
+        )
+        model = Wav2Vec2OnsetDetector(config)
+        model.load_state_dict(sd, strict=True)
+        logger.info(
+            "[Wav2Vec2NoteDetector] Loaded checkpoint '%s' (epoch %s) → %s",
+            Path(checkpoint_path).name, ckpt.get("epoch", "?"), device,
+        )
+        return cls(
+            model=model,
+            device=device,
+            onset_threshold=onset_threshold,
+            offset_threshold=offset_threshold,
+            min_distance_frames=min_distance_frames,
+        )
+
+    def predict_probs_from_array(
+        self,
+        audio_np: np.ndarray,
+        sr: int,
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """
+        Run v5 model on a pre-loaded numpy array.
+
+        Returns:
+            onset_probs:  [T] float32 in [0, 1]
+            offset_probs: [T] float32 in [0, 1]
+            frame_times:  [T] seconds (50 Hz grid)
+        """
+        waveform = torch.from_numpy(audio_np).unsqueeze(0).to(self.device)  # [1, N]
+        with torch.no_grad():
+            out = self.model(waveform)
+        on_probs = torch.sigmoid(out["onset_logits"]).squeeze(0).cpu().numpy()
+        off_probs = torch.sigmoid(out["offset_logits"]).squeeze(0).cpu().numpy()
+        frame_times = np.arange(len(on_probs)) / self.FRAME_RATE_HZ
+        return on_probs, off_probs, frame_times
+
+
+class Wav2Vec2OnsetOffsetInferenceModel(BaseInferenceModel):
+    """
+    BaseInferenceModel wrapper for the Wav2Vec2-based onset/offset detector.
+
+    Loaded automatically by the registry when the checkpoint path ends in .ckpt.
+    """
+
+    def __init__(self, checkpoint_path: Optional[str] = None) -> None:
+        super().__init__()
+        self._checkpoint_path = checkpoint_path
+        self._detector: Optional[Wav2Vec2NoteDetector] = None
+
+    def load_model(self) -> None:
+        if self._checkpoint_path is None:
+            raise ValueError("checkpoint_path must be set before calling load_model()")
+        self._detector = Wav2Vec2NoteDetector.from_checkpoint(self._checkpoint_path)
+        self._is_loaded = True
+
+    def predict(self, audio: Any) -> List[Dict]:
+        raise NotImplementedError("Use the pipeline's _run_onset() directly via _detector.")
+
+    def run(self, audio_path) -> List[Dict]:
+        raise NotImplementedError("Use the pipeline's _run_onset() directly via _detector.")
