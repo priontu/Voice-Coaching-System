@@ -62,9 +62,8 @@ mock_results = {
 
 
 state = {
-    "selected_mode": None,
     "selected_song": "Test Song",
-    "recording_ready": False,
+
     "uploaded_file_ready": False,
     "uploaded_audio_path": None,
 
@@ -94,6 +93,35 @@ state = {
     "correct_notes": None,
     "total_notes": None,
 }
+
+
+# ----------------------------
+# State reset helpers
+# ----------------------------
+
+def reset_analysis_outputs():
+    state["current_output_stem"] = None
+    state["pitch_data_path"] = None
+
+    state["last_inference_stdout"] = ""
+    state["last_inference_stderr"] = ""
+    state["last_score_stdout"] = ""
+    state["last_score_stderr"] = ""
+
+    state["pitch_plot_url"] = None
+    state["pitch_vs_reference_url"] = None
+    state["cent_error_url"] = None
+    state["pitch_summary_url"] = None
+    state["note_error_url"] = None
+
+    state["pitch_chart_data"] = []
+
+    state["pitch_accuracy"] = None
+    state["mace"] = None
+    state["pitch_rmse"] = None
+    state["note_pitch_acc"] = None
+    state["correct_notes"] = None
+    state["total_notes"] = None
 
 
 # ----------------------------
@@ -474,7 +502,7 @@ def show_clean_pitch_chart():
     dark_mode = is_dark_mode()
 
     if dark_mode:
-        card_class = "w-full p-7 rounded-2xl shadow-lg mt-8 bg-[#1b1b1b]"
+        card_class = "w-full max-w-[1000px] mx-auto p-7 rounded-2xl shadow-lg mt-8 bg-[#1b1b1b]"
         text_color = "#e5e7eb"
         muted_color = "#9ca3af"
         split_line = "#374151"
@@ -482,7 +510,7 @@ def show_clean_pitch_chart():
         tooltip_bg = "#111827"
         chart_bg = "transparent"
     else:
-        card_class = "w-full p-7 rounded-2xl shadow-lg mt-8 bg-white"
+        card_class = "w-full max-w-[1000px] mx-auto p-7 rounded-2xl shadow-lg mt-8 bg-white"
         text_color = "#111827"
         muted_color = "#4b5563"
         split_line = "#e5e7eb"
@@ -504,10 +532,10 @@ def show_clean_pitch_chart():
             "textStyle": {"color": text_color, "fontSize": 16},
         },
         "grid": {
-            "left": "6%",
-            "right": "4%",
-            "top": "16%",
-            "bottom": "12%",
+            "left": "8%",
+            "right": "5%",
+            "top": "18%",
+            "bottom": "18%",
         },
         "xAxis": {
             "type": "value",
@@ -529,14 +557,6 @@ def show_clean_pitch_chart():
             {
                 "type": "inside",
                 "xAxisIndex": 0,
-            },
-            {
-                "type": "slider",
-                "xAxisIndex": 0,
-                "height": 24,
-                "bottom": 10,
-                "textStyle": {"color": muted_color},
-                "borderColor": axis_line,
             },
         ],
         "series": [
@@ -577,7 +597,8 @@ def show_clean_pitch_chart():
             "A cleaner view of how your sung pitch follows the reference melody."
         ).classes("text-xl text-gray-400 mt-2")
 
-        ui.echart(options).classes("w-full h-[520px] mt-6")
+        # 4:1 graph ratio: 1000px wide, 250px tall
+        ui.echart(options).classes("w-full h-[250px] mt-6")
 
 
 # ----------------------------
@@ -688,7 +709,7 @@ def show_results():
             professional_score_card(
                 "Timing",
                 "Soon",
-                "Timing model not connected yet",
+                "Full pipeline not connected yet",
             )
             professional_score_card(
                 "Lyrics",
@@ -1060,167 +1081,47 @@ async def analyze_singing():
         return
 
     print("Analyze clicked")
-    print("Selected mode:", state["selected_mode"])
     print("Selected song:", state["selected_song"])
     print("Uploaded ready:", state["uploaded_file_ready"])
     print("Uploaded path:", state["uploaded_audio_path"])
 
-    if state["selected_mode"] == "sing":
-        if not state["recording_ready"]:
-            ui.notify("Please sing directly first.", color="negative")
-            return
+    uploaded_path = state["uploaded_audio_path"]
 
-        ui.notify("Sing Directly mode is still a placeholder.", color="warning")
-        show_results()
+    if not state["uploaded_file_ready"] or uploaded_path is None:
+        ui.notify("Please upload one audio file first.", color="negative")
         return
 
-    elif state["selected_mode"] == "upload":
-        uploaded_path = state["uploaded_audio_path"]
-
-        if not state["uploaded_file_ready"] or uploaded_path is None:
-            ui.notify("Please upload one audio file first.", color="negative")
-            return
-
-        if not uploaded_path.exists():
-            ui.notify("The uploaded file was not found on disk.", color="negative")
-            upload_status_label.set_text("Uploaded file is missing.")
-            upload_path_label.set_text(f"Missing path: {uploaded_path}")
-            return
-
-        state["is_analyzing"] = True
-        set_analyze_button_enabled(False)
-        results_area.clear()
-
-        upload_status_label.set_text(f"Ready to analyze: {uploaded_path.name}")
-        show_loading("Starting analysis...")
-
-        await asyncio.sleep(0.1)
-
-        try:
-            success = await run_pitch_inference(uploaded_path)
-            if not success:
-                return
-
-            success = await run_pitch_score()
-            if not success:
-                return
-
-            hide_loading()
-            show_results()
-
-        finally:
-            state["is_analyzing"] = False
-            set_analyze_button_enabled(True)
-            hide_loading()
-
-    else:
-        ui.notify("Please choose a singing input method first.", color="negative")
+    if not uploaded_path.exists():
+        ui.notify("The uploaded file was not found on disk.", color="negative")
+        upload_status_label.set_text("Uploaded file is missing.")
+        upload_path_label.set_text(f"Missing path: {uploaded_path}")
         return
 
-
-def choose_mode(mode):
-    state["selected_mode"] = mode
-    input_area.clear()
+    state["is_analyzing"] = True
+    set_analyze_button_enabled(False)
     results_area.clear()
-    loading_area.clear()
 
-    if mode == "upload":
-        state["uploaded_file_ready"] = False
-        state["uploaded_audio_path"] = None
+    upload_status_label.set_text(f"Ready to analyze: {uploaded_path.name}")
+    show_loading("Starting analysis...")
 
-        state["current_output_stem"] = None
-        state["pitch_data_path"] = None
+    await asyncio.sleep(0.1)
 
-        state["last_inference_stdout"] = ""
-        state["last_inference_stderr"] = ""
-        state["last_score_stdout"] = ""
-        state["last_score_stderr"] = ""
+    try:
+        success = await run_pitch_inference(uploaded_path)
+        if not success:
+            return
 
-        state["pitch_plot_url"] = None
-        state["pitch_vs_reference_url"] = None
-        state["cent_error_url"] = None
-        state["pitch_summary_url"] = None
-        state["note_error_url"] = None
-        state["pitch_chart_data"] = []
+        success = await run_pitch_score()
+        if not success:
+            return
 
-        upload_status_label.set_text("")
-        upload_path_label.set_text("")
-        analysis_status_label.set_text("")
-        remove_file_area.clear()
+        hide_loading()
+        show_results()
 
-    with input_area:
-        if mode == "sing":
-            ui.label("Sing Directly").classes("text-3xl font-bold mt-6")
-            ui.label(
-                "Press play/start and sing along with the selected song."
-            ).classes("text-xl text-gray-400")
-
-            with ui.row().classes("gap-4 mt-4"):
-                ui.button("▶ Play / Start Singing", on_click=start_singing).classes(
-                    "text-lg p-4"
-                )
-                ui.button("■ Stop Singing", on_click=stop_singing).classes(
-                    "text-lg p-4"
-                )
-
-            ui.label(
-                "Note: direct recording is only a placeholder for now."
-            ).classes("text-lg text-gray-500 mt-2")
-
-        elif mode == "upload":
-            ui.label("Upload Audio File").classes("text-3xl font-bold mt-6")
-            ui.label(
-                "Upload exactly one WAV, MP3, M4A, or FLAC file."
-            ).classes("text-xl text-gray-400")
-
-            with ui.row().classes("w-full justify-center mt-8"):
-                with ui.card().classes(
-                    "w-[1000px] h-[750px] p-16 items-center justify-center "
-                    "border-4 border-dashed border-gray-500 rounded-2xl"
-                ):
-                    ui.label("Upload one singing file").classes(
-                        "text-5xl font-bold text-center"
-                    )
-
-                    ui.label(
-                        "Drop one file directly onto the upload box below"
-                    ).classes("text-2xl text-gray-400 text-center mt-4")
-
-                    ui.upload(
-                        label="DROP OR CHOOSE ONE AUDIO FILE HERE",
-                        auto_upload=True,
-                        multiple=False,
-                        on_upload=handle_upload,
-                        on_rejected=handle_rejected,
-                    ).props(
-                        'accept=".wav,.mp3,.m4a,.flac" max-files="1"'
-                    ).classes(
-                        "w-[900px] h-[360px] mt-12 text-4xl font-bold"
-                    ).style("font-size: 40px;")
-
-                    ui.label(
-                        "After the file uploads, its name should appear below."
-                    ).classes("text-lg text-gray-500 mt-4")
-
-            upload_status_label.set_text("No file uploaded yet.")
-            upload_path_label.set_text("")
-            analysis_status_label.set_text("")
-            remove_file_area.clear()
-
-        state["analyze_button"] = ui.button(
-            "Analyze Singing",
-            on_click=analyze_singing,
-        ).classes("mt-8 text-xl p-5")
-
-
-def start_singing():
-    state["recording_ready"] = False
-    ui.notify("Singing started. Sing now!")
-
-
-def stop_singing():
-    state["recording_ready"] = True
-    ui.notify("Singing stopped. Recording is ready for analysis.")
+    finally:
+        state["is_analyzing"] = False
+        set_analyze_button_enabled(True)
+        hide_loading()
 
 
 def handle_rejected(e):
@@ -1253,15 +1154,7 @@ async def handle_upload(e):
         state["uploaded_audio_path"] = save_path
         state["uploaded_file_ready"] = True
 
-        state["current_output_stem"] = None
-        state["pitch_data_path"] = None
-
-        state["pitch_plot_url"] = None
-        state["pitch_vs_reference_url"] = None
-        state["cent_error_url"] = None
-        state["pitch_summary_url"] = None
-        state["note_error_url"] = None
-        state["pitch_chart_data"] = []
+        reset_analysis_outputs()
 
         upload_status_label.set_text(f"Uploaded: {safe_name}")
         upload_path_label.set_text(f"Saved path: {save_path}")
@@ -1301,20 +1194,7 @@ def remove_uploaded_file():
     state["uploaded_audio_path"] = None
     state["uploaded_file_ready"] = False
 
-    state["current_output_stem"] = None
-    state["pitch_data_path"] = None
-
-    state["last_inference_stdout"] = ""
-    state["last_inference_stderr"] = ""
-    state["last_score_stdout"] = ""
-    state["last_score_stderr"] = ""
-
-    state["pitch_plot_url"] = None
-    state["pitch_vs_reference_url"] = None
-    state["cent_error_url"] = None
-    state["pitch_summary_url"] = None
-    state["note_error_url"] = None
-    state["pitch_chart_data"] = []
+    reset_analysis_outputs()
 
     upload_status_label.set_text("No file uploaded yet.")
     upload_path_label.set_text("")
@@ -1362,20 +1242,49 @@ with ui.card().classes("w-full mt-8 p-8 rounded-2xl shadow-lg"):
         "min-height: 72px; padding-top: 8px;"
     )
 
-    ui.label("Choose Input Method").classes("text-4xl font-bold mt-8")
+    ui.label("Upload Singing Audio").classes("text-4xl font-bold mt-8")
+    ui.label(
+        "Upload exactly one WAV, MP3, M4A, or FLAC file."
+    ).classes("text-xl text-gray-400 mt-2")
 
-    with ui.row().classes("gap-6 mt-4"):
-        ui.button("Sing Directly", on_click=lambda: choose_mode("sing")).classes(
-            "text-xl p-5"
-        )
-        ui.button("Upload Audio File", on_click=lambda: choose_mode("upload")).classes(
-            "text-xl p-5"
-        )
+    with ui.row().classes("w-full justify-center mt-8"):
+        with ui.card().classes(
+            "w-[1000px] h-[750px] p-16 items-center justify-center "
+            "border-4 border-dashed border-gray-500 rounded-2xl"
+        ):
+            ui.label("Upload one singing file").classes(
+                "text-5xl font-bold text-center"
+            )
 
-    input_area = ui.column().classes("w-full")
+            ui.label(
+                "Drop one file directly onto the upload box below"
+            ).classes("text-2xl text-gray-400 text-center mt-4")
+
+            ui.upload(
+                label="DROP OR CHOOSE ONE AUDIO FILE HERE",
+                auto_upload=True,
+                multiple=False,
+                on_upload=handle_upload,
+                on_rejected=handle_rejected,
+            ).props(
+                'accept=".wav,.mp3,.m4a,.flac" max-files="1"'
+            ).classes(
+                "w-[900px] h-[360px] mt-12 text-4xl font-bold"
+            ).style("font-size: 40px;")
+
+            ui.label(
+                "After the file uploads, its name should appear below."
+            ).classes("text-lg text-gray-500 mt-4")
+
+    state["analyze_button"] = ui.button(
+        "Analyze Singing",
+        on_click=analyze_singing,
+    ).classes("mt-8 text-xl p-5")
 
 
-upload_status_label = ui.label("").classes("text-xl text-gray-400 mt-4 px-4")
+upload_status_label = ui.label("No file uploaded yet.").classes(
+    "text-xl text-gray-400 mt-4 px-4"
+)
 upload_path_label = ui.label("").classes("text-lg text-blue-400 mt-2 px-4")
 analysis_status_label = ui.label("").classes("text-2xl text-green-400 mt-2 px-4")
 remove_file_area = ui.row().classes("px-4")
