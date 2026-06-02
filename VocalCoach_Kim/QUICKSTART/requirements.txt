@@ -1,0 +1,35 @@
+# VocalCoach requirements — CPU build
+# Install with: pip install -r requirements.txt
+# For GPU support: pip install -r requirements-gpu.txt
+
+# ── Core ML ─────────────────────────────────────────────────────────────────
+torch>=2.1.0
+torchaudio>=2.1.0
+
+# ── Audio ───────────────────────────────────────────────────────────────────
+librosa>=0.10.0
+soundfile>=0.12.0
+
+# ── Pitch estimation ────────────────────────────────────────────────────────
+torchcrepe>=0.0.20
+
+# ── Phoneme / ASR ───────────────────────────────────────────────────────────
+transformers>=4.35.0
+
+# ── Score / reference parsing ───────────────────────────────────────────────
+music21>=9.1.0          # MusicXML parsing
+praatio>=6.0.0          # Praat TextGrid parsing
+
+# ── Scientific computing ────────────────────────────────────────────────────
+numpy>=1.24.0
+scipy>=1.11.0
+
+# ── Config ──────────────────────────────────────────────────────────────────
+pyyaml>=6.0.1
+
+# ── Visualization ───────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+
+# ── Testing ─────────────────────────────────────────────────────────────────
+pytest>=7.4.0
+pytest-timeout>=2.2.0
