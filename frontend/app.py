@@ -37,10 +37,37 @@ SONG_REFERENCE_DIR.mkdir(parents=True, exist_ok=True)
 
 app.add_static_files("/vocalcoach_outputs", str(OUTPUT_DIR))
 
+
 SONG_REGISTRY = {
     "Test Song": {
         "musicxml": SONG_REFERENCE_DIR / "test.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "test.TextGrid",
+        "description": "Default test reference song.",
+    },
+    "Song 1": {
+        "musicxml": SONG_REFERENCE_DIR / "song_1.musicxml",
+        "textgrid": SONG_REFERENCE_DIR / "song_1.TextGrid",
+        "description": "Placeholder reference song 1.",
+    },
+    "Song 2": {
+        "musicxml": SONG_REFERENCE_DIR / "song_2.musicxml",
+        "textgrid": SONG_REFERENCE_DIR / "song_2.TextGrid",
+        "description": "Placeholder reference song 2.",
+    },
+    "Song 3": {
+        "musicxml": SONG_REFERENCE_DIR / "song_3.musicxml",
+        "textgrid": SONG_REFERENCE_DIR / "song_3.TextGrid",
+        "description": "Placeholder reference song 3.",
+    },
+    "Song 4": {
+        "musicxml": SONG_REFERENCE_DIR / "song_4.musicxml",
+        "textgrid": SONG_REFERENCE_DIR / "song_4.TextGrid",
+        "description": "Placeholder reference song 4.",
+    },
+    "Song 5": {
+        "musicxml": SONG_REFERENCE_DIR / "song_5.musicxml",
+        "textgrid": SONG_REFERENCE_DIR / "song_5.TextGrid",
+        "description": "Placeholder reference song 5.",
     },
 }
 
@@ -79,8 +106,15 @@ state = {
     "selected_song": "Test Song",
     "uploaded_file_ready": False,
     "uploaded_audio_path": None,
+
     "is_analyzing": False,
     "analyze_button": None,
+    "cancel_button": None,
+    "current_process": None,
+    "cancel_requested": False,
+
+    "upload_box_area": None,
+
     "current_output_stem": None,
     "unified_json_path": None,
     "dashboard_url": None,
@@ -249,6 +283,11 @@ def get_level(value):
     if value >= 55:
         return "Fair"
     return "Needs work"
+
+
+def get_selected_song_description():
+    song = SONG_REGISTRY.get(state["selected_song"], {})
+    return song.get("description", "")
 
 
 def toggle_theme():
@@ -972,6 +1011,74 @@ def set_analyze_button_enabled(enabled):
         button.disable()
 
 
+def set_cancel_button_visible(visible):
+    button = state.get("cancel_button")
+
+    if button is None:
+        return
+
+    button.set_visibility(visible)
+
+
+def render_upload_box():
+    upload_box_area = state.get("upload_box_area")
+
+    if upload_box_area is None:
+        return
+
+    upload_box_area.clear()
+
+    uploaded_path = state.get("uploaded_audio_path")
+    show_uploaded_file = state["uploaded_file_ready"] and uploaded_path is not None
+
+    with upload_box_area:
+        if show_uploaded_file:
+            with ui.card().classes(
+                "w-[900px] h-[360px] mt-12 p-8 items-center justify-center "
+                "border-4 border-dashed border-gray-500 rounded-2xl opacity-90"
+            ):
+                ui.icon("audio_file").classes("text-7xl text-blue-400")
+                ui.label(uploaded_path.name).classes(
+                    "text-4xl font-bold text-center mt-4"
+                )
+                ui.label("File uploaded").classes(
+                    "text-2xl text-green-400 font-semibold mt-2"
+                )
+
+                if state["is_analyzing"]:
+                    ui.label("Analysis is running. Upload is locked.").classes(
+                        "text-lg text-yellow-500 mt-4 font-semibold"
+                    )
+                else:
+                    ui.label("Remove the current file before uploading another one.").classes(
+                        "text-lg text-yellow-500 mt-4 font-semibold"
+                    )
+
+            return
+
+        upload = ui.upload(
+            label="DROP OR CHOOSE ONE AUDIO FILE HERE",
+            auto_upload=True,
+            multiple=False,
+            on_upload=handle_upload,
+            on_rejected=handle_rejected,
+        ).props(
+            'accept=".wav,.mp3,.m4a,.flac" max-files="1"'
+        ).classes(
+            "w-[900px] h-[360px] mt-12 text-4xl font-bold"
+        ).style("font-size: 40px;")
+
+        if state["is_analyzing"]:
+            upload.disable()
+            ui.label("Analysis is running. Upload is locked.").classes(
+                "text-lg text-yellow-500 mt-4 font-semibold"
+            )
+        else:
+            ui.label(
+                "After the file uploads, its name should appear below."
+            ).classes("text-lg text-gray-500 mt-4")
+
+
 # ============================================================
 # Backend Runner
 # ============================================================
@@ -984,16 +1091,31 @@ async def run_command(command, cwd):
         "PYTHONPATH": str(BACKEND_DIR) + os.pathsep + os.environ.get("PYTHONPATH", ""),
     }
 
-    return await asyncio.to_thread(
-        subprocess.run,
+    process = subprocess.Popen(
         command,
         cwd=cwd,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
         text=True,
         encoding="utf-8",
         errors="replace",
         env=env,
     )
+
+    state["current_process"] = process
+
+    try:
+        stdout, stderr = await asyncio.to_thread(process.communicate)
+
+        return subprocess.CompletedProcess(
+            args=command,
+            returncode=process.returncode,
+            stdout=stdout,
+            stderr=stderr,
+        )
+
+    finally:
+        state["current_process"] = None
 
 
 def get_selected_references():
@@ -1008,6 +1130,7 @@ def get_selected_references():
     print("PROJECT_DIR:", PROJECT_DIR)
     print("BACKEND_DIR:", BACKEND_DIR)
     print("SONG_REFERENCE_DIR:", SONG_REFERENCE_DIR)
+    print("Selected song:", selected_song)
     print("MusicXML path:", musicxml_path)
     print("MusicXML exists:", musicxml_path.exists())
     print("TextGrid path:", textgrid_path)
@@ -1084,6 +1207,10 @@ async def run_full_pipeline(uploaded_path: Path) -> bool:
     print("STDERR:")
     print(result.stderr)
 
+    if state["cancel_requested"]:
+        analysis_status_label.set_text("Analysis cancelled.")
+        return False
+
     if result.returncode != 0:
         analysis_status_label.set_text("Full pipeline failed.")
         ui.notify("Full pipeline failed. Check terminal output.", color="negative")
@@ -1137,6 +1264,10 @@ def render_result_header():
     ui.label(f"Song: {state['selected_song']}").classes(
         "text-2xl text-gray-400 mt-2"
     )
+
+    description = get_selected_song_description()
+    if description:
+        ui.label(description).classes("text-lg text-gray-500 mt-1")
 
     if state["uploaded_audio_path"] is not None:
         ui.label(f"Analyzed file: {state['uploaded_audio_path'].name}").classes(
@@ -1450,6 +1581,7 @@ def render_debug_output():
             f"PROJECT_DIR: {PROJECT_DIR}\n"
             f"BACKEND_DIR: {BACKEND_DIR}\n"
             f"SONG_REFERENCE_DIR: {SONG_REFERENCE_DIR}\n"
+            f"Selected song: {state['selected_song']}\n"
             f"MusicXML: {SONG_REGISTRY[state['selected_song']]['musicxml']}\n"
             f"TextGrid: {SONG_REGISTRY[state['selected_song']]['textgrid']}"
         ).classes("text-sm whitespace-pre-wrap")
@@ -1495,6 +1627,23 @@ def show_results():
 # App Actions
 # ============================================================
 
+def cancel_analysis():
+    process = state.get("current_process")
+
+    state["cancel_requested"] = True
+    analysis_status_label.set_text("Cancelling analysis...")
+
+    if process is not None and process.poll() is None:
+        try:
+            process.terminate()
+            ui.notify("Cancelling analysis...", color="warning")
+        except Exception as error:
+            ui.notify(f"Could not cancel process: {error}", color="negative")
+            print("Cancel failed:", error)
+    else:
+        ui.notify("No active analysis process to cancel.", color="warning")
+
+
 async def analyze_singing():
     if state["is_analyzing"]:
         ui.notify("Analysis is already running.", color="warning")
@@ -1518,9 +1667,13 @@ async def analyze_singing():
         return
 
     state["is_analyzing"] = True
-    set_analyze_button_enabled(False)
-    results_area.clear()
+    state["cancel_requested"] = False
 
+    set_analyze_button_enabled(False)
+    set_cancel_button_visible(True)
+    render_upload_box()
+
+    results_area.clear()
     upload_status_label.set_text(f"Ready to analyze: {uploaded_path.name}")
     show_loading("Starting full analysis...")
 
@@ -1529,14 +1682,26 @@ async def analyze_singing():
     try:
         success = await run_full_pipeline(uploaded_path)
 
+        if state["cancel_requested"]:
+            hide_loading()
+            results_area.clear()
+            analysis_status_label.set_text("Analysis cancelled. You can try again.")
+            ui.notify("Analysis cancelled.", color="warning")
+            return
+
         if success:
             hide_loading()
             show_results()
 
     finally:
         state["is_analyzing"] = False
+        state["cancel_requested"] = False
+        state["current_process"] = None
+
         set_analyze_button_enabled(True)
+        set_cancel_button_visible(False)
         hide_loading()
+        render_upload_box()
 
 
 async def handle_upload(e):
@@ -1577,6 +1742,7 @@ async def handle_upload(e):
                 "text-lg p-4 mt-2"
             ).props("color=negative")
 
+        render_upload_box()
         ui.notify(f"Uploaded: {safe_name}")
 
         print("Uploaded ready:", state["uploaded_file_ready"])
@@ -1591,6 +1757,7 @@ async def handle_upload(e):
         upload_status_label.set_text("Upload failed.")
         upload_path_label.set_text(str(error))
         analysis_status_label.set_text("Upload failed.")
+        render_upload_box()
 
         ui.notify("Upload failed. Check terminal output.", color="negative")
         print("Upload failed:", error)
@@ -1602,6 +1769,9 @@ def handle_rejected(e):
 
 
 def remove_uploaded_file():
+    if state["is_analyzing"]:
+        cancel_analysis()
+
     uploaded_path = state["uploaded_audio_path"]
 
     if uploaded_path is not None and uploaded_path.exists():
@@ -1619,11 +1789,18 @@ def remove_uploaded_file():
     loading_area.clear()
     results_area.clear()
 
+    render_upload_box()
+
     ui.notify("Uploaded file removed. You can upload another file.")
 
 
 def update_selected_song(value):
+    if state["is_analyzing"]:
+        ui.notify("Cancel the current analysis before changing songs.", color="warning")
+        return
+
     state["selected_song"] = value
+    song_description_label.set_text(get_selected_song_description())
     analysis_status_label.set_text(f"Selected song: {value}")
     reset_analysis_outputs()
     results_area.clear()
@@ -1659,6 +1836,10 @@ with ui.card().classes("w-full mt-8 p-8 rounded-2xl shadow-lg"):
         "min-height: 72px; padding-top: 8px;"
     )
 
+    song_description_label = ui.label(get_selected_song_description()).classes(
+        "text-lg text-gray-400 mt-2"
+    )
+
     ui.label("Upload Singing Audio").classes("text-4xl font-bold mt-8")
 
     ui.label(
@@ -1678,26 +1859,21 @@ with ui.card().classes("w-full mt-8 p-8 rounded-2xl shadow-lg"):
                 "Drop one file directly onto the upload box below"
             ).classes("text-2xl text-gray-400 text-center mt-4")
 
-            ui.upload(
-                label="DROP OR CHOOSE ONE AUDIO FILE HERE",
-                auto_upload=True,
-                multiple=False,
-                on_upload=handle_upload,
-                on_rejected=handle_rejected,
-            ).props(
-                'accept=".wav,.mp3,.m4a,.flac" max-files="1"'
-            ).classes(
-                "w-[900px] h-[360px] mt-12 text-4xl font-bold"
-            ).style("font-size: 40px;")
+            state["upload_box_area"] = ui.column().classes("items-center")
+            render_upload_box()
 
-            ui.label(
-                "After the file uploads, its name should appear below."
-            ).classes("text-lg text-gray-500 mt-4")
+    with ui.row().classes("gap-4 mt-8"):
+        state["analyze_button"] = ui.button(
+            "Analyze Singing",
+            on_click=analyze_singing,
+        ).classes("text-xl p-5")
 
-    state["analyze_button"] = ui.button(
-        "Analyze Singing",
-        on_click=analyze_singing,
-    ).classes("mt-8 text-xl p-5")
+        state["cancel_button"] = ui.button(
+            "Cancel Analysis",
+            on_click=cancel_analysis,
+        ).classes("text-xl p-5").props("color=negative")
+
+        state["cancel_button"].set_visibility(False)
 
 
 upload_status_label = ui.label("No file uploaded yet.").classes(
