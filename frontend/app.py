@@ -189,6 +189,16 @@ def component_color(score):
     return "#FF5722"
 
 
+def score_card_bg_class(score):
+    score = safe_score(score)
+
+    if score >= 75:
+        return "bg-green-600"
+    if score >= 55:
+        return "bg-yellow-500"
+    return "bg-red-600"
+
+
 def format_score(value):
     value = normalize_score(value)
     return "N/A" if value is None else f"{value:.1f}"
@@ -536,10 +546,28 @@ def newest_file_after(directory: Path, suffixes, start_time, stem_hint=None):
 # UI Components
 # ============================================================
 
-def score_card(title, value, subtitle="", show_out_of_100=False, wide=False):
-    card_width = "w-96" if wide else "w-72"
+def score_card(title, value, subtitle="", show_out_of_100=False, highlight=False):
+    if highlight:
+        bg_class = score_card_bg_class(value)
 
-    with ui.card().classes(f"{card_width} h-40 p-6 rounded-2xl shadow-lg justify-center"):
+        with ui.card().classes(
+            f"w-[560px] h-56 p-8 rounded-3xl shadow-2xl justify-center {bg_class}"
+        ):
+            ui.label(title).classes("text-3xl font-bold text-white opacity-95")
+
+            if show_out_of_100 and value is not None:
+                score_text = f"{format_score(value)} / 100"
+            else:
+                score_text = format_score(value)
+
+            ui.label(score_text).classes("text-8xl font-black text-white mt-2")
+
+            if subtitle:
+                ui.label(subtitle).classes("text-xl font-semibold text-white opacity-95 mt-3")
+
+        return
+
+    with ui.card().classes("w-72 h-40 p-6 rounded-2xl shadow-lg justify-center"):
         ui.label(title).classes("text-lg text-gray-400")
 
         if show_out_of_100 and value is not None:
@@ -1117,18 +1145,21 @@ def render_result_header():
 
 
 def render_score_cards():
-    with ui.row().classes("gap-8 flex-wrap mt-8"):
-        score_card(
-            "Overall Score",
-            state["overall_score"],
-            get_level(state["overall_score"]),
-            show_out_of_100=True,
-            wide=True,
-        )
-        score_card("Pitch Score", state["pitch_score"], get_level(state["pitch_score"]))
-        score_card("Timing Score", state["timing_score"], get_level(state["timing_score"]))
-        score_card("Duration Score", state["duration_score"], get_level(state["duration_score"]))
-        score_card("Lyrics Score", state["lyrics_score"], get_level(state["lyrics_score"]))
+    with ui.column().classes("w-full gap-6 mt-8"):
+        with ui.row().classes("w-full justify-center"):
+            score_card(
+                "Overall Score",
+                state["overall_score"],
+                get_level(state["overall_score"]),
+                show_out_of_100=True,
+                highlight=True,
+            )
+
+        with ui.row().classes("gap-8 flex-wrap justify-center"):
+            score_card("Pitch Score", state["pitch_score"], get_level(state["pitch_score"]))
+            score_card("Timing Score", state["timing_score"], get_level(state["timing_score"]))
+            score_card("Duration Score", state["duration_score"], get_level(state["duration_score"]))
+            score_card("Lyrics Score", state["lyrics_score"], get_level(state["lyrics_score"]))
 
 
 def render_visual_dashboard_grid():
