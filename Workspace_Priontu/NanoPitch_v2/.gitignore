@@ -1,0 +1,18 @@
+data/
+
+deployment/
+
+.venv/
+venv/
+runs/
+.runs/
+
+*.pth
+!submissions/**/*.pth
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# macOS / editor noise
+.DS_Store
