@@ -1,0 +1,10 @@
+batch_size: 128
+cache_dir: /mnt/researchfiles/ECE IMAPLE/cluster_data/user_data/pc833/Voice-Coaching-System/Workspace_Priontu/PitchExtraction_RMVPE_v1/finetune/_cache
+compile_model: true
+gtsinger_root: /mnt/researchfiles/ECE IMAPLE/cluster_data/archive/GTSinger/English
+lr: 0.0003
+max_epochs: 300
+num_workers: 8
+val_split: 0.1
+warmup_epochs: 15
+weight_decay: 0.01

@@ -1,0 +1,268 @@
+%% Voice Coaching System — Beamer presentation (5-slide condensed version)
+%% Compile: pdflatex presentation_v2.tex  (run twice)
+\documentclass[aspectratio=169,9pt]{beamer}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+
+%% ── Theme ────────────────────────────────────────────────────────────────────
+\usetheme{Madrid}
+
+\definecolor{darkblue}{RGB}{26,58,92}
+\definecolor{midblue}{RGB}{31,119,180}
+\definecolor{orng}{RGB}{210,100,10}
+\definecolor{dkgrn}{RGB}{30,130,30}
+\definecolor{lblue}{RGB}{214,230,248}
+
+\setbeamercolor{palette primary}{bg=darkblue,fg=white}
+\setbeamercolor{palette secondary}{bg=midblue,fg=white}
+\setbeamercolor{palette tertiary}{bg=darkblue,fg=white}
+\setbeamercolor{palette quaternary}{bg=darkblue,fg=white}
+\setbeamercolor{frametitle}{bg=darkblue,fg=white}
+\setbeamercolor{title}{bg=darkblue,fg=white}
+\setbeamercolor{structure}{fg=darkblue}
+\setbeamercolor{block title}{bg=midblue,fg=white}
+\setbeamercolor{block body}{bg=lblue!40,fg=black}
+\setbeamercolor{block title alerted}{bg=orng,fg=white}
+\setbeamercolor{block body alerted}{bg=orng!12,fg=black}
+\setbeamercolor{block title example}{bg=dkgrn,fg=white}
+\setbeamercolor{block body example}{bg=dkgrn!10,fg=black}
+\setbeamerfont{frametitle}{size=\small,series=\bfseries}
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+
+%% ── Notation ─────────────────────────────────────────────────────────────────
+\newcommand{\fh}{\hat{f}}
+\newcommand{\vh}{\hat{v}}
+\newcommand{\sh}{\hat{s}}
+\newcommand{\eh}{\hat{e}}
+\newcommand{\ah}{\hat{a}}
+\newcommand{\bh}{\hat{b}}
+\newcommand{\dh}{\hat{d}}
+
+\setbeamertemplate{note page}[plain]
+
+%% ── Title ────────────────────────────────────────────────────────────────────
+\title[Voice Coaching System]{Voice Coaching System\\for Singing Performance Evaluation}
+\subtitle{Reference-Guided Pipeline $\cdot$ Three-Model Architecture $\cdot$ Deterministic Scoring}
+\author{}
+\institute{Drexel University}
+\date{2026}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+%% ─── 1. Title ────────────────────────────────────────────────────────────────
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%% ─── 2. System Overview ──────────────────────────────────────────────────────
+\begin{frame}{System Overview}
+  Neural models act as \textbf{feature extractors} — all coaching scores are
+  computed by \textbf{deterministic equations}, never predicted directly.
+
+  \medskip
+  \begin{columns}[T]
+    \column{0.44\textwidth}
+      \begin{block}{Pipeline}
+        \small
+        \begin{enumerate}\setlength\itemsep{2pt}
+          \item \textbf{Audio Input} — 16\,kHz mono WAV
+          \item \textbf{Feature Extraction} — pitch, note boundaries, phonemes
+          \item \textbf{Reference Data} — MusicXML + TextGrid
+          \item \textbf{Metric Computation} — predicted vs.\ reference
+          \item \textbf{Scoring} — normalise $\rightarrow$ [0,\,100]
+          \item \textbf{Interpretation} — rule-based feedback
+        \end{enumerate}
+      \end{block}
+
+    \column{0.52\textwidth}
+      \begin{block}{Three Models}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}lp{5.2cm}@{}}
+          \toprule
+          Model & Role \\
+          \midrule
+          torchcrepe (CREPE CNN) & Frame-level F0 + voiced/unvoiced \\
+          Wav2Vec2 + 3-class head & Note onset/offset times \\
+          Wav2Vec2 + CTC & Phoneme boundary \& label \\
+          \bottomrule
+        \end{tabular}
+        \medskip\par
+        \textbf{Dataset:} GTSinger (English, EN-Alto-1)\\
+        \textbf{Reference:} MusicXML (pitch, tempo) + TextGrid (phonemes)
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 3. Metrics ──────────────────────────────────────────────────────────────
+\begin{frame}{Metrics --- Four Categories}
+  \begin{columns}[T]
+    \column{0.47\textwidth}
+      \begin{block}{Pitch}
+        \footnotesize
+        $\delta_n$ = deviation in cents\\[4pt]
+        \textbf{Acc:}\;
+        $\frac{1}{N}\sum\mathbf{1}(|\delta_n|\le50)$\\[4pt]
+        \textbf{MACE:}\;
+        $\frac{1}{N}\sum|\delta_n|$\\[4pt]
+        \textbf{RMSE:}\;
+        $\sqrt{\frac{1}{N}\sum\delta_n^2}$
+      \end{block}
+
+    \column{0.06\textwidth}
+
+    \column{0.47\textwidth}
+      \begin{block}{Timing}
+        \footnotesize
+        $\epsilon_n = (\sh_n-s_n)\times10^3$\,ms\\[4pt]
+        \textbf{Acc:}\;
+        $\frac{1}{N}\sum\mathbf{1}(|\epsilon_n|\le50)$\\[4pt]
+        \textbf{MAE:}\;
+        $\frac{1}{N}\sum|\epsilon_n|$\\[4pt]
+        \textbf{IOI-MAE:}\;
+        $\frac{1}{M}\sum|\Delta\sh^{(i)}-\Delta s^{(i)}|$
+      \end{block}
+  \end{columns}
+
+  \vspace{0.04\textheight}
+
+  \begin{columns}[T]
+    \column{0.47\textwidth}
+      \begin{block}{Duration}
+        \footnotesize
+        $\dh_n = \eh_n-\sh_n$,\; $d_n=e_n-s_n$\\[4pt]
+        \textbf{RelErr:}\;
+        $\frac{1}{N}\sum\frac{|\dh_n-d_n|}{d_n}$\\[4pt]
+        \textbf{Ratio:}\;
+        $\frac{1}{N}\sum\frac{\dh_n}{d_n}$\\[4pt]
+        \small scored as $|\mathrm{Ratio}-1|$
+      \end{block}
+
+    \column{0.06\textwidth}
+
+    \column{0.47\textwidth}
+      \begin{block}{Lyric}
+        \footnotesize
+        $\epsilon_p^{(a)} = (\ah_p-a_p)\times10^3$\,ms\\[4pt]
+        \textbf{BndErr:}\;
+        $\frac{1}{P}\sum|\epsilon_p^{(a)}|$\\[4pt]
+        \textbf{WordAcc:}\;
+        $\frac{|\text{matched}|}{|\text{ref}|}$\\[4pt]
+        \textbf{Overlap:}\;
+        $\frac{1}{P}\sum\mathbf{1}(\mathrm{ovlp}\ge0.5)$
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 4. Scoring ──────────────────────────────────────────────────────────────
+\begin{frame}{Scoring --- Normalization, Categories, \& Final Score}
+  \begin{columns}[T]
+    \column{0.44\textwidth}
+      \begin{block}{Normalization}
+        \footnotesize
+        \textbf{Error metrics} (lower is better) $\to$ piecewise-linear curve:
+        \[
+          S_\text{pw}(x) = s_i + \tfrac{s_{i+1}-s_i}{x_{i+1}-x_i}(x - x_i)
+        \]
+        \vspace{-4pt}
+        \begin{tabular}{@{}lcc@{}}
+          \toprule
+          Metric & $x$ range & $s$ range \\
+          \midrule
+          MACE (¢)       & 0–200 & 100–0 \\
+          Onset MAE (ms) & 0–200 & 100–0 \\
+          RelDurErr      & 0–1.0 & 100–0 \\
+          PhonBndErr (ms)& 0–120 & 100–0 \\
+          \bottomrule
+        \end{tabular}
+        \medskip\par
+        \textbf{Accuracy fractions} $\to S_\text{acc}(a)=a\times100$
+      \end{block}
+
+    \column{0.52\textwidth}
+      \begin{block}{Category Weights \& Final Score}
+        \footnotesize
+        Confidence-weighted aggregation per category
+        ($c_i = \min(1, N/3)$):
+        \[
+          S_\text{cat}
+            = \frac{\sum_i w_i\,c_i\,s_i}{\sum_i w_i\,c_i}
+        \]
+        \renewcommand{\arraystretch}{1.1}
+        \begin{tabular}{@{}lllll@{}}
+          \toprule
+          & \textbf{Pitch} & \textbf{Timing} & \textbf{Dur} & \textbf{Lyric} \\
+          \midrule
+          Acc / primary & 0.50 & 0.50 & — & 0.35 \\
+          MAE component & 0.30 & 0.30 & 0.60 & 0.25 \\
+          RMSE / Rhythm & 0.20 & 0.20 & 0.20 & 0.25 \\
+          Boundary/Label& —    & —    & 0.20 & 0.15 \\
+          \bottomrule
+        \end{tabular}
+        \medskip
+        \[
+          \boxed{S_\text{final}
+            = 0.40\,S_\text{pitch}
+            + 0.30\,S_\text{timing}
+            + 0.15\,S_\text{dur}
+            + 0.15\,S_\text{lyric}}
+        \]
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 5. Models & Pilot Results ───────────────────────────────────────────────
+\begin{frame}{Models \& Pilot Results}
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{Model Architecture Summary}
+        \small
+        \renewcommand{\arraystretch}{1.15}
+        \begin{tabular}{@{}lp{5.2cm}@{}}
+          \toprule
+          Model & Key Details \\
+          \midrule
+          \textbf{Pitch} & torchcrepe (CREPE CNN + Viterbi);
+                           WebRTC VAD fusion; 100\,fps output \\
+          \textbf{Onset/Offset} & wav2vec2-base; frozen CNN (stride 320);
+                                  3-class head (onset/offset/active);
+                                  peak-pick at $\theta=0.3$ \\
+          \textbf{Phoneme} & wav2vec2-lv-60-espeak-cv-ft;
+                             CTC decode; segments $>300$\,ms split;
+                             blank-region recovery \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+
+    \column{0.46\textwidth}
+      \begin{block}{Pilot: Note-Level Pitch (7-note excerpt)}
+        \[
+          \mathrm{NotePitchAcc}_{50} = 6/7 \approx 85.7\%
+        \]
+        \footnotesize
+        \renewcommand{\arraystretch}{1.1}
+        \begin{tabular}{@{}clcc@{}}
+          \toprule
+          Note & Lyric & $\bar{c}_n$ (¢) & Correct \\
+          \midrule
+          1 & \textit{where} & $-26.1$ & $\checkmark$ \\
+          2 & \textit{the}   & $-152.8$ & $\times$ \\
+          3 & \textit{north} & $+8.2$  & $\checkmark$ \\
+          4 & \textit{wind}  & $-36.8$ & $\checkmark$ \\
+          5 & \textit{meets} & $+32.5$ & $\checkmark$ \\
+          6 & \textit{the}   & $+44.4$ & $\checkmark$ \\
+          7 & \textit{sea}   & $+23.7$ & $\checkmark$ \\
+          \bottomrule
+        \end{tabular}
+        \medskip\par
+        Note 2 failed: 178\,ms / 18 voiced frames — too short for reliable median pitch.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+\end{document}

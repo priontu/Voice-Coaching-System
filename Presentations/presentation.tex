@@ -1,0 +1,1083 @@
+%% Voice Coaching System — Beamer presentation
+%% Compile: pdflatex presentation.tex  (run twice)
+\documentclass[aspectratio=169,9pt]{beamer}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+
+%% ── Theme ────────────────────────────────────────────────────────────────────
+\usetheme{Madrid}
+
+\definecolor{darkblue}{RGB}{26,58,92}
+\definecolor{midblue}{RGB}{31,119,180}
+\definecolor{orng}{RGB}{210,100,10}
+\definecolor{dkgrn}{RGB}{30,130,30}
+\definecolor{lblue}{RGB}{214,230,248}
+
+\setbeamercolor{palette primary}{bg=darkblue,fg=white}
+\setbeamercolor{palette secondary}{bg=midblue,fg=white}
+\setbeamercolor{palette tertiary}{bg=darkblue,fg=white}
+\setbeamercolor{palette quaternary}{bg=darkblue,fg=white}
+\setbeamercolor{frametitle}{bg=darkblue,fg=white}
+\setbeamercolor{title}{bg=darkblue,fg=white}
+\setbeamercolor{structure}{fg=darkblue}
+\setbeamercolor{block title}{bg=midblue,fg=white}
+\setbeamercolor{block body}{bg=lblue!40,fg=black}
+\setbeamercolor{block title alerted}{bg=orng,fg=white}
+\setbeamercolor{block body alerted}{bg=orng!12,fg=black}
+\setbeamercolor{block title example}{bg=dkgrn,fg=white}
+\setbeamercolor{block body example}{bg=dkgrn!10,fg=black}
+\setbeamerfont{frametitle}{size=\small,series=\bfseries}
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+
+%% ── Notation ─────────────────────────────────────────────────────────────────
+\newcommand{\fh}{\hat{f}}
+\newcommand{\vh}{\hat{v}}
+\newcommand{\sh}{\hat{s}}
+\newcommand{\eh}{\hat{e}}
+\newcommand{\ah}{\hat{a}}
+\newcommand{\bh}{\hat{b}}
+\newcommand{\dh}{\hat{d}}
+
+%% ── Speaker notes ────────────────────────────────────────────────────────────
+%% To show note pages after each slide, uncomment the two lines below and
+%% recompile.  Remove them again for the clean presentation version.
+%% \usepackage{pgfpages}
+%% \setbeameroption{show notes on second screen=right}
+\setbeamertemplate{note page}[plain]
+
+%% ── Title ────────────────────────────────────────────────────────────────────
+\title[Voice Coaching System]{Voice Coaching System\\for Singing Performance Evaluation}
+\subtitle{Reference-Guided Pipeline $\cdot$ Three-Model Architecture $\cdot$ Deterministic Scoring}
+\author{}
+\institute{Drexel University}
+\date{2026}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+%% ─── 1. Title ────────────────────────────────────────────────────────────────
+\begin{frame}
+  \titlepage
+  \note{
+    Welcome everyone. Today I will be presenting the Voice Coaching System for
+    Singing Performance Evaluation, developed at the IMAPLE Lab at Drexel
+    University.
+
+    The central idea of this work is to give singers objective, interpretable
+    feedback by comparing their recorded audio against a musical reference score.
+    We use three separate neural models to extract measurable parameters from the
+    audio, and then all of the coaching scores are computed using explicit
+    mathematical equations --- the models never directly predict a score.
+
+    I will walk through the tracked parameters, the metrics we calculate, how
+    those metrics are turned into scores, the three models we built, and finally
+    some results.
+  }
+\end{frame}
+
+%% ─── 2. System Overview ──────────────────────────────────────────────────────
+\begin{frame}{System Overview}
+  \note{
+    The key design principle is that neural models act as \textit{feature
+    extractors}, not score predictors.  Every coaching number comes from an
+    explicit equation you can inspect.
+
+    The pipeline has six stages.  We start with a raw WAV recording of the
+    singer.  Three models then extract performance-side features: pitch with
+    voicing decisions, note onset and offset times, and phoneme boundaries.
+    We load ground-truth reference data from two file types: MusicXML gives us
+    note pitches, timings, and tempo from the musical score; TextGrid gives us
+    word- and phoneme-level timing boundaries from Praat annotations.  We
+    compare predictions against the reference to compute objective error
+    metrics, normalise those errors to a zero-to-one-hundred scale, and finally
+    a rule-based engine produces human-readable strengths and weaknesses.
+
+    The dataset is GTSinger, English alto-1 subset.
+  }
+  Neural models estimate measurable parameters; all scores are computed by
+  \textbf{deterministic equations} — models never directly predict a score.
+
+  \medskip
+  \begin{columns}[T]
+    \column{0.46\textwidth}
+      \begin{block}{Pipeline}
+        \small
+        \begin{enumerate}\setlength\itemsep{1pt}
+          \item \textbf{Audio Input} — 16\,kHz mono WAV
+          \item \textbf{Feature Extraction} — pitch, note boundaries, phonemes
+          \item \textbf{Reference Data} — MusicXML + TextGrid
+          \item \textbf{Metric Computation} — predicted vs.\ reference
+          \item \textbf{Scoring} — normalise $\rightarrow$ [0,\,100]
+          \item \textbf{Interpretation} — rule-based feedback
+        \end{enumerate}
+      \end{block}
+
+    \column{0.50\textwidth}
+      \begin{block}{Reference Sources}
+        \small
+        \renewcommand{\arraystretch}{1.15}
+        \begin{tabular}{@{}ll@{}}
+          \toprule
+          Source   & Provides \\
+          \midrule
+          MusicXML & note pitch, onset, offset, duration, tempo \\
+          TextGrid & phoneme \& word boundary times \\
+          \bottomrule
+        \end{tabular}
+        \medskip\par
+        \textbf{Dataset:} GTSinger (English, EN-Alto-1)
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 3. Parameters We Track ──────────────────────────────────────────────────
+\begin{frame}{Parameters We Track}
+  \note{
+    Before defining any metrics, I want to establish the notation we use
+    throughout the rest of the talk.
+
+    On the performance side --- extracted from the singer's audio --- we have
+    six quantities.  F-hat-t is the fundamental frequency at each 10-millisecond
+    frame.  V-hat-t is a binary voiced or unvoiced flag.  S-hat-n and E-hat-n
+    are the predicted onset and offset times for note n.  D-hat-n is simply the
+    difference, the predicted duration.  And A-hat-p and B-hat-p are the
+    predicted start and end times for phoneme p.
+
+    The voiced set V is the intersection of frames where both the prediction and
+    the reference have a positive frequency --- that is where pitch scoring is
+    valid.
+
+    On the reference side, everything comes from the score files.  M-n is the
+    MIDI pitch from MusicXML, which we convert to a frequency R-n using the
+    standard formula.  S-n, E-n, D-n are the reference timings.  A-p and B-p
+    are the TextGrid phoneme boundaries.
+
+    Two sign conventions to keep in mind: a positive onset deviation means the
+    singer came in late, and a positive cent error means the singer is sharp.
+  }
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Performance Side — extracted from WAV}
+        \small
+        \renewcommand{\arraystretch}{1.25}
+        \begin{tabular}{@{}lp{5cm}@{}}
+          $\fh_t$ & Frame-level F0 (Hz) at frame $t$ \\
+          $\vh_t \in \{0,1\}$ & Voiced/unvoiced flag per frame \\
+          $\sh_n$ & Predicted onset time of note $n$ \\
+          $\eh_n$ & Predicted offset time of note $n$ \\
+          $\dh_n = \eh_n - \sh_n$ & Predicted duration of note $n$ \\
+          $\ah_p,\bh_p$ & Predicted phoneme $p$ start \& end \\
+        \end{tabular}
+        \medskip\par
+        \textbf{Voiced set:}\quad $V = \{t : \fh_t > 0,\; r_t > 0\}$
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{block}{Reference Side — from score files}
+        \small
+        \renewcommand{\arraystretch}{1.25}
+        \begin{tabular}{@{}lp{5cm}@{}}
+          $m_n$ & MIDI pitch of note $n$ (MusicXML) \\
+          $r_n = 440\cdot 2^{(m_n-69)/12}$ & Reference frequency (Hz) \\
+          $s_n,\; e_n$ & Reference onset \& offset (s) \\
+          $d_n = e_n - s_n$ & Reference duration (s) \\
+          $a_p,\; b_p$ & Reference phoneme $p$ start \& end \\
+        \end{tabular}
+        \medskip\par
+        \small
+        \textit{Positive onset deviation} $= $ predicted is later.\\
+        \textit{Positive cent error} $= $ predicted is sharper.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 4. Metrics — Pitch ──────────────────────────────────────────────────────
+\begin{frame}{Metrics --- Pitch}
+  \note{
+    We compute four pitch metrics.  They all work on the same input: delta-n,
+    the pitch deviation in cents for each matched note pair.
+
+    Pitch Accuracy is the simplest --- the fraction of notes whose deviation
+    is within plus or minus tau cents, where tau is set to 50 cents, roughly a
+    quarter tone.
+
+    MACE, Mean Absolute Cent Error, is the average absolute deviation.  It does
+    not require choosing a tolerance, so it gives a continuous sense of how far
+    off the singer tends to be.
+
+    Pitch RMSE is the root-mean-square deviation.  Because it squares the errors
+    before averaging, it is more sensitive to occasional large jumps than MACE
+    is.
+
+    Note-Level Pitch Accuracy is numerically identical to Pitch Accuracy --- it
+    is set to the same value in the code.  The difference is that it also
+    populates the per-note breakdown field, which lets us give note-by-note
+    feedback.
+
+    All deviations come from the NoteAlignmentMatch structure produced after
+    the greedy overlap alignment step.
+  }
+  Let $N$ = matched notes with valid pitch; $\delta_n$ = pitch deviation in cents
+  for matched note $n$;\; $\tau = 50$\,¢.
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Pitch Accuracy}
+        \[
+          \mathrm{PitchAcc}_\tau
+            = \frac{1}{N}\sum_{n=1}^{N}\mathbf{1}(|\delta_n|\le\tau)
+        \]
+        \footnotesize Fraction of notes whose pitch deviation is within $\pm\tau$ cents.
+      \end{block}
+      \medskip
+      \begin{block}{Pitch RMSE}
+        \[
+          \mathrm{PitchRMSE} = \sqrt{\frac{1}{N}\sum_{n=1}^{N}\delta_n^2}
+        \]
+        \footnotesize Penalises large deviations more strongly than MACE.
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{block}{Mean Absolute Cent Error (MACE)}
+        \[
+          \mathrm{MACE} = \frac{1}{N}\sum_{n=1}^{N}|\delta_n|
+        \]
+        \footnotesize Average absolute pitch error in cents; no threshold required.
+      \end{block}
+      \medskip
+      \begin{alertblock}{Note-Level Pitch Accuracy}
+        \[
+          \mathrm{NotePitchAcc}_\tau \;=\; \mathrm{PitchAcc}_\tau
+        \]
+        \footnotesize Same value; per-note detail in \texttt{PitchMetrics.per\_note}.
+      \end{alertblock}
+  \end{columns}
+  \vspace{4pt}
+  \footnotesize
+  $\delta_n$ is from \texttt{NoteAlignmentMatch.pitch\_deviation\_cents}
+  (computed via the median F0 over the note window).
+\end{frame}
+
+%% ─── 5. Metrics — Timing ─────────────────────────────────────────────────────
+\begin{frame}{Metrics --- Timing}
+  \note{
+    For timing we define epsilon-n as the onset deviation in milliseconds ---
+    positive means the singer was late.  Similarly epsilon-varepsilon-n is
+    the offset deviation.
+
+    For onsets we compute three statistics.  The mean captures systematic bias
+    --- if the singer consistently comes in early or late.  The MAE captures
+    average accuracy.  The standard deviation captures consistency --- whether
+    the timing errors are all similar or wildly variable.
+
+    Offset MAE simply asks how early or late the singer releases each note on
+    average.
+
+    Timing Accuracy is the fraction of notes started within 50 milliseconds of
+    the reference onset.  The 50-millisecond tolerance is set in pipeline.yaml.
+
+    IOI-MAE stands for Inter-Onset Interval Mean Absolute Error.  An
+    inter-onset interval is the time between the start of one note and the
+    start of the next.  We compare the sequence of predicted intervals against
+    the reference intervals.  This captures rhythmic consistency independently
+    of any absolute offset --- a singer who is consistently 200 milliseconds
+    late but perfectly in rhythm will have low IOI-MAE but high onset MAE.
+  }
+  Let $\epsilon_n = (\sh_n - s_n)\times 1000$\,ms (onset deviation) and
+  $\varepsilon_n = (\eh_n - e_n)\times 1000$\,ms (offset deviation).
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Onset Error}
+        \[
+          \overline{\epsilon} = \frac{1}{N}\!\sum_n\epsilon_n,\quad
+          \mathrm{MAE}_\text{on} = \frac{1}{N}\!\sum_n|\epsilon_n|
+        \]
+        \[
+          \sigma_\text{on} = \sqrt{\tfrac{1}{N}\textstyle\sum_n(\epsilon_n-\overline{\epsilon})^2}
+        \]
+        \footnotesize Mean (bias), MAE (accuracy), std (consistency) of onset timing.
+      \end{block}
+      \medskip
+      \begin{block}{Offset Error}
+        \[
+          \mathrm{MAE}_\text{off} = \frac{1}{N}\sum_n|\varepsilon_n|
+        \]
+        \footnotesize How early or late the singer releases each note.
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{block}{Timing Accuracy}
+        \[
+          \mathrm{TimingAcc}_\tau
+            = \frac{1}{N}\sum_n\mathbf{1}(|\epsilon_n|\le\tau),
+            \quad\tau=50\,\text{ms}
+        \]
+        \footnotesize Fraction of notes entered within 50\,ms of the reference onset.
+      \end{block}
+      \medskip
+      \begin{block}{IOI Mean Absolute Error}
+        \[
+          \mathrm{IOI\text{-}MAE}
+            = \frac{1}{M}\sum_{i=1}^{M}|\Delta\sh^{(i)}-\Delta s^{(i)}|\times 1000
+        \]
+        \footnotesize $\Delta s^{(i)}\!=\!s_{i+1}\!-\!s_i$;\;
+        $M\!=\!\min(N_\text{pred},N_\text{ref})\!-\!1$;\; measures rhythmic consistency.
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 6. Metrics — Duration ───────────────────────────────────────────────────
+\begin{frame}{Metrics --- Duration}
+  \note{
+    Duration metrics measure how well the singer holds notes for the correct
+    length of time.  A singer can enter a note perfectly on time but still cut
+    it too short or hold it too long.
+
+    Duration Error is the mean absolute difference between predicted and
+    reference durations in seconds --- a raw error measure.
+
+    Relative Duration Error is more useful because it normalises by the
+    reference duration.  An error of 100 milliseconds on a 200-millisecond note
+    is a 50 percent error, which is serious.  The same 100 milliseconds on a
+    2-second note is only a 5 percent error.
+
+    Duration Ratio is the mean of predicted duration divided by reference
+    duration.  A ratio of 1.0 is perfect.  Greater than 1 means the singer
+    stretches notes.  Less than 1 means notes are cut short.  For scoring we
+    use the absolute deviation of the ratio from 1.
+
+    In the duration category score, relative error has the highest weight at
+    60 percent because it is tempo-independent.  Ratio deviation contributes
+    20 percent, and phrase consistency --- which measures how consistent the
+    errors are across notes --- also contributes 20 percent.
+  }
+  For matched notes, let $\dh_n = \eh_n - \sh_n$ and $d_n = e_n - s_n$.
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Duration Error}
+        \[
+          \mathrm{DurErr} = \frac{1}{N}\sum_n|\dh_n - d_n|
+        \]
+        \footnotesize Absolute difference between predicted and reference duration (s).
+      \end{block}
+      \medskip
+      \begin{block}{Relative Duration Error}
+        \[
+          \mathrm{RelDurErr} = \frac{1}{N}\sum_n\frac{|\dh_n - d_n|}{d_n}
+        \]
+        \footnotesize Normalised by reference duration; tempo-independent.
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{block}{Duration Ratio}
+        \[
+          \mathrm{DurRatio} = \frac{1}{N}\sum_n\frac{\dh_n}{d_n}
+        \]
+        \footnotesize 1.0\,=\,perfect;\; $>$1\,=\,stretched;\; $<$1\,=\,cut short.
+      \end{block}
+      \medskip
+      \begin{exampleblock}{Scoring (Ratio Component)}
+        \[
+          \text{scored as }\;|\mathrm{DurRatio} - 1|
+        \]
+        \footnotesize Deviation from 1.0; combined with RelDurErr into duration score.
+      \end{exampleblock}
+  \end{columns}
+  \vspace{4pt}
+  \footnotesize
+  Component weights in duration score:\; RelDurErr 0.60,\; Ratio Dev 0.20,\;
+  Phrase Consistency 0.20.
+\end{frame}
+
+%% ─── 7. Metrics — Lyric ─────────────────────────────────────────────────────
+\begin{frame}{Metrics --- Lyric / Phoneme}
+  \note{
+    Lyric metrics evaluate how well the singer's phoneme and word timing aligns
+    with the TextGrid reference annotations.
+
+    Phoneme Boundary Error is the mean absolute onset deviation across all
+    matched phoneme pairs, in milliseconds.  Note that we only use the start
+    boundary --- not the average of start and end --- because that is what the
+    code in lyric\_metrics.py actually computes.
+
+    Word Alignment Accuracy is the fraction of reference words that were
+    matched to a predicted word event.  This captures whether the system
+    detected the words at all.
+
+    Phoneme Overlap Accuracy checks whether each predicted phoneme segment
+    has at least 50 percent temporal overlap with its reference counterpart.
+    This is about spatial alignment rather than just onset timing.
+
+    Label Match Rate asks whether the predicted phoneme label actually matches
+    the reference label.  This verifies that we predict the right phoneme, not
+    just something at roughly the right time.
+
+    The weights in the lyric score are 35 percent for word accuracy, 25 percent
+    each for overlap and label match, and 15 percent for boundary timing.
+  }
+  Let $P$ = matched phoneme pairs;\;
+  $\epsilon_p^{(a)} = (\ah_p - a_p)\times 1000$\,ms (phoneme onset deviation).
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Phoneme Boundary Error}
+        \[
+          \mathrm{PhonBndErr} = \frac{1}{P}\sum_{p=1}^{P}\bigl|\epsilon_p^{(a)}\bigr|
+        \]
+        \footnotesize Mean absolute onset deviation in ms; onset boundary only.
+      \end{block}
+      \medskip
+      \begin{block}{Word Alignment Accuracy}
+        \[
+          \mathrm{WordAcc}
+            = \frac{|\text{matched words}|}{|\text{reference words}|}
+        \]
+        \footnotesize Fraction of reference words matched to a predicted word event.
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{block}{Phoneme Overlap Accuracy}
+        \[
+          \mathrm{OverlapAcc}
+            = \frac{1}{P}\sum_p\mathbf{1}(\mathrm{overlap}_p \ge 0.5)
+        \]
+        \footnotesize Fraction of phoneme pairs with $\ge 50\%$ temporal overlap.
+      \end{block}
+      \medskip
+      \begin{block}{Label Match Rate}
+        \[
+          \mathrm{LabelMatch}
+            = \frac{1}{P}\sum_p\mathbf{1}(\hat{l}_p = l_p)
+        \]
+        \footnotesize Fraction of matches where predicted phoneme label is correct.
+      \end{block}
+  \end{columns}
+  \vspace{4pt}
+  \footnotesize
+  Lyric score weights:\; WordAcc 0.35,\; OverlapAcc 0.25,\;
+  LabelMatch 0.25,\; PhonBndErr 0.15.
+\end{frame}
+
+%% ─── 8. Scoring — Normalization ──────────────────────────────────────────────
+\begin{frame}{Scoring --- Normalization}
+  \note{
+    Before we can combine metrics into a final score, all raw values need to
+    be on the same zero-to-one-hundred scale.  We use two approaches.
+
+    For error-based metrics like MACE and onset MAE --- where lower is better
+    --- we use piecewise-linear interpolation through a set of breakpoints.
+    You pick a (x, score) pair for each perceptual threshold.  For example
+    for MACE: 0 cents maps to 100, 25 cents maps to 88, 50 cents maps to 75,
+    and 100 cents --- one full semitone --- maps to 50.  Values outside the
+    range are clamped.  This lets us tune where the ``good'', ``acceptable'',
+    and ``poor'' thresholds are for each metric independently.
+
+    The breakpoints table on the right shows the values hard-coded in the
+    source for all six error metrics.  Notice that the phoneme boundary
+    breakpoints are stricter than the note onset breakpoints, reflecting that
+    phoneme timing is a finer-grained task.
+
+    For accuracy fractions like Pitch Accuracy and Timing Accuracy --- where
+    the value is already between 0 and 1 and higher is better --- we simply
+    multiply by 100.  No curve needed.
+
+    There is also a Gaussian penalty function available in the codebase, but
+    it is not called in the default scoring configuration.
+  }
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Piecewise-Linear (error metrics)}
+        \[
+          S_\text{pw}(x)
+            = s_i + \frac{s_{i+1}-s_i}{x_{i+1}-x_i}(x - x_i),
+            \quad x_i \le x \le x_{i+1}
+        \]
+        \footnotesize Clamped to $[0,100]$. Used for MACE, RMSE, onset MAE, IOI MAE,
+        RelDurErr, PhonBndErr.
+      \end{block}
+      \medskip
+      \begin{block}{Direct Scaling (accuracy fractions)}
+        \[
+          S_\text{acc}(a) = a \times 100
+        \]
+        \footnotesize Used for PitchAcc, TimingAcc, WordAcc, OverlapAcc, LabelMatch.
+      \end{block}
+
+    \column{0.48\textwidth}
+      \begin{exampleblock}{Breakpoints — from source code}
+        \footnotesize
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}lcc@{}}
+          \toprule
+          Metric & $x$ values & $s$ values \\
+          \midrule
+          MACE (¢)         & 0, 25, 50, 100, 200   & 100, 88, 75, 50, 0 \\
+          Pitch RMSE (¢)   & 0, 25, 50, 100, 200   & 100, 88, 72, 45, 0 \\
+          Onset MAE (ms)   & 0, 25, 50, 100, 200   & 100, 88, 75, 50, 0 \\
+          IOI MAE (ms)     & 0, 30, 60, 120, 240   & 100, 88, 75, 50, 0 \\
+          RelDurErr        & 0, .1, .2, .5, 1.0    & 100, 90, 75, 50, 0 \\
+          PhonBndErr (ms)  & 0, 15, 30, 60, 120    & 100, 88, 75, 50, 0 \\
+          \bottomrule
+        \end{tabular}
+      \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+%% ─── 9. Scoring — Category Scores ────────────────────────────────────────────
+\begin{frame}{Scoring --- Category Scores}
+  \note{
+    Each of the four category scores is computed using the same
+    confidence-weighted aggregation formula shown at the top.  We take a
+    weighted sum of component scores, but each weight is multiplied by a
+    confidence factor c-i.  Confidence is the minimum of 1 and N divided by
+    3, so you need at least 3 matched events to reach full confidence.
+    Components with no data contribute zero and effectively drop out of the
+    denominator.
+
+    The four component weight tables show what goes into each category.
+    Pitch is 50 percent accuracy, 30 percent MACE, and 20 percent RMSE.
+    Timing is 50 percent timing accuracy, 30 percent onset MAE, and 20 percent
+    rhythm stability.  Duration is 60 percent relative error, 20 percent ratio
+    deviation, and 20 percent phrase consistency.  Lyric is 35 percent word
+    accuracy, 25 percent overlap, 25 percent label match, and 15 percent
+    phoneme boundary timing.
+
+    The two formulas at the bottom show how the two compound components are
+    calculated.  Rhythm Stability is the average of the IOI-MAE score and the
+    onset standard-deviation score --- it captures both inter-note interval
+    consistency and the tightness of timing errors.  Phrase Consistency
+    averages the duration standard-deviation score and the relative duration
+    error score.  Either term is used alone if the other is unavailable.
+  }
+  \begin{block}{Confidence-Weighted Aggregation (all four categories)}
+    \[
+      S_\text{cat}
+        = \frac{\displaystyle\sum_i w_i\,c_i\,s_i}
+               {\displaystyle\sum_i w_i\,c_i},
+      \qquad
+      c_i = \min\!\Bigl(1,\,\tfrac{N}{3}\Bigr)
+    \]
+    \footnotesize $w_i$ = nominal weight;\; $c_i$ = confidence from data volume;\;
+    $s_i\in[0,100]$ = component score.
+  \end{block}
+
+  \medskip
+  \begin{columns}[T]
+    \column{0.22\textwidth}
+      \begin{exampleblock}{\footnotesize Pitch}
+        \footnotesize
+        \begin{tabular}{@{}lr@{}}
+          PitchAcc & 0.50 \\
+          MACE     & 0.30 \\
+          RMSE     & 0.20 \\
+        \end{tabular}
+      \end{exampleblock}
+    \column{0.22\textwidth}
+      \begin{exampleblock}{\footnotesize Timing}
+        \footnotesize
+        \begin{tabular}{@{}lr@{}}
+          TimingAcc & 0.50 \\
+          Onset MAE & 0.30 \\
+          IOI+std   & 0.20 \\
+        \end{tabular}
+      \end{exampleblock}
+    \column{0.22\textwidth}
+      \begin{exampleblock}{\footnotesize Duration}
+        \footnotesize
+        \begin{tabular}{@{}lr@{}}
+          RelDurErr & 0.60 \\
+          RatioDev  & 0.20 \\
+          PhraseCon & 0.20 \\
+        \end{tabular}
+      \end{exampleblock}
+    \column{0.22\textwidth}
+      \begin{exampleblock}{\footnotesize Lyric}
+        \footnotesize
+        \begin{tabular}{@{}lr@{}}
+          WordAcc     & 0.35 \\
+          OverlapAcc  & 0.25 \\
+          LabelMatch  & 0.25 \\
+          PhonBndErr  & 0.15 \\
+        \end{tabular}
+      \end{exampleblock}
+  \end{columns}
+
+  \medskip
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{\footnotesize Rhythm Stability (Timing, $w=0.20$)}
+        \footnotesize
+        \[
+          S_\text{rhythm}
+            = \tfrac{1}{2}\bigl(S_\text{pw}(\mathrm{IOI\text{-}MAE}) + S_\text{pw}(\sigma_\text{on})\bigr)
+        \]
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{block}{\footnotesize Phrase Consistency (Duration, $w=0.20$)}
+        \footnotesize
+        \[
+          S_\text{phrase}
+            = \tfrac{1}{2}\bigl(S_\text{pw}(\sigma_\text{dur}) + S_\text{pw}(\mathrm{RelDurErr})\bigr)
+        \]
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 10. Scoring — Final Score & Interpretation ──────────────────────────────
+\begin{frame}{Scoring --- Final Score \& Interpretation}
+  \note{
+    The final coaching score is a weighted combination of the four category
+    scores: 40 percent pitch, 30 percent timing, 15 percent duration, and 15
+    percent lyric.  Pitch has the highest weight because intonation is the most
+    fundamental aspect of singing quality.
+
+    At runtime the formula is actually computed using the confidence-adjusted
+    version shown below the boxed equation, where each category weight is also
+    multiplied by its confidence factor.  This means a category with very few
+    evaluated notes contributes proportionally less to the overall score.
+
+    The interpretation thresholds come directly from the configuration file.
+    90 and above is excellent.  75 to 89 is good.  55 to 74 is fair.  Below
+    55 needs work.
+
+    All feedback messages are looked up from a static rule table keyed by
+    category and performance level.  There are no language models involved.
+    The output is completely deterministic --- the same audio file will always
+    produce the same score and the same feedback.
+  }
+  \begin{block}{Final Score (\texttt{scoring/performance\_scoring.py})}
+    \[
+      \boxed{S_\text{final}
+        = 0.40\,S_\text{pitch}
+        + 0.30\,S_\text{timing}
+        + 0.15\,S_\text{dur}
+        + 0.15\,S_\text{lyric}}
+    \]
+    \[
+      S_\text{final}
+        = \frac{\sum_k W_k\,C_k\,S_k}{\sum_k W_k\,C_k},\quad
+      C_k = \min\!\bigl(1,\,N_k/3\bigr)
+      \quad\text{(confidence-adjusted)}
+    \]
+  \end{block}
+
+  \medskip
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{Score Levels (\texttt{scoring/interpretation.py})}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}clp{4.2cm}@{}}
+          \toprule
+          Score    & Level & Meaning \\
+          \midrule
+          $\ge 90$ & excellent  & Performance-ready \\
+          $\ge 75$ & good       & A few targeted corrections \\
+          $\ge 55$ & fair       & Focused practice needed \\
+          $< 55$   & needs\_work & Coaching before full-song practice \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+
+    \column{0.46\textwidth}
+      \begin{alertblock}{Rule-Based Feedback (no LLMs)}
+        \small
+        Strengths and weaknesses are looked up from a \textbf{static table}
+        keyed by (category, level) — output is fully deterministic.
+        \medskip\par
+        \footnotesize
+        \textit{Example strength:} ``Strong pitch intonation and accuracy''\\
+        \textit{Example weakness:} ``Significant timing inconsistencies detected''
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+%% ─── 11. Model — Pitch Extraction ────────────────────────────────────────────
+\begin{frame}{Model --- Pitch Extraction (\texttt{models/pitch/})}
+  \note{
+    The pitch extraction pipeline has five stages.
+
+    First, the WAV is loaded at 16 kHz.
+
+    Second, WebRTC VAD runs with aggressiveness 2, 20-millisecond frames, and
+    a median smoothing window of 5, producing a voiced/unvoiced mask at the VAD
+    frame rate.  If WebRTC is not installed, an energy-based fallback activates
+    at minus 40 dBFS.
+
+    Third, the actual pitch is estimated.  The primary backend is torchcrepe, a
+    CREPE-style CNN with Viterbi decoding, a periodicity threshold of 0.21, and
+    a silence threshold of minus 60 dBFS.  The fallback is librosa's pYIN
+    algorithm with its own frequency range of 65 to 2093 Hz.
+
+    Fourth, the VAD mask is resampled to the pitch frame rate using
+    nearest-neighbour interpolation.
+
+    Fifth, fuse\_vad\_and\_pitch combines everything in five sub-steps.  It
+    intersects the pitch model's voiced flags with the VAD mask.  It zeros
+    unvoiced frames.  It linearly interpolates short gaps up to 10 frames and
+    marks those frames as voiced.  It applies a median filter of kernel size 5
+    to voiced frames.  Finally it applies Gaussian smoothing with sigma 1.
+
+    The output is timestamps, F0 in Hz, and a voiced boolean mask, all at 100
+    frames per second.
+  }
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{Pipeline (\texttt{pipeline.py})}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}lp{5.6cm}@{}}
+          \textbf{1.\ WAV}   & 16\,kHz, mono, float32 \\
+          \textbf{2.\ VAD}   & WebRTC VAD: aggressiveness=2, frame=20\,ms,
+                               smoothing window=5 \\
+          \textbf{3.\ Pitch} & torchcrepe (CREPE CNN + Viterbi,
+                               period.\ thresh.=0.21, silence=$-60$\,dBFS)\\
+                             & or librosa.pyin (fmin=65, fmax=2093\,Hz) \\
+          \textbf{4.\ Align} & Resample VAD mask to pitch frame rate \\
+          \textbf{5.\ Fuse}  & See right column \\
+        \end{tabular}
+      \end{block}
+      \vspace{4pt}
+      \begin{exampleblock}{Output}
+        \small $(\,\text{timestamps},\; \fh_t\text{ (Hz)},\; \vh_t\text{ (bool)}\,)$
+        at 100\,fps \; (hop = 160 samples at 16\,kHz)
+      \end{exampleblock}
+
+    \column{0.46\textwidth}
+      \begin{block}{\texttt{fuse\_vad\_and\_pitch()} (\texttt{fusion.py})}
+        \small
+        \begin{enumerate}\setlength\itemsep{3pt}
+          \item $\vh_\text{final} \leftarrow \vh_\text{pitch} \wedge \vh_\text{vad}$
+          \item Zero unvoiced:\; $\fh_t \leftarrow 0$ if $\neg\vh_\text{final},t$
+          \item Interpolate gaps (linear, max 10 frames); update $\vh_\text{final}$
+          \item Median filter voiced frames (kernel = 5)
+          \item Gaussian smooth voiced frames ($\sigma = 1.0$)
+        \end{enumerate}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 12. Model — Onset/Offset Detection ─────────────────────────────────────
+\begin{frame}{Model --- Onset/Offset Detection (\texttt{model\_v5.py})}
+  \note{
+    The onset and offset detection model is based on wav2vec2-base from
+    Facebook.  The raw waveform goes into a frozen 7-layer CNN feature
+    extractor with a total stride of 320 samples, giving a 50 Hz frame rate.
+    The features then pass through a 12-layer transformer encoder with hidden
+    size 768, which is fine-tuned during training.  After dropout at p equals
+    0.1, a single linear layer maps the 768-dimensional hidden state to 3
+    logits per frame.
+
+    Those three logits correspond to onset probability, offset probability,
+    and active or voiced probability.
+
+    At inference time, each logit is passed through a sigmoid to get a
+    probability curve.  We then run scipy's find\_peaks on the onset and offset
+    curves with a threshold of 0.3 and a minimum peak distance of 3 frames,
+    which is about 60 milliseconds.  Onsets and offsets are then paired
+    greedily: each onset is matched with the next available offset that comes
+    after it.
+
+    The model outputs at 50 Hz but is resampled to the canonical 100 Hz grid
+    in the fusion step.
+
+    The registry in the codebase automatically selects this Wav2Vec2 model
+    when the checkpoint file ends in .ckpt, which is what pipeline.yaml
+    specifies.
+  }
+  \textbf{Wav2Vec2OnsetDetector} — \texttt{facebook/wav2vec2-base} with a
+  3-class linear head.
+
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{Architecture}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}lp{5.6cm}@{}}
+          Input       & Waveform $\mathbf{x}\in\mathbb{R}^{B\times T}$ at 16\,kHz \\
+          CNN Extr.   & 7-layer Conv1d; total stride 320;
+                        \textbf{frozen} \\
+          Transformer & 12-layer encoder, $d=768$; fine-tuned \\
+          Dropout     & $p=0.1$ \\
+          Head        & Linear$(768\!\to\!3)$: logits $\ell^{(0)}_t,\ell^{(1)}_t,\ell^{(2)}_t$ \\
+        \end{tabular}
+        \vspace{2pt}
+        \footnotesize
+        $\ell^{(0)}$ = onset, $\ell^{(1)}$ = offset, $\ell^{(2)}$ = active (voiced)
+      \end{block}
+
+    \column{0.46\textwidth}
+      \begin{block}{Inference}
+        \[
+          p_t^{(k)} = \sigma\!\left(\ell_t^{(k)}\right) \in [0,1]
+        \]
+        \[
+          \sh_n = \mathrm{PeakPick}\!\left(p_t^{(0)},\;\theta_\text{on}{=}0.3\right)
+        \]
+        \[
+          \eh_n = \mathrm{PeakPick}\!\left(p_t^{(1)},\;\theta_\text{off}{=}0.3\right)
+        \]
+        \footnotesize Min distance = 3 frames\,$\approx$\,60\,ms;
+        onset--offset paired greedily.
+      \end{block}
+      \vspace{4pt}
+      \begin{exampleblock}{Frame Rate}
+        \small $16000 / 320 = 50$\,Hz (20\,ms/frame)\\
+        Resampled to 100\,fps canonical grid.
+      \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+%% ─── 13. Model — Phoneme Detection ──────────────────────────────────────────
+\begin{frame}{Model --- Phoneme Boundary Detection (\texttt{phoneme\_model.py})}
+  \note{
+    The phoneme boundary model uses the pretrained wav2vec2-lv-60-espeak-cv-ft
+    model from Facebook.  This was trained on 60 languages using an eSpeak IPA
+    vocabulary.  Importantly, unlike the onset/offset model, this one is loaded
+    purely in eval mode and used as-is for inference --- we are not fine-tuning
+    any layers.
+
+    The pipeline works as follows.  The audio goes through the Wav2Vec2 feature
+    extractor CNN, then through the transformer encoder to produce per-frame
+    logits over the phoneme vocabulary.  CTC alignment then takes argmax per
+    frame, collapses consecutive repeated tokens, and removes blank tokens,
+    leaving a sequence of timed phoneme segments.
+
+    Two post-processing steps follow.  First, any segment longer than 300
+    milliseconds is split at internal transition points where an alternative
+    phoneme has a probability above 0.25.  This handles long sustained vowels.
+    Second, a blank-region scan goes through the gaps between segments and
+    inserts any phoneme whose peak probability exceeds 0.05 --- this recovers
+    phonemes that CTC blank dominance tends to suppress in singing.
+
+    For scoring, we match these predicted segments against the TextGrid
+    reference boundaries and compute the three lyric metrics shown on the right.
+  }
+  \textbf{Pretrained:} \texttt{facebook/wav2vec2-lv-60-espeak-cv-ft}
+  — loaded in eval mode (inference only, no frozen-layer training).
+
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{CTC Pipeline}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}lp{5.5cm}@{}}
+          \textbf{1.} Input  & WAV at 16\,kHz \\
+          \textbf{2.} Feats  & Wav2Vec2FeatureExtractor (CNN, eval mode) \\
+          \textbf{3.} Encode & Wav2Vec2 Transformer;
+                               logits $\in\mathbb{R}^{T\times V}$ \\
+          \textbf{4.} CTC    & Argmax; collapse repeated; remove blanks \\
+          \textbf{5.} Post   & (i) split segments $>300$\,ms\\
+                             & (ii) blank-region phoneme recovery \\
+          \textbf{6.} Out    & List$[\,(\ah_p,\bh_p,\text{label},\text{conf})\,]$ \\
+        \end{tabular}
+      \end{block}
+
+    \column{0.46\textwidth}
+      \begin{block}{Scoring Connection}
+        \[
+          \mathrm{PhonBndErr}
+            = \frac{1}{P}\sum_{p=1}^{P}|\ah_p - a_p|\times 1000
+        \]
+        \footnotesize Onset deviation only (not average of start and end).
+        \medskip\par
+        \small Additional outputs per matched pair:
+        \begin{itemize}\setlength\itemsep{1pt}\footnotesize
+          \item overlap fraction $\ge 0.5$ (OverlapAcc)
+          \item label match flag $\hat{l}_p = l_p$ (LabelMatch)
+        \end{itemize}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 14. Results — Pitch Model ───────────────────────────────────────────────
+
+%% ─── 15. Results — Onset/Offset ─────────────────────────────────────────────
+\begin{frame}{Results --- Onset/Offset Detection (Wav2Vec2)}
+  \note{
+    This slide shows how the Wav2Vec2 onset/offset model's three outputs
+    connect to the downstream scoring metrics.
+
+    The onset logit produces S-hat-n, the predicted note start times.  These
+    feed directly into onset error, timing accuracy, and IOI-MAE.
+
+    The offset logit produces E-hat-n, the predicted note end times.  These
+    feed into offset error, duration error, relative duration error, and
+    duration ratio.
+
+    The active logit provides a per-frame voiced activity mask that supplements
+    the VAD signal during the note event construction phase.
+
+    The peak-picking parameters are straightforward: a sigmoid threshold of 0.3
+    for both onset and offset, a minimum inter-peak distance of 3 frames which
+    is about 60 milliseconds, and greedy pairing where each onset is matched
+    to the next available offset.
+
+    The model runs at 50 Hz because of the Wav2Vec2 CNN stride of 320 samples
+    at 16 kHz.  It is resampled to the canonical 100 Hz grid in the fusion
+    step before any metric computation.
+  }
+  \begin{columns}[T]
+    \column{0.55\textwidth}
+      \begin{block}{Model Outputs and Downstream Metrics}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}lp{5.6cm}@{}}
+          \toprule
+          Output & Used to compute \\
+          \midrule
+          $\sh_n$ from $\ell^{(0)}$ & OnsetError, TimingAcc, IOI-MAE \\
+          $\eh_n$ from $\ell^{(1)}$ & OffsetError, DurErr, RelDurErr, DurRatio \\
+          active from $\ell^{(2)}$ & voiced-frame gating in event construction \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+      \vspace{4pt}
+      \begin{alertblock}{Frame Rate}
+        \small
+        CNN stride $= 320$ samples @ 16\,kHz $\Rightarrow$ 50\,Hz (20\,ms/frame)\\
+        Resampled to 100\,fps canonical grid.
+      \end{alertblock}
+
+    \column{0.41\textwidth}
+      \begin{block}{Peak-Picking Parameters}
+        \small
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{@{}ll@{}}
+          \toprule
+          Parameter & Value \\
+          \midrule
+          $\theta_\text{onset}$  & 0.3 \\
+          $\theta_\text{offset}$ & 0.3 \\
+          Min distance  & 3 frames ($\approx60$\,ms) \\
+          Pairing       & Greedy, next available offset \\
+          \bottomrule
+        \end{tabular}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+%% ─── 16. Results — Note-Level Pitch ─────────────────────────────────────────
+\begin{frame}{Results --- Note-Level Pitch Accuracy (Pilot)}
+  \note{
+    This is a pilot evaluation on a 7-note excerpt from the song North Wind
+    Meets the Sea, using the torchcrepe backend with a 50-cent tolerance.
+
+    The overall note-level pitch accuracy is 6 out of 7 notes, or 85.7 percent.
+
+    Looking at the table, note 2 on the lyric ``the'' is the only failure at
+    minus 152.8 cents --- about one and a half semitones flat.  This is most
+    likely because it is a very short note at only 178 milliseconds with just
+    18 voiced frames, which is not enough data for a reliable median pitch
+    estimate.
+
+    All 6 correct notes are within 45 cents.  Note 6 at 44.4 cents is the
+    closest to the 50-cent boundary.
+
+    There is also a mild systematic bias in the results: the model tends to be
+    flat on the longer sustained notes --- notes 1 and 4 --- and slightly sharp
+    on the shorter faster notes.  This is worth investigating further as we
+    gather more data.
+  }
+  \textbf{Setup:} 7-note excerpt $\cdot$ torchcrepe $\cdot$ $\tau=50$\
+  \[
+    \mathrm{NotePitchAcc}_{50} = 6/7 \approx 85.7\%
+  \]
+  \begin{center}
+    \small
+    \begin{tabular}{@{}clccccc@{}}
+      \toprule
+      Note & Lyric & Ref (MIDI) & Ref (Hz) & Det.\ (MIDI)
+           & $\bar{c}_n$ (¢) & Correct \\
+      \midrule
+      1 & \textit{where} & C4 (60.0)  & 261.6 & 59.74 & $-26.1$  & $\checkmark$ \\
+      2 & \textit{the}   & D4 (62.0)  & 293.7 & 60.47 & $-152.8$ & $\times$ \\
+      3 & \textit{north} & E4 (64.0)  & 329.6 & 64.08 & $+8.2$   & $\checkmark$ \\
+      4 & \textit{wind}  & Bb3 (58.0) & 233.1 & 57.63 & $-36.8$  & $\checkmark$ \\
+      5 & \textit{meets} & C4 (60.0)  & 261.6 & 60.32 & $+32.5$  & $\checkmark$ \\
+      6 & \textit{the}   & A3 (57.0)  & 220.0 & 57.44 & $+44.4$  & $\checkmark$ \\
+      7 & \textit{sea}   & D4 (62.0)  & 293.7 & 62.24 & $+23.7$  & $\checkmark$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \begin{itemize}\setlength\itemsep{1pt}\footnotesize
+    \item Note 2: $-152.8$\,¢ on a 178\,ms note with only 18 voiced frames
+    \item All 6 correct notes within $\pm45$\,¢; Note 6 at 44.4\,¢ closest to the $\pm50$\,¢ boundary
+    \item Mild bias: flat on sustained notes (1, 4); sharp on shorter notes (3, 5, 6, 7)
+  \end{itemize}
+\end{frame}
+
+%% ─── 17. Integrated Pipeline ─────────────────────────────────────────────────
+\begin{frame}{Integrated System --- VocalCoach Pipeline}
+  \note{
+    This final slide shows the complete integrated pipeline.
+
+    Phase 1 loads the audio at 16 kHz with normalisation.
+
+    Phases 2, 3, and 4 run the three models.  Phase 2 runs the pitch pipeline
+    via torchcrepe and produces F-hat-t and V-hat-t at 100 fps.  Phase 3 runs
+    the phoneme model via Wav2Vec2 CTC and produces a list of phoneme segments
+    with timestamps.  Phase 4 runs the Wav2Vec2 onset/offset detector and
+    produces S-hat-n and E-hat-n.
+
+    Phase 5 is the feature fusion step.  All model outputs are merged onto the
+    canonical 100 Hz frame grid, and then structured note events and lyric
+    events are built into the FusedPerformanceRepresentation.
+
+    Phase 6 parses the MusicXML and TextGrid reference files, then runs the
+    greedy overlap-based alignment to match predicted events against reference
+    events, producing the AlignmentResult.
+
+    Phase 7 computes all the metrics we discussed, passes them through the
+    scoring engine, and generates the interpretation summary.
+
+    The entry point is a single call to UnifiedInferencePipeline.predict with
+    the audio path, MusicXML path, TextGrid path, and compute\_scores equals
+    True.
+
+    To close: the key design principle is that the neural models only estimate
+    measurable physical parameters.  All the coaching intelligence lives in
+    deterministic equations, making the system fully interpretable and
+    auditable.  Thank you.
+  }
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}clp{10cm}@{}}
+    \toprule
+    Ph. & Module & Output \\
+    \midrule
+    1 & \texttt{utils/audio.py}
+      & Load audio; 16\,kHz mono; canonical 10\,ms grid (hop=160) \\
+    2 & \texttt{models/pitch/pipeline.py}
+      & torchcrepe $\to$ $\fh_t$ (Hz), $\vh_t$ (bool) @ 100\,fps \\
+    3 & \texttt{models/phoneme/phoneme\_model.py}
+      & Wav2Vec2+CTC $\to$ List$[\,(\ah_p, \bh_p)\,]$ \\
+    4 & \texttt{models/onset\_offset/model\_v5.py}
+      & Wav2Vec2 $\to$ logits $\to$ $\sh_n, \eh_n$ \\
+    5 & \texttt{fusion/}
+      & Merge to 100\,fps; build NoteEvents, LyricEvents
+        $\to$ FusedPerformanceRepresentation \\
+    6 & \texttt{reference/} + \texttt{alignment/}
+      & MusicXML+TextGrid $\to$ ReferenceRepresentation;
+        greedy overlap $\to$ AlignmentResult \\
+    7 & \texttt{metrics/} + \texttt{scoring/}
+      & Metrics report $\to$ Score report $\to$ InterpretationSummary \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \begin{alertblock}{Key Design Principle}
+    \small
+    Models estimate $\fh_t, \vh_t, \sh_n, \eh_n, \ah_p, \bh_p$.
+    All coaching scores are computed by \textbf{deterministic equations}
+    applied to those parameters — models never directly predict a score.
+  \end{alertblock}
+\end{frame}
+
+\end{document}
