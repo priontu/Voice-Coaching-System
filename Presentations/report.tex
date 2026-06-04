@@ -1,0 +1,1169 @@
+%% VocalCoach_Kim — Detailed Technical Report
+%% Compile: pdflatex report.tex  (run twice for TOC/references)
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+
+\geometry{margin=1in}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  urlcolor=blue!60!black,
+  citecolor=blue!60!black
+}
+
+\definecolor{codegray}{RGB}{245,245,245}
+\definecolor{codeframe}{RGB}{200,200,200}
+
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\small,
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  columns=flexible,
+  keepspaces=true,
+  showstringspaces=false
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{VocalCoach\_Kim Technical Report}
+\lhead{IMAPLE Lab --- Drexel University}
+\rfoot{\thepage}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{\thesection\quad}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{\thesubsection\quad}
+
+%% ── Notation shortcuts ────────────────────────────────────────────────────────
+\newcommand{\fh}{\hat{f}}
+\newcommand{\vh}{\hat{v}}
+\newcommand{\sh}{\hat{s}}
+\newcommand{\eh}{\hat{e}}
+\newcommand{\ah}{\hat{a}}
+\newcommand{\bh}{\hat{b}}
+\newcommand{\dh}{\hat{d}}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\LARGE\bfseries Voice Coaching System\\[6pt]
+   for Singing Performance Evaluation\par}
+  \vspace{0.5cm}
+  {\large\itshape Detailed Technical Report\par}
+  \vspace{1.5cm}
+  {\large IMAPLE Lab, Drexel University\par}
+  \vspace{0.5cm}
+  {\large 2026\par}
+  \vspace{2cm}
+  \begin{abstract}
+    \noindent
+    This report provides a comprehensive technical description of the
+    \texttt{VocalCoach\_Kim} software system — a reference-guided pipeline for
+    objective singing performance evaluation.
+    The system accepts a raw audio recording and a musical reference (MusicXML
+    score and Praat TextGrid annotation) and produces a structured coaching
+    report covering pitch accuracy, timing, note duration, and lyric
+    intelligibility.
+    Three deep neural networks act as \emph{feature extractors}: a
+    torchcrepe/CREPE CNN for fundamental frequency estimation, a fine-tuned
+    Wav2Vec2 model with a three-class linear head for note onset/offset
+    detection, and a pre-trained Wav2Vec2 CTC model for phoneme boundary
+    detection.
+    All coaching scores are derived from explicit mathematical equations applied
+    to extracted parameters; no model directly predicts a score, making the
+    system fully interpretable and deterministic.
+    This report describes every pipeline stage in detail, including data
+    representations, algorithmic choices, configuration parameters, and the
+    mathematical formulae underlying all metrics and scores.
+  \end{abstract}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{System Overview}
+% =============================================================================
+
+The \texttt{VocalCoach\_Kim} system is organized as a seven-phase sequential
+pipeline orchestrated by \texttt{UnifiedInferencePipeline}
+(\texttt{inference/pipeline.py}).
+Each phase is described in detail in subsequent sections; here we give a
+high-level map.
+
+\begin{table}[h]
+  \centering
+  \caption{Pipeline phases and responsible modules.}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{@{}clp{9cm}@{}}
+    \toprule
+    Phase & Module & Description \\
+    \midrule
+    1 & \texttt{utils/audio.py}
+      & Load and normalize audio to 16\,kHz mono float32. \\
+    2 & \texttt{models/pitch/pipeline.py}
+      & Extract frame-level F0 and voiced/unvoiced mask via VAD + torchcrepe. \\
+    3 & \texttt{models/phoneme/phoneme\_model.py}
+      & Predict phoneme segment boundaries and labels via Wav2Vec2 + CTC. \\
+    4 & \texttt{models/onset\_offset/model\_v5.py}
+      & Predict note onset and offset times via fine-tuned Wav2Vec2. \\
+    5 & \texttt{fusion/}
+      & Resample all outputs to a canonical 100\,fps grid; construct
+        \texttt{NoteEvent}, \texttt{LyricEvent}, and \texttt{WordEvent}
+        structures. \\
+    6 & \texttt{reference/} + \texttt{alignment/}
+      & Parse MusicXML and TextGrid reference files; greedily align predicted
+        events against reference events. \\
+    7 & \texttt{metrics/} + \texttt{scoring/}
+      & Compute objective metrics; normalize to [0,\,100]; generate final
+        score report and rule-based interpretation. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Design principle.}
+Neural models estimate measurable physical parameters
+$(\fh_t,\,\vh_t,\,\sh_n,\,\eh_n,\,\ah_p,\,\bh_p)$.
+All coaching intelligence is encoded in deterministic equations that map those
+parameters to scores.
+This separation makes the output of every computation auditable, reproducible,
+and independent of training-time distributional assumptions.
+
+\textbf{Canonical frame grid.}
+All frame-level data is ultimately aligned to a grid with hop length
+$H = 160$ samples at $f_s = 16\,000$\,Hz, giving a frame duration of
+$H/f_s = 10$\,ms and a frame rate of 100\,fps.
+The total number of canonical frames for a recording of $T$ samples is
+$N_\text{frames} = \lceil T / H \rceil$.
+
+\textbf{Dataset.}
+The system was developed and evaluated using the GTSinger dataset, English
+alto singer subset (\texttt{EN-Alto-1}).
+
+% =============================================================================
+\section{Notation}
+% =============================================================================
+
+Table~\ref{tab:notation} defines all symbols used throughout this report.
+A hat ($\hat{\,\cdot\,}$) always denotes a quantity \emph{predicted} from
+audio; unhatted symbols denote \emph{reference} quantities from score files.
+
+\begin{table}[h]
+  \centering
+  \caption{Notation used throughout the report.}
+  \label{tab:notation}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{@{}lp{11cm}@{}}
+    \toprule
+    Symbol & Meaning \\
+    \midrule
+    $\fh_t$                & Predicted fundamental frequency (Hz) at frame $t$ \\
+    $\vh_t \in \{0,1\}$   & Predicted voiced/unvoiced flag at frame $t$ \\
+    $r_t$                  & Reference F0 (Hz) at frame $t$ (derived from MIDI pitch) \\
+    $\sh_n,\,\eh_n$        & Predicted onset and offset time (s) of note $n$ \\
+    $\dh_n = \eh_n-\sh_n$ & Predicted duration of note $n$ \\
+    $s_n,\,e_n,\,d_n$     & Reference onset, offset, and duration of note $n$ \\
+    $m_n$                  & MIDI pitch of reference note $n$ \\
+    $r_n = 440\cdot 2^{(m_n-69)/12}$ & Reference frequency (Hz) of note $n$ \\
+    $\delta_n$             & Pitch deviation in cents for matched note $n$,
+                             $1200\log_2(\text{median}\,\fh / r_n)$ \\
+    $\epsilon_n$           & Onset deviation (ms), $(\sh_n - s_n)\times 1000$ \\
+    $\varepsilon_n$        & Offset deviation (ms), $(\eh_n - e_n)\times 1000$ \\
+    $\ah_p,\,\bh_p$        & Predicted phoneme $p$ start and end time (s) \\
+    $a_p,\,b_p$            & Reference phoneme $p$ start and end time (s) \\
+    $V$                    & Set of frames where both $\fh_t > 0$ and $r_t > 0$ \\
+    $N$                    & Number of matched note pairs \\
+    $P$                    & Number of matched phoneme pairs \\
+    $\tau$                 & Tolerance threshold (cents or ms, context-dependent) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Sign conventions.}
+A positive onset deviation $\epsilon_n > 0$ means the singer entered the note
+\emph{later} than the reference.
+A positive cent error $\delta_n > 0$ means the singer was \emph{sharp}
+relative to the reference pitch.
+
+% =============================================================================
+\section{Audio Preprocessing (Phase 1)}
+% =============================================================================
+
+The entry point for audio loading is \texttt{utils/audio.py}.
+All incoming audio is converted to a canonical representation before any model
+sees it:
+
+\begin{itemize}[noitemsep]
+  \item Sample rate: $f_s = 16\,000$\,Hz (resampled if necessary).
+  \item Channels: mono (multi-channel audio is averaged across channels).
+  \item Dtype: 32-bit float, normalized to the range $[-1, +1]$.
+  \item Frame grid: hop length $H = 160$ samples, giving 10\,ms frames.
+\end{itemize}
+
+The normalization step applies peak normalization so that the loudest sample
+in the file has magnitude 1.0.
+All downstream models operate on this canonical waveform array.
+
+% =============================================================================
+\section{Pitch Extraction (Phase 2)}
+% =============================================================================
+
+Pitch extraction is handled by \texttt{models/pitch/pipeline.py} through the
+class \texttt{PitchVADPipeline}.
+The pipeline has five stages.
+
+\subsection{Voice Activity Detection}
+
+\texttt{models/pitch/vad.py} implements \texttt{WebRTCVAD}, a wrapper around
+the WebRTC voice activity detector library.
+Key parameters:
+\begin{itemize}[noitemsep]
+  \item \textbf{Aggressiveness}: mode 2 (0 = least aggressive, 3 = most).
+  \item \textbf{Frame duration}: 20\,ms.
+  \item \textbf{Smoothing}: median filter of window size 5 applied to the raw
+        binary mask to remove isolated flip decisions.
+  \item \textbf{Fallback}: if the WebRTC library is not installed, an
+        energy-based detector activates with a threshold of $-40$\,dBFS.
+\end{itemize}
+Output: a boolean array \texttt{voiced\_mask} of shape $(N_\text{vad},)$,
+where $N_\text{vad}$ is the number of 20\,ms VAD frames in the recording,
+together with corresponding frame-center timestamps.
+
+\subsection{Fundamental Frequency Estimation}
+
+\texttt{models/pitch/pitch\_wrapper.py} implements \texttt{PitchModelWrapper},
+which supports three backends:
+
+\textbf{torchcrepe (primary).}
+A CREPE-style convolutional neural network~\cite{kim2018crepe} trained to
+predict a probability distribution over 360 frequency bins spanning
+32.7--1975.5\,Hz.
+Configuration:
+\begin{itemize}[noitemsep]
+  \item Hop length: 160 samples (10\,ms at 16\,kHz).
+  \item Frequency range: 50--1000\,Hz.
+  \item Model capacity: \texttt{full} (6-layer CNN).
+  \item Decoder: Viterbi path decoding for temporal smoothness.
+  \item Periodicity threshold: 0.21 (frames with confidence below this are
+        treated as unvoiced).
+  \item Silence threshold: $-60$\,dBFS.
+  \item Batch size: 1024.
+\end{itemize}
+Output: \texttt{(times, f0, confidence)} all as float32 arrays of length
+$N_\text{frames}$.
+
+\textbf{pYIN (fallback).}
+If torchcrepe is unavailable, the system falls back to librosa's pYIN
+implementation with \texttt{fmin}=65\,Hz, \texttt{fmax}=2093\,Hz, frame
+length 2048, and hop 512.
+
+\textbf{Custom backend.}
+Users may supply any callable returning a \texttt{(times, f0, confidence)}
+triple.
+
+After prediction, all NaN values are replaced with 0.0, and the output is
+cast to float32.
+
+\subsection{VAD Alignment}
+
+The VAD mask is defined at a 50\,Hz frame rate (20\,ms frames), while the
+pitch output is at 100\,fps (10\,ms frames).
+The mask is resampled to the pitch frame rate using nearest-neighbour
+interpolation:
+\[
+  \vh_t^\text{vad} = \texttt{voiced\_mask}\!\left[\left\lfloor
+      \frac{t \cdot f_\text{vad}}{f_\text{pitch}}
+    \right\rfloor\right]
+\]
+where $f_\text{vad}=50$ and $f_\text{pitch}=100$.
+
+\subsection{VAD--Pitch Fusion}
+
+\texttt{models/pitch/fusion.py} implements \texttt{fuse\_vad\_and\_pitch()},
+which performs five sequential operations to produce a clean F0 trajectory.
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Intersection.}
+        $\vh_t^\text{final} \leftarrow \vh_t^\text{pitch} \wedge
+        \vh_t^\text{vad}$.
+        A frame is voiced only if both the pitch model and the VAD agree.
+  \item \textbf{Masking.}
+        Unvoiced frames are zeroed: $\fh_t \leftarrow 0$ whenever
+        $\neg\vh_t^\text{final}$.
+  \item \textbf{Gap interpolation.}
+        Contiguous unvoiced gaps of up to 10 frames ($\approx 100$\,ms) are
+        linearly interpolated between the F0 values on either boundary, and
+        the corresponding frames are marked voiced.
+        This prevents short closure events (e.g., consonants in a legato
+        phrase) from fragmenting the pitch contour.
+  \item \textbf{Median filtering.}
+        A median filter of kernel size 5 is applied to voiced frames only.
+        This suppresses isolated pitch estimation errors without smearing
+        formant transitions.
+  \item \textbf{Gaussian smoothing.}
+        A Gaussian kernel with $\sigma = 1.0$ frame is convolved with each
+        contiguous voiced segment.
+\end{enumerate}
+
+\textbf{Output.}
+The pipeline returns \texttt{PipelineOutput(times, f0, voiced\_mask)} at
+100\,fps.
+The three arrays have shape $(N_\text{frames},)$ and dtype float32 / bool.
+
+% =============================================================================
+\section{Note Onset/Offset Detection (Phase 4)}
+% =============================================================================
+
+\subsection{Model Architecture}
+
+The onset/offset model (\texttt{models/onset\_offset/model\_v5.py}) is built on
+\texttt{facebook/wav2vec2-base}.
+Wav2Vec2 consists of two subnetworks:
+
+\textbf{Feature extractor (frozen).}
+A stack of seven 1-D convolutional layers with a total stride of 320 samples.
+At 16\,kHz, this maps the raw waveform to a feature sequence at
+$16\,000/320 = 50$\,Hz (20\,ms per frame).
+These layers are frozen during fine-tuning (parameters are not updated).
+
+\textbf{Transformer encoder (fine-tuned).}
+Twelve transformer layers with hidden dimension $d = 768$.
+These layers are fine-tuned on the singing dataset.
+
+\textbf{Dropout and head.}
+A dropout layer with $p = 0.1$ followed by a single linear projection:
+\[
+  (\ell_t^{(0)},\,\ell_t^{(1)},\,\ell_t^{(2)}) = \mathbf{W}\,\mathbf{h}_t + \mathbf{b}
+  \quad \in \mathbb{R}^3
+\]
+where $\mathbf{h}_t \in \mathbb{R}^{768}$ is the transformer output at frame
+$t$.
+The three output dimensions correspond to onset, offset, and active (voiced)
+probabilities respectively.
+
+\subsection{Inference and Peak Picking}
+
+Logits are passed through a sigmoid:
+\[
+  p_t^{(k)} = \sigma\!\left(\ell_t^{(k)}\right) \in [0,1],
+  \quad k \in \{0_\text{onset},\, 1_\text{offset},\, 2_\text{active}\}
+\]
+
+Peak picking uses \texttt{scipy.signal.find\_peaks} on the onset and offset
+probability curves independently:
+\[
+  \sh_n = \mathrm{PeakPick}\!\left(p_t^{(0)},\;
+    \theta_\text{on}{=}0.3,\; d_\text{min}{=}3\,\text{frames}\right)
+\]
+\[
+  \eh_n = \mathrm{PeakPick}\!\left(p_t^{(1)},\;
+    \theta_\text{off}{=}0.3,\; d_\text{min}{=}3\,\text{frames}\right)
+\]
+The minimum peak distance of 3 frames corresponds to approximately 60\,ms,
+which prevents a single note boundary from producing multiple spurious
+detections.
+
+Onset--offset pairing is greedy and left-to-right: each onset is matched to
+the next available offset that occurs strictly after it.
+If no offset is found, a synthetic offset is inserted 10\,ms before the next
+onset (or 300\,ms after the last onset for the final note).
+
+The model runs at 50\,Hz; outputs are resampled to the canonical 100\,fps
+grid in the fusion step (Section~\ref{sec:fusion}).
+
+\subsection{Training Configuration}
+
+The model is fine-tuned with the following settings
+(\texttt{configs/onset\_offset.yaml}):
+batch size 16, 100 epochs, Adam optimizer with learning rate $10^{-3}$,
+patience 15 epochs (early stopping), and a Gaussian label sigma of 20\,ms
+(the binary onset/offset ground-truth annotations are soft-labeled with a
+Gaussian to account for annotation uncertainty).
+
+% =============================================================================
+\section{Phoneme Boundary Detection (Phase 3)}
+% =============================================================================
+
+\subsection{Model}
+
+The phoneme model (\texttt{models/phoneme/phoneme\_model.py}) uses
+\texttt{facebook/wav2vec2-lv-60-espeak-cv-ft}, a Wav2Vec2 model pre-trained on
+60 languages and fine-tuned for CTC phoneme recognition using the eSpeak IPA
+vocabulary.
+Unlike the onset/offset model, this model is used \emph{purely for inference}
+--- no layers are frozen or fine-tuned; it is loaded in evaluation mode
+(\texttt{model.eval()}) and weights remain fixed.
+
+\subsection{CTC Alignment Pipeline}
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Feature extraction.}
+        The raw 16\,kHz waveform is passed through the Wav2Vec2 feature
+        extractor (frozen CNN), then through the transformer encoder to
+        produce a per-frame logit tensor
+        $L \in \mathbb{R}^{T \times |V|}$ where $|V|$ is the CTC vocabulary
+        size (includes blank token, ID = 0).
+  \item \textbf{CTC decoding.}
+        Argmax decoding: $\hat{y}_t = \arg\max_v L_{t,v}$.
+        Consecutive repeated tokens are collapsed.
+        Blank tokens (ID = 0) are removed.
+        The result is a sequence of (token\_id, start\_frame, end\_frame)
+        triples.
+  \item \textbf{Time conversion.}
+        Frame indices are converted to seconds using the frame duration of
+        the Wav2Vec2 CNN ($\approx$20--40\,ms depending on the specific layer
+        stride).
+  \item \textbf{Confidence scoring.}
+        For each segment, the mean of the softmax probability
+        $\mathrm{softmax}(L_{t,\cdot})[\text{token\_id}]$ over frames in
+        the segment window is used as a confidence score.
+\end{enumerate}
+
+\subsection{Post-Processing}
+
+Two post-processing steps recover phonemes that CTC alignment tends to
+suppress.
+
+\textbf{Over-long segment splitting.}
+Any segment longer than 300\,ms is split.
+The split point is identified as the interior frame (excluding the first and
+last 10\,ms) where an alternative phoneme achieves the highest probability
+above a threshold of 0.25.
+This handles long sustained vowels that CTC assigns as a single segment
+spanning the entire duration.
+
+\textbf{Blank-region scanning.}
+After the initial CTC output, the inter-segment gaps (blank regions) are
+scanned.
+For each gap longer than one frame, the frame-level softmax probabilities are
+examined.
+If any non-blank token achieves a peak probability above 0.05, that phoneme
+is inserted as a new segment at the peak frame.
+This recovers short consonants (e.g., plosives, fricatives) that CTC's
+implicit blank-dominance tends to skip during singing, where consonants are
+often de-emphasized.
+
+\textbf{Output.}
+A list of \texttt{PhonemeSegment} objects:
+\begin{lstlisting}
+PhonemeSegment(phoneme: str, start_time: float,
+               end_time: float, confidence: float)
+\end{lstlisting}
+Phoneme labels are normalized to IPA using
+\texttt{reference/phoneme\_normalization.py}.
+
+% =============================================================================
+\section{Fusion and Canonical Representation (Phase 5)}
+\label{sec:fusion}
+% =============================================================================
+
+\subsection{Frame-Rate Alignment}
+
+\texttt{fusion/alignment.py} implements \texttt{merge\_model\_outputs()},
+which resamples all model outputs to the canonical 100\,fps grid.
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Float arrays} (F0, onset/offset probability curves):
+        linearly interpolated to the canonical timestamps;
+        out-of-range values filled with 0.0.
+  \item \textbf{Boolean masks} (voiced flags):
+        nearest-neighbour resampling; a value $> 0.5$ maps to \texttt{True}.
+  \item \textbf{Phoneme segment list} to per-frame labels:
+        each canonical frame is assigned the label of the phoneme segment
+        whose interval has the largest overlap with that frame's window.
+\end{itemize}
+
+Output: \texttt{FrameAlignedFeatures}
+\begin{lstlisting}
+FrameAlignedFeatures(
+    timestamps:     ndarray (N_frames,)   # seconds
+    f0:             ndarray (N_frames,)   # Hz, 0 if unvoiced
+    voiced:         ndarray (N_frames,)   # bool
+    onset_probs:    ndarray (N_frames,)   # [0,1]
+    offset_probs:   ndarray (N_frames,)   # [0,1]
+    phoneme_labels: List[str] length N_frames
+)
+\end{lstlisting}
+
+\subsection{Note Event Construction}
+
+\texttt{fusion/note\_events.py} constructs \texttt{NoteEvent} objects from the
+aligned onset/offset probability curves.
+
+\textbf{Peak picking} (on canonical 100\,fps grid):
+\texttt{scipy.signal.find\_peaks} with threshold $\theta = 0.5$, minimum peak
+distance corresponding to 50\,ms (\texttt{min\_distance\_s} from config).
+
+\textbf{Greedy onset--offset pairing}: each onset is paired with the first
+subsequent offset, subject to maximum note duration 10\,s.
+
+\textbf{Pitch statistics} are computed per note from the fused F0 array.
+For each note window $[\sh_n, \eh_n]$:
+\begin{itemize}[noitemsep]
+  \item Mean F0 of voiced frames in the window (used as the representative
+        pitch).
+  \item MIDI conversion: $\hat{m}_n = 69 + 12\log_2(\bar{f}_n/440)$.
+  \item Pitch stability: standard deviation of voiced F0 values within the
+        window.
+  \item Voiced fraction: fraction of frames in the window with
+        $\vh_t = \texttt{True}$.
+\end{itemize}
+
+\textbf{Note confidence}: $c_n = \sqrt{p_\text{onset} \cdot p_\text{offset}}$
+where $p_\text{onset}$ and $p_\text{offset}$ are the peak probabilities at
+the detected onset and offset frames respectively.
+
+\subsection{Lyric and Word Event Construction}
+
+\texttt{fusion/lyric\_events.py} converts the phoneme segment list into a
+two-level hierarchy.
+
+\textbf{LyricEvent} (one per phoneme): wraps \texttt{PhonemeSegment} and adds
+a \texttt{word\_idx} and \texttt{note\_idx} back-reference.
+
+\textbf{WordEvent}: consecutive phonemes whose start/end gap is below
+\texttt{word\_gap\_s = 100\,ms} are grouped into a word.
+The word text is the hyphen-joined sequence of its constituent phoneme strings.
+Word confidence is the mean of constituent phoneme confidences.
+
+\subsection{Cross-Event Annotation}
+
+\texttt{fusion/event\_alignment.py} annotates notes with the phonemes that
+overlap them (minimum overlap 10\,ms) and vice versa.
+It also:
+\begin{itemize}[noitemsep]
+  \item Builds \emph{voiced regions}: contiguous spans of
+        $\vh_t = \texttt{True}$.
+  \item Builds \emph{phrase events}: groups of notes separated by inter-onset
+        gaps below 500\,ms.
+\end{itemize}
+
+All of these structures are bundled into
+\texttt{FusedPerformanceRepresentation}, the complete predicted-side
+representation passed to phases 6 and 7.
+
+% =============================================================================
+\section{Reference Parsing (Phase 6a)}
+% =============================================================================
+
+\subsection{MusicXML Parsing}
+
+\texttt{reference/musicxml\_parser.py} parses MusicXML files using the
+\texttt{music21} library and extracts:
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Tempo}: the first \texttt{MetronomeMark} object;
+        default 120\,BPM if absent.
+  \item \textbf{Time and key signatures}: first occurrences in the score.
+  \item \textbf{Notes and rests}: obtained by flattening the score across all
+        parts and iterating over all elements.
+  \item \textbf{Tied notes}: consecutive tied notes are merged into a single
+        event with combined duration.
+\end{itemize}
+
+\textbf{Time conversion.}
+Musical beat positions are converted to absolute seconds:
+\[
+  t_\text{onset}(n) = \text{offset\_beats}(n) \times \frac{60}{\text{tempo\_bpm}}
+\]
+
+\textbf{Pitch conversion.}
+MIDI pitch to frequency:
+\[
+  r_n = 440 \cdot 2^{(m_n - 69)/12}
+\]
+
+Output: \texttt{ReferencePerformanceRepresentation} containing a list of
+\texttt{ReferenceNote} objects, each with fields: \texttt{onset\_time},
+\texttt{offset\_time}, \texttt{duration}, \texttt{pitch\_midi},
+\texttt{pitch\_hz}, \texttt{pitch\_name}, \texttt{lyric}, \texttt{measure},
+\texttt{beat}, \texttt{is\_rest}, \texttt{is\_tied}, \texttt{note\_idx}.
+
+\subsection{TextGrid Parsing}
+
+\texttt{reference/textgrid\_parser.py} parses Praat TextGrid files using the
+\texttt{praatio} library (with a plain-text fallback parser for edge cases).
+It extracts two tiers:
+\begin{itemize}[noitemsep]
+  \item \textbf{Phoneme tier}: searched under names
+        \texttt{phonemes}, \texttt{phones}, \texttt{phone}, \texttt{phoneme}.
+  \item \textbf{Word tier}: searched under names
+        \texttt{words}, \texttt{word}, \texttt{orthography}.
+\end{itemize}
+
+Silence intervals (labels in
+$\{\texttt{""}, \texttt{"SIL"}, \texttt{"<SIL>"}, \texttt{"sp"},
+   \texttt{"spn"}, \texttt{"sil"}, \texttt{"<eps>"}\}$)
+are skipped by default.
+Phoneme labels are normalized to IPA.
+Each \texttt{ReferenceWord} stores indices of the phonemes that fall within
+its time span.
+
+\subsection{Reference Builder}
+
+\texttt{reference/reference\_builder.py} combines the outputs of the two
+parsers into the final \texttt{ReferencePerformanceRepresentation}.
+It also builds phrase groupings from reference notes: a new phrase begins
+whenever the gap between consecutive reference note onsets exceeds 500\,ms.
+
+% =============================================================================
+\section{Alignment (Phase 6b)}
+% =============================================================================
+
+\texttt{alignment/reference\_alignment.py} performs greedy one-to-one
+matching between predicted and reference events for notes, phonemes, and words
+separately.
+
+\subsection{Note Alignment}
+
+\begin{enumerate}[noitemsep]
+  \item Reference rests are excluded (only pitched notes are matched).
+  \item A temporal overlap matrix is computed:
+        \[
+          O_{ij} = \max\!\left(0,\;
+            \min(\eh_i, e_j) - \max(\sh_i, s_j)
+          \right)
+        \]
+        for all predicted note $i$ and reference note $j$ pairs.
+  \item Pairs are sorted by descending overlap and matched greedily (each
+        predicted and reference note participates in at most one match).
+  \item A match is accepted only if
+        $O_{ij} \ge 10$\,ms and
+        $|\sh_i - s_j| \le 500$\,ms.
+  \item For each accepted match, the following deviations are computed:
+        \begin{align*}
+          \text{onset deviation} &= (\sh_i - s_j) \times 1000 \;\text{ms}\\
+          \text{offset deviation} &= (\eh_i - e_j) \times 1000 \;\text{ms}\\
+          \delta_n &= 1200 \log_2\!\left(
+            \frac{\text{median}\,\fh \text{ over }[\sh_i,\eh_i]}{r_j}
+          \right) \;\text{cents}
+        \end{align*}
+\end{enumerate}
+
+\subsection{Phoneme Alignment}
+
+The same greedy overlap procedure is applied to phoneme pairs, with a
+relaxed minimum overlap of 5\,ms.
+Additionally, each match records a \texttt{label\_match} boolean
+($\hat{l}_p = l_p$, predicted phoneme label equals reference label).
+
+\subsection{Word Alignment}
+
+Greedy overlap matching with minimum overlap 10\,ms and maximum onset
+deviation 500\,ms.
+
+\subsection{Output}
+
+All matches are stored in \texttt{AlignmentResult}:
+\begin{lstlisting}
+AlignmentResult(
+    note_matches:     List[NoteAlignmentMatch]
+    phoneme_matches:  List[PhonemeAlignmentMatch]
+    word_matches:     List[WordAlignmentMatch]
+    unmatched_pred_notes:     List[int]
+    unmatched_ref_notes:      List[int]
+    unmatched_pred_phonemes:  List[int]
+    ...
+    alignment_metadata: Dict
+)
+\end{lstlisting}
+
+% =============================================================================
+\section{Metrics (Phase 7a)}
+% =============================================================================
+
+\subsection{Pitch Metrics}
+
+All pitch metrics operate on the $N$ matched note pairs with valid pitch
+deviation $\delta_n$ (in cents).
+
+\textbf{Pitch Accuracy} ($\tau = 50$\,¢):
+\[
+  \mathrm{PitchAcc}_\tau = \frac{1}{N}\sum_{n=1}^{N}\mathbf{1}(|\delta_n| \le \tau)
+\]
+
+\textbf{Mean Absolute Cent Error (MACE)}:
+\[
+  \mathrm{MACE} = \frac{1}{N}\sum_{n=1}^{N}|\delta_n|
+\]
+
+\textbf{Root-Mean-Square Cent Error (RMSE)}:
+\[
+  \mathrm{PitchRMSE} = \sqrt{\frac{1}{N}\sum_{n=1}^{N}\delta_n^2}
+\]
+
+\textbf{Note-Level Pitch Accuracy} is numerically identical to
+$\mathrm{PitchAcc}_\tau$ but populates a per-note breakdown field
+(\texttt{PitchMetrics.per\_note}) used for note-by-note feedback.
+
+All deviations $\delta_n$ come from the \texttt{pitch\_deviation\_cents} field
+of each \texttt{NoteAlignmentMatch}, which is computed from the median F0 over
+the predicted note window.
+
+\subsection{Timing Metrics}
+
+Let $\epsilon_n = (\sh_n - s_n) \times 1000$\,ms be the onset deviation and
+$\varepsilon_n = (\eh_n - e_n) \times 1000$\,ms be the offset deviation.
+
+\textbf{Onset Error Statistics}:
+\[
+  \bar{\epsilon} = \frac{1}{N}\sum_n\epsilon_n \quad\text{(mean bias)}
+  \qquad
+  \mathrm{MAE}_\text{on} = \frac{1}{N}\sum_n|\epsilon_n|
+\]
+\[
+  \sigma_\text{on} = \sqrt{\frac{1}{N}\sum_n(\epsilon_n - \bar{\epsilon})^2}
+  \quad\text{(consistency)}
+\]
+
+\textbf{Timing Accuracy} ($\tau = 50$\,ms):
+\[
+  \mathrm{TimingAcc}_\tau = \frac{1}{N}\sum_n\mathbf{1}(|\epsilon_n| \le \tau)
+\]
+
+\textbf{Offset Error}:
+\[
+  \mathrm{MAE}_\text{off} = \frac{1}{N}\sum_n|\varepsilon_n|
+\]
+
+\textbf{Inter-Onset Interval MAE (IOI-MAE)}.
+The IOI sequence is $\Delta s^{(i)} = s_{i+1} - s_i$ for reference notes and
+$\Delta\sh^{(i)} = \sh_{i+1} - \sh_i$ for predicted notes.
+Let $M = \min(N_\text{pred}, N_\text{ref}) - 1$.
+\[
+  \mathrm{IOI\text{-}MAE} = \frac{1}{M}\sum_{i=1}^{M}
+    |\Delta\sh^{(i)} - \Delta s^{(i)}| \times 1000\;\text{ms}
+\]
+IOI-MAE is agnostic to absolute timing offset: a singer who is consistently
+200\,ms late but perfectly in rhythm will have IOI-MAE $\approx 0$ but high
+$\mathrm{MAE}_\text{on}$.
+
+\subsection{Duration Metrics}
+
+Let $\dh_n = \eh_n - \sh_n$ (predicted) and $d_n = e_n - s_n$ (reference).
+
+\textbf{Duration Error}:
+\[
+  \mathrm{DurErr} = \frac{1}{N}\sum_n|\dh_n - d_n| \;\text{s}
+\]
+
+\textbf{Relative Duration Error} (tempo-independent):
+\[
+  \mathrm{RelDurErr} = \frac{1}{N}\sum_n\frac{|\dh_n - d_n|}{d_n}
+\]
+
+\textbf{Duration Ratio}:
+\[
+  \mathrm{DurRatio} = \frac{1}{N}\sum_n\frac{\dh_n}{d_n}
+\]
+A ratio of 1.0 is perfect; $>1$ means the singer stretches notes; $<1$ means
+notes are cut short.
+For scoring, the deviation from unity $|\mathrm{DurRatio} - 1|$ is used.
+
+\subsection{Lyric Metrics}
+
+Let $P$ be the number of matched phoneme pairs.
+Let $\epsilon_p^{(a)} = (\ah_p - a_p) \times 1000$\,ms be the onset
+deviation for phoneme $p$.
+
+\textbf{Phoneme Boundary Error}:
+\[
+  \mathrm{PhonBndErr} = \frac{1}{P}\sum_{p=1}^{P}|\epsilon_p^{(a)}|
+\]
+Only the start boundary is used (not the average of start and end).
+
+\textbf{Word Alignment Accuracy}:
+\[
+  \mathrm{WordAcc} = \frac{|\text{matched words}|}{|\text{reference words}|}
+\]
+
+\textbf{Phoneme Overlap Accuracy}:
+\[
+  \mathrm{OverlapAcc} = \frac{1}{P}\sum_p
+    \mathbf{1}\!\left(\frac{\min(\bh_p,b_p)-\max(\ah_p,a_p)}
+                           {\bh_p - \ah_p} \ge 0.5\right)
+\]
+
+\textbf{Label Match Rate}:
+\[
+  \mathrm{LabelMatch} = \frac{1}{P}\sum_p\mathbf{1}(\hat{l}_p = l_p)
+\]
+
+% =============================================================================
+\section{Scoring (Phase 7b)}
+% =============================================================================
+
+\subsection{Metric Normalization}
+
+All raw metric values are mapped to the range $[0, 100]$ using one of two
+normalization strategies.
+
+\textbf{Piecewise-linear normalization} (for error metrics where lower is
+better).
+A set of breakpoints $\{(x_i, s_i)\}$ is defined such that $x_0 < x_1 <
+\ldots$ and $s_0 > s_1 > \ldots$
+(higher raw error maps to lower score).
+For a raw value $x$ with $x_i \le x \le x_{i+1}$:
+\[
+  S_\text{pw}(x) = s_i + \frac{s_{i+1}-s_i}{x_{i+1}-x_i}(x - x_i)
+\]
+Values below $x_0$ are clamped to $s_0$; values above $x_{k}$ are clamped
+to $s_k$.
+
+\begin{table}[h]
+  \centering
+  \caption{Piecewise-linear breakpoints for error-based metrics.}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    Metric & $x$ breakpoints & $s$ breakpoints \\
+    \midrule
+    MACE (¢)            & 0, 25, 50, 100, 200   & 100, 88, 75, 50, 0 \\
+    Pitch RMSE (¢)      & 0, 25, 50, 100, 200   & 100, 88, 72, 45, 0 \\
+    Onset MAE (ms)      & 0, 25, 50, 100, 200   & 100, 88, 75, 50, 0 \\
+    IOI MAE (ms)        & 0, 30, 60, 120, 240   & 100, 88, 75, 50, 0 \\
+    Onset std (ms)      & 0, 30, 60, 120, 240   & 100, 88, 72, 45, 0 \\
+    RelDurErr           & 0, 0.10, 0.20, 0.50, 1.0 & 100, 90, 75, 50, 0 \\
+    Duration ratio dev  & 0, 0.10, 0.25, 0.50, 1.0 & 100, 90, 75, 50, 0 \\
+    PhonBndErr (ms)     & 0, 15, 30, 60, 120    & 100, 88, 75, 50, 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Direct scaling} (for accuracy fractions where higher is better):
+\[
+  S_\text{acc}(a) = a \times 100, \quad a \in [0,1]
+\]
+Used for: PitchAcc, TimingAcc, WordAcc, OverlapAcc, LabelMatch.
+
+\subsection{Confidence-Weighted Category Scores}
+
+Each of the four category scores uses the same aggregation formula.
+Let $\{(w_i, c_i, s_i)\}$ be the set of (weight, confidence, component score)
+triples for the category.
+Confidence is:
+\[
+  c_i = \min\!\left(1,\;\frac{N_i}{3}\right)
+\]
+where $N_i$ is the number of matched events contributing to component $i$.
+This means fewer than 3 matched events yields partial confidence, ensuring
+that data-poor evaluations contribute proportionally less.
+
+\[
+  S_\text{cat} = \frac{\displaystyle\sum_i w_i\,c_i\,s_i}
+                      {\displaystyle\sum_i w_i\,c_i}
+\]
+
+\textbf{Pitch category} (weight 0.40 in final score):
+\begin{center}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Component & Weight $w_i$ \\
+    \midrule
+    $S_\text{acc}(\mathrm{PitchAcc})$ & 0.50 \\
+    $S_\text{pw}(\mathrm{MACE})$      & 0.30 \\
+    $S_\text{pw}(\mathrm{PitchRMSE})$ & 0.20 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\textbf{Timing category} (weight 0.30 in final score):
+\begin{center}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Component & Weight $w_i$ \\
+    \midrule
+    $S_\text{acc}(\mathrm{TimingAcc})$ & 0.50 \\
+    $S_\text{pw}(\mathrm{MAE}_\text{on})$ & 0.30 \\
+    $S_\text{rhythm}$ & 0.20 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+where:
+\[
+  S_\text{rhythm}
+    = \tfrac{1}{2}\bigl(S_\text{pw}(\mathrm{IOI\text{-}MAE})
+    + S_\text{pw}(\sigma_\text{on})\bigr)
+\]
+
+\textbf{Duration category} (weight 0.15 in final score):
+\begin{center}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Component & Weight $w_i$ \\
+    \midrule
+    $S_\text{pw}(\mathrm{RelDurErr})$ & 0.60 \\
+    $S_\text{pw}(|\mathrm{DurRatio}-1|)$ & 0.20 \\
+    $S_\text{phrase}$ & 0.20 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+where:
+\[
+  S_\text{phrase}
+    = \tfrac{1}{2}\bigl(S_\text{pw}(\sigma_\text{dur})
+    + S_\text{pw}(\mathrm{RelDurErr})\bigr)
+\]
+
+\textbf{Lyric category} (weight 0.15 in final score):
+\begin{center}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Component & Weight $w_i$ \\
+    \midrule
+    $S_\text{acc}(\mathrm{WordAcc})$    & 0.35 \\
+    $S_\text{acc}(\mathrm{OverlapAcc})$ & 0.25 \\
+    $S_\text{acc}(\mathrm{LabelMatch})$ & 0.25 \\
+    $S_\text{pw}(\mathrm{PhonBndErr})$  & 0.15 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\subsection{Final Score}
+
+The overall coaching score is a confidence-adjusted weighted average of the
+four category scores.
+Let $W_k$ be the nominal weight and $C_k = \min(1, N_k/3)$ be the confidence
+of category $k$.
+
+\[
+  \boxed{S_\text{final}
+    = \frac{\sum_k W_k\,C_k\,S_k}{\sum_k W_k\,C_k}}
+  \qquad
+  \text{nominal: } W_\text{pitch}=0.40,\;
+    W_\text{timing}=0.30,\;
+    W_\text{dur}=0.15,\;
+    W_\text{lyric}=0.15
+\]
+
+Pitch receives the highest weight (0.40) because intonation accuracy is
+the most perceptually salient dimension of singing quality.
+
+% =============================================================================
+\section{Interpretation (Phase 7c)}
+% =============================================================================
+
+\texttt{scoring/interpretation.py} maps the final and category scores to
+human-readable feedback using a fully deterministic rule table.
+No language models or probabilistic text generation are involved.
+
+\textbf{Score thresholds:}
+\begin{center}
+  \begin{tabular}{@{}clp{7cm}@{}}
+    \toprule
+    Score range & Level & Meaning \\
+    \midrule
+    $\ge 90$ & \texttt{excellent}  & Performance-ready; present-ready. \\
+    $\ge 75$ & \texttt{good}       & Strong performance; a few targeted corrections. \\
+    $\ge 55$ & \texttt{fair}       & Foundational elements present; focused practice needed. \\
+    $< 55$   & \texttt{needs\_work} & Coaching required before full-song practice. \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+Strengths are emitted for categories at \texttt{excellent} or \texttt{good}
+levels; weaknesses are emitted for \texttt{fair} or \texttt{needs\_work}.
+All messages are pre-defined templates, e.g.:
+\begin{itemize}[noitemsep]
+  \item Strength (pitch, excellent): ``Strong pitch intonation and accuracy.''
+  \item Weakness (timing, needs\_work): ``Significant timing inconsistencies
+        detected.''
+\end{itemize}
+
+Output: \texttt{InterpretationSummary(overall\_level, strengths, weaknesses,
+category\_levels)}.
+
+% =============================================================================
+\section{Configuration}
+% =============================================================================
+
+All pipeline parameters are controlled via YAML files in \texttt{configs/}.
+The master file \texttt{pipeline.yaml} governs feature flags, model
+checkpoints, fusion thresholds, alignment tolerances, metric tolerances, and
+scoring weights.
+Per-model files (\texttt{pitch.yaml}, \texttt{onset\_offset.yaml},
+\texttt{phoneme.yaml}) control model-specific hyperparameters.
+Table~\ref{tab:config} summarizes the most important configurable values.
+
+\begin{table}[h]
+  \centering
+  \caption{Key configuration parameters and their defaults.}
+  \label{tab:config}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Parameter & Default & Effect \\
+    \midrule
+    \texttt{onset\_threshold}   & 0.5     & Peak-pick threshold for note onset detection \\
+    \texttt{offset\_threshold}  & 0.5     & Peak-pick threshold for note offset detection \\
+    \texttt{min\_note\_duration\_ms} & 50 & Discard notes shorter than this \\
+    \texttt{word\_gap\_ms}      & 100     & Phoneme gap that starts a new word \\
+    \texttt{phrase\_gap\_s}     & 0.5     & Note gap that starts a new phrase \\
+    \texttt{alignment\_tolerance\_ms} & 100 & Max onset deviation for note matching \\
+    \texttt{pitch\_tolerance\_cents}  & 50  & Tolerance for pitch accuracy metric \\
+    \texttt{timing\_tolerance\_ms}    & 50  & Tolerance for timing accuracy metric \\
+    \texttt{phoneme\_tolerance\_ms}   & 30  & Tolerance for phoneme timing accuracy \\
+    \texttt{VAD aggressiveness}       & 2   & WebRTC VAD sensitivity \\
+    \texttt{median\_filter\_size}     & 5   & Frames for VAD/pitch median filter \\
+    \texttt{max\_gap\_fill\_frames}   & 10  & Max frames to linearly interpolate \\
+    \texttt{smoothing\_sigma}         & 1.0 & Gaussian smoothing $\sigma$ (frames) \\
+    \texttt{max\_segment\_ms}         & 300 & Max phoneme segment before forced split \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% =============================================================================
+\section{Data Types and Contracts}
+% =============================================================================
+
+The system is strongly typed via dataclasses defined in \texttt{utils/types.py}.
+Every inter-phase boundary has a well-defined Python dataclass as its contract.
+Table~\ref{tab:types} lists the principal types and the pipeline phase that
+produces each.
+
+\begin{table}[h]
+  \centering
+  \caption{Principal dataclass types and the phase that produces them.}
+  \label{tab:types}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Type & Phase & Description \\
+    \midrule
+    \texttt{PhonemeSegment}                  & 3 & Predicted phoneme with time bounds \\
+    \texttt{NoteEvent}                       & 5 & Predicted note with pitch stats \\
+    \texttt{LyricEvent}                      & 5 & Single phoneme + word/note refs \\
+    \texttt{WordEvent}                       & 5 & Group of phonemes forming a word \\
+    \texttt{PhraseEvent}                     & 5 & Group of notes forming a phrase \\
+    \texttt{FrameAlignedFeatures}            & 5 & All model outputs at 100\,fps \\
+    \texttt{FusedPerformanceRepresentation}  & 5 & Complete predicted-side representation \\
+    \texttt{ReferencePerformanceRepresentation} & 6a & Ground-truth notes, phonemes, words \\
+    \texttt{AlignmentResult}                 & 6b & Matched pairs + unmatched indices \\
+    \texttt{PitchMetrics}                    & 7a & Pitch metric values \\
+    \texttt{TimingMetrics}                   & 7a & Timing metric values \\
+    \texttt{DurationMetrics}                 & 7a & Duration metric values \\
+    \texttt{LyricMetrics}                    & 7a & Lyric metric values \\
+    \texttt{CategoryScore}                   & 7b & Weighted aggregate per dimension \\
+    \texttt{PerformanceScoreReport}          & 7b & All category + overall scores \\
+    \texttt{InterpretationSummary}           & 7c & Level labels + feedback strings \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+All types implement a \texttt{to\_dict()} method for JSON serialization,
+enabling structured logging and offline analysis.
+
+% =============================================================================
+\section{Pilot Results}
+% =============================================================================
+
+A pilot evaluation was conducted on a 7-note excerpt from the song
+``North Wind Meets the Sea'' using the torchcrepe backend and a
+tolerance of $\tau = 50$\,¢.
+
+\[
+  \mathrm{NotePitchAcc}_{50} = 6/7 \approx 85.7\%
+\]
+
+\begin{table}[h]
+  \centering
+  \caption{Per-note pitch results on the pilot excerpt.}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}clccccc@{}}
+    \toprule
+    Note & Lyric & Ref (MIDI) & Ref (Hz) & Det.\ (MIDI) & $\bar{c}_n$ (¢) & Correct \\
+    \midrule
+    1 & \textit{where} & C4 (60.0)  & 261.6 & 59.74 & $-26.1$  & $\checkmark$ \\
+    2 & \textit{the}   & D4 (62.0)  & 293.7 & 60.47 & $-152.8$ & $\times$     \\
+    3 & \textit{north} & E4 (64.0)  & 329.6 & 64.08 & $+8.2$   & $\checkmark$ \\
+    4 & \textit{wind}  & B$\flat$3 (58.0) & 233.1 & 57.63 & $-36.8$ & $\checkmark$ \\
+    5 & \textit{meets} & C4 (60.0)  & 261.6 & 60.32 & $+32.5$  & $\checkmark$ \\
+    6 & \textit{the}   & A3 (57.0)  & 220.0 & 57.44 & $+44.4$  & $\checkmark$ \\
+    7 & \textit{sea}   & D4 (62.0)  & 293.7 & 62.24 & $+23.7$  & $\checkmark$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Note 2 is the only failure at $-152.8$\,¢ (approximately 1.5 semitones flat).
+Its duration is only 178\,ms with 18 voiced frames, which is insufficient
+data for a reliable median F0 estimate.
+All six correctly identified notes fall within $\pm 45$\,¢.
+There is a mild systematic bias: the model tends to be flat on longer
+sustained notes (notes 1, 4) and slightly sharp on shorter notes (notes 3,
+5, 6, 7), which warrants further investigation as the evaluation dataset
+expands.
+
+% =============================================================================
+\section{Architectural Design Principles}
+% =============================================================================
+
+The following design choices distinguish \texttt{VocalCoach\_Kim} from
+end-to-end score-predicting systems.
+
+\textbf{Neural networks as feature extractors, not oracles.}
+Each model predicts a physical, interpretable quantity (F0, note boundaries,
+phoneme boundaries) rather than a quality score.
+This means errors are diagnosable: a wrong pitch score implies a wrong F0
+estimate, which can be inspected in the pitch JSON log.
+
+\textbf{Deterministic scoring.}
+Given the same audio and reference files, the system always produces the
+same score.
+There is no stochastic decoding, no sampling, and no LLM call anywhere in
+the scoring path.
+
+\textbf{Confidence-aware aggregation.}
+Scores are down-weighted when very few notes or phonemes are matched.
+A 3-note evaluation does not carry the same statistical weight as a
+100-note evaluation; the confidence factor $c_i = \min(1, N_i/3)$ reflects
+this.
+
+\textbf{Separation of prediction and evaluation.}
+Phases 1--5 produce the predicted-side representation independently of any
+reference data.
+Phases 6--7 introduce reference data.
+This means the prediction pipeline can be run in a ``reference-free'' mode
+(e.g., for live monitoring) without modification.
+
+\textbf{Lazy model loading.}
+Models are loaded on demand via a central \texttt{ModelRegistry}, not at
+import time.
+This keeps startup latency low when only a subset of the pipeline is needed.
+
+\textbf{Configurable normalization.}
+The breakpoints for all piecewise-linear scoring curves are stored in YAML
+and can be tuned per deployment (e.g., stricter thresholds for a conservatory
+context, looser thresholds for a beginner coaching app) without touching
+source code.
+
+% =============================================================================
+\section*{Acknowledgements}
+% =============================================================================
+
+This system was developed at the IMAPLE Lab, Drexel University.
+The pitch estimation backbone uses the torchcrepe implementation of the CREPE
+model.
+Onset/offset and phoneme detection use pre-trained models from the
+\texttt{facebook/wav2vec2} family.
+Reference data parsing uses the \texttt{music21} and \texttt{praatio}
+libraries.
+
+\end{document}

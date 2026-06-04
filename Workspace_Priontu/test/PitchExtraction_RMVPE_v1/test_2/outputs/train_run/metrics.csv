@@ -1,0 +1,2 @@
+epoch,train_loss,train_loss_voiced,train_loss_unvoiced,val_loss,val_loss_voiced,val_loss_unvoiced,val_rpa50,lr
+1,0.257956,0.205822,0.173783,0.032442,0.032167,0.000915,0.6681,4.8e-05
