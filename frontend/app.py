@@ -36,40 +36,51 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 SONG_REFERENCE_DIR.mkdir(parents=True, exist_ok=True)
 
 app.add_static_files("/vocalcoach_outputs", str(OUTPUT_DIR))
+app.add_static_files("/song_references", str(SONG_REFERENCE_DIR))
 
 
 SONG_REGISTRY = {
     "Test Song": {
         "musicxml": SONG_REFERENCE_DIR / "test.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "test.TextGrid",
+        "audio": SONG_REFERENCE_DIR / "test.wav",
         "description": "Default test reference song.",
     },
-    "Song 1": {
+    "Rolling in the Deep": {
         "musicxml": SONG_REFERENCE_DIR / "song_1.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "song_1.TextGrid",
-        "description": "Placeholder reference song 1.",
+        "audio": SONG_REFERENCE_DIR / "song_1.wav",
+        "description": "Reference song: Rolling in the Deep.",
     },
-    "Song 2": {
+    "I Knew You Were Trouble": {
         "musicxml": SONG_REFERENCE_DIR / "song_2.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "song_2.TextGrid",
-        "description": "Placeholder reference song 2.",
+        "audio": SONG_REFERENCE_DIR / "song_2.wav",
+        "description": "Reference song: I Knew You Were Trouble.",
     },
-    "Song 3": {
+    "Enchanted": {
         "musicxml": SONG_REFERENCE_DIR / "song_3.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "song_3.TextGrid",
-        "description": "Placeholder reference song 3.",
+        "audio": SONG_REFERENCE_DIR / "song_3.wav",
+        "description": "Reference song: Enchanted.",
     },
-    "Song 4": {
+    "All I Ask": {
         "musicxml": SONG_REFERENCE_DIR / "song_4.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "song_4.TextGrid",
-        "description": "Placeholder reference song 4.",
+        "audio": SONG_REFERENCE_DIR / "song_4.wav",
+        "description": "Reference song: All I Ask.",
     },
-    "Song 5": {
+    "Someone Like You": {
         "musicxml": SONG_REFERENCE_DIR / "song_5.musicxml",
         "textgrid": SONG_REFERENCE_DIR / "song_5.TextGrid",
-        "description": "Placeholder reference song 5.",
+        "audio": SONG_REFERENCE_DIR / "song_5.wav",
+        "description": "Reference song: Someone Like You.",
     },
 }
+
+
+def get_song_options():
+    return sorted(SONG_REGISTRY.keys())
 
 
 # ============================================================
@@ -114,6 +125,7 @@ state = {
     "cancel_requested": False,
 
     "upload_box_area": None,
+    "reference_preview_area": None,
 
     "current_output_stem": None,
     "unified_json_path": None,
@@ -290,11 +302,27 @@ def get_selected_song_description():
     return song.get("description", "")
 
 
+def get_selected_song_audio_path():
+    song = SONG_REGISTRY.get(state["selected_song"], {})
+    return song.get("audio")
+
+
+def get_selected_song_audio_url():
+    audio_path = get_selected_song_audio_path()
+
+    if audio_path is None or not audio_path.exists():
+        return None
+
+    return f"/song_references/{audio_path.name}?t={int(time.time())}"
+
+
 def toggle_theme():
     dark.toggle()
 
     if state["overall_score"] is not None:
         show_results()
+
+    render_reference_preview()
 
 
 # ============================================================
@@ -1020,6 +1048,30 @@ def set_cancel_button_visible(visible):
     button.set_visibility(visible)
 
 
+def render_reference_preview():
+    reference_preview_area = state.get("reference_preview_area")
+
+    if reference_preview_area is None:
+        return
+
+    reference_preview_area.clear()
+    audio_url = get_selected_song_audio_url()
+
+    with reference_preview_area:
+        ui.label("Reference Preview").classes("text-2xl font-bold mt-4")
+
+        if audio_url is None:
+            ui.label(
+                "No reference audio found yet. Add the matching .wav file to song_references."
+            ).classes("text-lg text-yellow-500 mt-1")
+            return
+
+        ui.audio(audio_url).classes("w-[480px] mt-2")
+        ui.label(
+            "Use this only to confirm the selected song/version before uploading your singing."
+        ).classes("text-sm text-gray-500 mt-1")
+
+
 def render_upload_box():
     upload_box_area = state.get("upload_box_area")
 
@@ -1276,7 +1328,7 @@ def render_result_header():
 
 
 def render_score_cards():
-    with ui.column().classes("w-full gap-6 mt-8"):
+    with ui.column().classes("w-full items-center gap-6 mt-8"):
         with ui.row().classes("w-full justify-center"):
             score_card(
                 "Overall Score",
@@ -1286,7 +1338,7 @@ def render_score_cards():
                 highlight=True,
             )
 
-        with ui.row().classes("gap-8 flex-wrap justify-center"):
+        with ui.row().classes("w-full justify-center items-center gap-8 flex-wrap"):
             score_card("Pitch Score", state["pitch_score"], get_level(state["pitch_score"]))
             score_card("Timing Score", state["timing_score"], get_level(state["timing_score"]))
             score_card("Duration Score", state["duration_score"], get_level(state["duration_score"]))
@@ -1583,7 +1635,8 @@ def render_debug_output():
             f"SONG_REFERENCE_DIR: {SONG_REFERENCE_DIR}\n"
             f"Selected song: {state['selected_song']}\n"
             f"MusicXML: {SONG_REGISTRY[state['selected_song']]['musicxml']}\n"
-            f"TextGrid: {SONG_REGISTRY[state['selected_song']]['textgrid']}"
+            f"TextGrid: {SONG_REGISTRY[state['selected_song']]['textgrid']}\n"
+            f"Audio: {SONG_REGISTRY[state['selected_song']]['audio']}"
         ).classes("text-sm whitespace-pre-wrap")
 
         if state["unified_json_path"] is not None:
@@ -1801,6 +1854,7 @@ def update_selected_song(value):
 
     state["selected_song"] = value
     song_description_label.set_text(get_selected_song_description())
+    render_reference_preview()
     analysis_status_label.set_text(f"Selected song: {value}")
     reset_analysis_outputs()
     results_area.clear()
@@ -1824,7 +1878,7 @@ with ui.card().classes("w-full mt-8 p-8 rounded-2xl shadow-lg"):
     ui.label("Song Setup").classes("text-4xl font-bold")
 
     ui.select(
-        list(SONG_REGISTRY.keys()),
+        get_song_options(),
         value=state["selected_song"],
         label="Choose a song",
         on_change=lambda e: update_selected_song(e.value),
@@ -1839,6 +1893,9 @@ with ui.card().classes("w-full mt-8 p-8 rounded-2xl shadow-lg"):
     song_description_label = ui.label(get_selected_song_description()).classes(
         "text-lg text-gray-400 mt-2"
     )
+
+    state["reference_preview_area"] = ui.column().classes("w-full")
+    render_reference_preview()
 
     ui.label("Upload Singing Audio").classes("text-4xl font-bold mt-8")
 
