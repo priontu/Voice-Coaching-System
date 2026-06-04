@@ -1,15 +1,17 @@
 """
 models/pitch/pitch_wrapper.py - Model-agnostic pitch estimation wrapper.
 
-Supported backends: "torchcrepe" | "pyin" | "custom".
+Supported backends: "nanopitch" | "torchcrepe" | "pyin" | "custom".
 
 Changes from the original Pitch Model w VAD/pitch_wrapper.py:
   - get_best_device() replaced by utils.device.get_device (shared utility)
-  - All prediction logic is UNCHANGED
+  - Added NanoPitch_v2 backend
 """
 
+import importlib.util
+from pathlib import Path
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Callable, Dict, Literal, Optional, Tuple
 
 import numpy as np
@@ -18,7 +20,7 @@ from utils.device import get_device
 
 logger = logging.getLogger(__name__)
 
-Backend = Literal["torchcrepe", "pyin", "custom"]
+Backend = Literal["nanopitch", "torchcrepe", "pyin", "custom"]
 
 
 # ---------------------------------------------------------------------------
@@ -29,7 +31,7 @@ Backend = Literal["torchcrepe", "pyin", "custom"]
 class PitchConfig:
     """All tunable parameters for pitch estimation."""
 
-    backend: Backend = "torchcrepe"
+    backend: Backend = "nanopitch"
     hop_length: int = 160
     fmin: float = 50.0
     fmax: float = 1000.0
@@ -48,7 +50,7 @@ class PitchConfig:
     def from_yaml(cls, cfg: Dict) -> "PitchConfig":
         p = cfg.get("pitch", {})
         return cls(
-            backend=p.get("backend", "torchcrepe"),
+            backend=p.get("backend", "nanopitch"),
             hop_length=p.get("hop_length", 160),
             fmin=p.get("fmin", 50.0),
             fmax=p.get("fmax", 1000.0),
@@ -80,6 +82,13 @@ class PitchModelWrapper:
     def __init__(self, config: Optional[PitchConfig] = None) -> None:
         self.config = config or PitchConfig()
         self._custom_fn: Optional[Callable] = None
+
+        self._nanopitch_loaded = False
+        self._nanopitch_module = None
+        self._nanopitch_model = None
+        self._nanopitch_mel = None
+        self._nanopitch_device = None
+
         logger.info(f"[Pitch] Backend: {self.config.backend} | device: {self.config.device}")
 
     @classmethod
@@ -106,10 +115,12 @@ class PitchModelWrapper:
         All backends return the same triple for backend-agnostic downstream code.
         """
         dispatch = {
+            "nanopitch": self._predict_nanopitch,
             "torchcrepe": self._predict_torchcrepe,
             "pyin": self._predict_pyin,
             "custom": self._predict_custom,
         }
+
         if self.config.backend not in dispatch:
             raise ValueError(f"Unknown backend: {self.config.backend!r}")
 
@@ -118,12 +129,137 @@ class PitchModelWrapper:
         f0 = np.where(np.isnan(f0), 0.0, f0).astype(np.float32)
         times = times.astype(np.float32)
 
+        if conf is not None:
+            conf = np.asarray(conf, dtype=np.float32)
+            conf = np.nan_to_num(conf, nan=0.0, posinf=1.0, neginf=0.0)
+            conf = np.clip(conf, 0.0, 1.0)
+
         n_voiced = int(np.sum(f0 > 0))
         logger.info(
             f"[Pitch/{self.config.backend}] {len(times)} frames, "
             f"{n_voiced} voiced ({100*n_voiced/max(len(times),1):.1f}%)"
         )
+
         return times, f0, conf
+
+    # ------------------------------------------------------------------
+    # NanoPitch backend
+    # ------------------------------------------------------------------
+
+    def _load_nanopitch(self):
+        if self._nanopitch_loaded:
+            return
+
+        import torch
+        import torchaudio.transforms as TAT
+
+        repo_root = Path(__file__).resolve().parents[3]
+        vocalcoach_root = Path(__file__).resolve().parents[2]
+
+        model_path = repo_root / "Workspace_Priontu" / "NanoPitch_v2" / "training" / "model.py"
+        checkpoint_path = vocalcoach_root / "checkpoints" / "best.pth"
+
+        if not model_path.exists():
+            raise FileNotFoundError(f"NanoPitch model.py not found: {model_path}")
+
+        if not checkpoint_path.exists():
+            raise FileNotFoundError(f"NanoPitch checkpoint not found: {checkpoint_path}")
+
+        spec = importlib.util.spec_from_file_location("nanopitch_model", str(model_path))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        try:
+            ckpt = torch.load(str(checkpoint_path), map_location="cpu", weights_only=False)
+        except TypeError:
+            ckpt = torch.load(str(checkpoint_path), map_location="cpu")
+
+        model_kwargs = ckpt.get("model_kwargs", {"cond_size": 64, "gru_size": 96})
+        state_dict = ckpt.get("state_dict", ckpt)
+
+        if "n_mels" not in model_kwargs:
+            model_kwargs["n_mels"] = 40
+
+        cleaned = {}
+        for key, value in state_dict.items():
+            new_key = key
+            for prefix in ["module.", "model.", "_orig_mod."]:
+                if new_key.startswith(prefix):
+                    new_key = new_key[len(prefix):]
+            cleaned[new_key] = value
+
+        device = get_device(self.config.device)
+
+        model = module.NanoPitch(**model_kwargs)
+        model.load_state_dict(cleaned, strict=False)
+        model.to(device)
+        model.eval()
+
+        mel = TAT.MelSpectrogram(
+            sample_rate=16000,
+            n_fft=512,
+            win_length=400,
+            hop_length=160,
+            n_mels=40,
+            f_min=27.5,
+            f_max=8000.0,
+            power=1.0,
+            center=True,
+        ).to(device)
+
+        self._nanopitch_module = module
+        self._nanopitch_model = model
+        self._nanopitch_mel = mel
+        self._nanopitch_device = device
+        self._nanopitch_loaded = True
+
+        logger.info(f"[Pitch/NanoPitch] Loaded checkpoint: {checkpoint_path}")
+
+    def _predict_nanopitch(
+        self,
+        audio: np.ndarray,
+        sr: int,
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        self._load_nanopitch()
+
+        import torch
+        import torchaudio.functional as TAF
+
+        audio = np.asarray(audio, dtype=np.float32)
+
+        if audio.ndim == 2:
+            audio = np.mean(audio, axis=0)
+
+        waveform = torch.from_numpy(audio).float()
+
+        if sr != 16000:
+            waveform = TAF.resample(waveform, orig_freq=sr, new_freq=16000)
+
+        max_abs = torch.max(torch.abs(waveform))
+        if max_abs > 0:
+            waveform = waveform / max_abs.clamp(min=1e-8)
+
+        waveform = waveform.to(self._nanopitch_device).unsqueeze(0)
+
+        with torch.no_grad():
+            mel = self._nanopitch_mel(waveform)
+            mel = torch.log(mel.transpose(1, 2) + 1e-7).float()
+            vad, posteriorgram, _ = self._nanopitch_model(mel)
+
+        vad_prob = vad.squeeze(0).squeeze(-1).detach().cpu().numpy().astype(np.float32)
+        posterior_np = posteriorgram.squeeze(0).detach().cpu().numpy().astype(np.float32)
+
+        f0 = self._nanopitch_module.viterbi_decode(
+            posterior_np,
+            transition_width=12,
+            voicing_threshold=0.0,
+            onset_penalty=2.0,
+        ).astype(np.float32)
+
+        n_frames = min(len(f0), len(vad_prob))
+        times = np.arange(n_frames, dtype=np.float32) * 160 / 16000
+
+        return times, f0[:n_frames], vad_prob[:n_frames]
 
     # ------------------------------------------------------------------
     # torchcrepe backend
