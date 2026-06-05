@@ -156,7 +156,7 @@ class PitchModelWrapper:
         repo_root = Path(__file__).resolve().parents[3]
         vocalcoach_root = Path(__file__).resolve().parents[2]
 
-        model_path = repo_root / "Workspace_Priontu" / "NanoPitch_v2" / "training" / "model.py"
+        model_path = repo_root / "benchmarks" / "NanoPitch_v2" / "training" / "model.py"
         checkpoint_path = vocalcoach_root / "checkpoints" / "best.pth"
 
         if not model_path.exists():
