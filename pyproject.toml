@@ -16,4 +16,4 @@ rmvpe = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]

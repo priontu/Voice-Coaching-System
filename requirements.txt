@@ -1,0 +1,47 @@
+# Voice Coaching System — consolidated requirements
+# Install with: pip install -r requirements.txt
+# GPU (CUDA 12.1): pip install torch==2.3.0+cu121 torchaudio==2.3.0+cu121 \
+#                      --index-url https://download.pytorch.org/whl/cu121
+# See VocalCoach_Kim/setup/requirements-gpu.txt for full GPU instructions.
+
+# ── Core ML ──────────────────────────────────────────────────────────────────
+torch>=2.1.0
+torchaudio>=2.1.0
+lightning>=2.2               # PyTorch Lightning (experimental models)
+
+# ── Audio ─────────────────────────────────────────────────────────────────────
+librosa>=0.10.0
+soundfile>=0.12.0
+
+# ── Pitch estimation ──────────────────────────────────────────────────────────
+torchcrepe>=0.0.20
+
+# ── Phoneme / ASR ─────────────────────────────────────────────────────────────
+transformers>=4.35.0
+
+# ── Score / reference parsing ─────────────────────────────────────────────────
+music21>=9.1.0               # MusicXML parsing
+praatio>=6.0.0               # Praat TextGrid parsing
+
+# ── Scientific computing ──────────────────────────────────────────────────────
+numpy>=1.24.0
+scipy>=1.11.0
+
+# ── Config ────────────────────────────────────────────────────────────────────
+pyyaml>=6.0.1
+
+# ── Data validation ───────────────────────────────────────────────────────────
+pydantic>=2.0.0
+
+# ── Visualization ─────────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+
+# ── Frontend ──────────────────────────────────────────────────────────────────
+nicegui>=1.4.0               # Web UI (frontend/app.py)
+
+# ── Testing / development ─────────────────────────────────────────────────────
+pytest>=7.4.0
+pytest-timeout>=2.2.0
+
+# ── Optional: RMVPE pitch model ───────────────────────────────────────────────
+# pip install rmvpe-onnx
