@@ -8,8 +8,8 @@ An AI-powered singing voice evaluation platform that scores vocal performances a
 
 ```
 Voice-Coaching-System/
-├── VocalCoach_Kim/        # Main unified backend — 7-phase evaluation pipeline
-├── voice_coach/           # HuggingFace-based model wrappers and data utilities (Priontu)
+├── pipeline/        # Main unified backend — 7-phase evaluation pipeline
+├── hf_models/           # HuggingFace-based model wrappers and data utilities (Priontu)
 ├── frontend/              # NiceGUI web UI (audio upload → live scoring)
 ├── experimental/          # Iterative model versions under active development
 ├── benchmarks/            # NanoPitch_v2 pitch estimation evaluation leaderboard
@@ -17,7 +17,7 @@ Voice-Coaching-System/
 └── legacy/                # Original standalone model implementations (superseded)
 ```
 
-### VocalCoach_Kim — 7-Phase Pipeline
+### pipeline — 7-Phase Pipeline
 
 The production backend. Each phase builds on the last:
 
@@ -31,7 +31,7 @@ The production backend. Each phase builds on the last:
 | 6 | `metrics/` | Deterministic metric computation |
 | 7 | `scoring/`, `visualization/` | Weighted scoring, interpretation, dashboards |
 
-Full architecture reference: [VocalCoach_Kim/setup/ARCHITECTURE.md](VocalCoach_Kim/setup/ARCHITECTURE.md)
+Full architecture reference: [pipeline/setup/ARCHITECTURE.md](pipeline/setup/ARCHITECTURE.md)
 
 ---
 
@@ -53,7 +53,7 @@ pip install torch==2.3.0+cu121 torchaudio==2.3.0+cu121 \
 ### 2. Validate your environment
 
 ```bash
-cd VocalCoach_Kim
+cd pipeline
 python scripts/validate_environment.py
 ```
 
@@ -81,16 +81,16 @@ python frontend/app.py
 # Open http://localhost:8080
 ```
 
-For detailed usage, flags, and troubleshooting see [VocalCoach_Kim/setup/QUICKSTART.md](VocalCoach_Kim/setup/QUICKSTART.md).
+For detailed usage, flags, and troubleshooting see [pipeline/setup/QUICKSTART.md](pipeline/setup/QUICKSTART.md).
 
 ---
 
 ## Model Checkpoints
 
-Place trained checkpoints in `VocalCoach_Kim/checkpoints/`:
+Place trained checkpoints in `pipeline/checkpoints/`:
 
 ```
-VocalCoach_Kim/checkpoints/
+pipeline/checkpoints/
 └── best.ckpt     # wav2vec2 onset/offset model (required when enabled)
 ```
 
@@ -101,7 +101,7 @@ The phoneme model (Wav2Vec2) and pitch model (torchcrepe) download weights autom
 ## Running Tests
 
 ```bash
-cd VocalCoach_Kim
+cd pipeline
 python -m pytest tests/ -q
 ```
 
@@ -111,6 +111,6 @@ python -m pytest tests/ -q
 
 | Name | Role |
 |------|------|
-| Kim | Unified backend (VocalCoach_Kim), NoteModel, PhonemeModel, PitchModel |
-| Priontu | Experimental models, HF wrappers (voice_coach), NanoPitch benchmarking |
+| Kim | Unified backend (pipeline), NoteModel, PhonemeModel, PitchModel |
+| Priontu | Experimental models, HF wrappers (hf_models), NanoPitch benchmarking |
 | Dabin | PitchModel (RMVPE variant), pitch scoring |

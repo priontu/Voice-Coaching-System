@@ -23,9 +23,9 @@ sys.path.insert(0, str(SRC_ROOT))
 
 from PitchExtraction_v1 import PitchExtractionBatchConverter
 from PitchExtraction_v1.nanopitch_runtime import NanoPitchRuntimeConfig
-from voice_coach.data.collator import VoiceCoachRawBatchCollator
-from voice_coach.data.manifest import Recording, save_manifest
-from voice_coach.data.runtime_dataset import VoiceCoachRuntimeDataset
+from hf_models.data.collator import VoiceCoachRawBatchCollator
+from hf_models.data.manifest import Recording, save_manifest
+from hf_models.data.runtime_dataset import VoiceCoachRuntimeDataset
 
 
 DEFAULT_DATASET_ROOT = Path("/mnt/archive/GTSinger/English/EN-Alto-1")

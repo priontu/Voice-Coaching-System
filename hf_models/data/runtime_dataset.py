@@ -6,10 +6,10 @@ from pathlib import Path
 import torch
 from torch.utils.data import Dataset
 
-from voice_coach.data.gtsinger import parse_gtsinger_json_notes
-from voice_coach.data.manifest import Recording, load_manifest
-from voice_coach.data.musicxml import NoteEvent, parse_musicxml_notes
-from voice_coach.data.textgrid import TextGridInterval, phoneme_intervals
+from hf_models.data.gtsinger import parse_gtsinger_json_notes
+from hf_models.data.manifest import Recording, load_manifest
+from hf_models.data.musicxml import NoteEvent, parse_musicxml_notes
+from hf_models.data.textgrid import TextGridInterval, phoneme_intervals
 
 
 @dataclass(frozen=True)

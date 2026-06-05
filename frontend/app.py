@@ -23,7 +23,7 @@ dark.enable()
 
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
-BACKEND_DIR = PROJECT_DIR / "VocalCoach_Kim"
+BACKEND_DIR = PROJECT_DIR / "pipeline"
 
 UPLOAD_DIR = BASE_DIR / "uploads"
 OUTPUT_DIR = BACKEND_DIR / "outputs"

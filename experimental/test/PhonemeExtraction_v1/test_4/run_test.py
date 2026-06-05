@@ -32,7 +32,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 sys.path.insert(0, str(REPO_ROOT))
 
-from voice_coach.data.textgrid import phoneme_intervals
+from hf_models.data.textgrid import phoneme_intervals
 from PhonemeExtraction_v1.eval import is_scored_phone
 
 DEFAULT_SUMMARY_JSON = (

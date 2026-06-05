@@ -18,8 +18,8 @@ sys.path.insert(0, str(SRC_ROOT))
 
 from PhonemeExtraction_v1 import HFPhonemeExtractor
 from PhonemeExtraction_v1.eval import compare_phoneme_boundaries, is_scored_phone, normalize_phone
-from voice_coach.data.manifest import Recording, save_manifest
-from voice_coach.data.textgrid import phoneme_intervals
+from hf_models.data.manifest import Recording, save_manifest
+from hf_models.data.textgrid import phoneme_intervals
 
 
 DEFAULT_DATASET_ROOT = Path("/mnt/archive/GTSinger/English/EN-Alto-1")

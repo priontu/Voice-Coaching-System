@@ -10,9 +10,9 @@ from torch.utils.data import DataLoader
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from voice_coach.data.collator import VoiceCoachDeviceBatchConverter, VoiceCoachRawBatchCollator
-from voice_coach.data.runtime_dataset import VoiceCoachRuntimeDataset
-from voice_coach.preprocessing.torch_features import TorchAudioFeatureConfig
+from hf_models.data.collator import VoiceCoachDeviceBatchConverter, VoiceCoachRawBatchCollator
+from hf_models.data.runtime_dataset import VoiceCoachRuntimeDataset
+from hf_models.preprocessing.torch_features import TorchAudioFeatureConfig
 
 
 def main() -> None:

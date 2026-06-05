@@ -15,9 +15,9 @@ import sys
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from voice_coach.data.collator import VoiceCoachDeviceBatchConverter
-from voice_coach.preprocessing.torch_features import TorchAudioFeatureConfig
-from voice_coach.preprocessing.torch_labels import TorchLabelConfig, build_reference_f0_and_voicing
+from hf_models.data.collator import VoiceCoachDeviceBatchConverter
+from hf_models.preprocessing.torch_features import TorchAudioFeatureConfig
+from hf_models.preprocessing.torch_labels import TorchLabelConfig, build_reference_f0_and_voicing
 
 from .nanopitch_runtime import NanoPitchBatchExtractor, NanoPitchRuntimeConfig
 
@@ -27,7 +27,7 @@ class PitchExtractionBatchConverter:
     """Build model features/labels and attach NanoPitch pitch extraction.
 
     Output batch keys:
-      input_features, labels, attention_mask, ...  from voice_coach
+      input_features, labels, attention_mask, ...  from hf_models
       nanopitch.f0_hz, nanopitch.voiced, ...       native 100 Hz NanoPitch
       labels.nanopitch_f0, labels.nanopitch_voicing aligned to input_features
     """

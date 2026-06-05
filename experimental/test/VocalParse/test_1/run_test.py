@@ -18,7 +18,7 @@ sys.path.insert(0, str(SRC_ROOT))
 from VocalParse import VocalParseTranscriber
 from VocalParse.musicxml_eval import bpm_metric, load_reference_summary, note_token_summary, sequence_pitch_metrics
 from VocalParse.runtime import VocalParseConfig
-from voice_coach.data.manifest import Recording, save_manifest
+from hf_models.data.manifest import Recording, save_manifest
 
 
 DEFAULT_DATASET_ROOT = Path("/mnt/archive/GTSinger/English/EN-Alto-1")

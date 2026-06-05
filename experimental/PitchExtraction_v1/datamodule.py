@@ -19,11 +19,11 @@ try:
 except ImportError as exc:
     raise RuntimeError("lightning is required for PitchExtractionDataModule") from exc
 
-from voice_coach.data.collator import VoiceCoachRawBatchCollator
-from voice_coach.data.manifest import Recording, load_manifest
-from voice_coach.data.runtime_dataset import VoiceCoachRuntimeDataset
-from voice_coach.preprocessing.torch_features import TorchAudioFeatureConfig
-from voice_coach.preprocessing.torch_labels import TorchLabelConfig
+from hf_models.data.collator import VoiceCoachRawBatchCollator
+from hf_models.data.manifest import Recording, load_manifest
+from hf_models.data.runtime_dataset import VoiceCoachRuntimeDataset
+from hf_models.preprocessing.torch_features import TorchAudioFeatureConfig
+from hf_models.preprocessing.torch_labels import TorchLabelConfig
 
 from .batch_converter import PitchExtractionBatchConverter
 from .nanopitch_runtime import NanoPitchRuntimeConfig

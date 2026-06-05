@@ -2,7 +2,7 @@
 # Install with: pip install -r requirements.txt
 # GPU (CUDA 12.1): pip install torch==2.3.0+cu121 torchaudio==2.3.0+cu121 \
 #                      --index-url https://download.pytorch.org/whl/cu121
-# See VocalCoach_Kim/setup/requirements-gpu.txt for full GPU instructions.
+# See pipeline/setup/requirements-gpu.txt for full GPU instructions.
 
 # ── Core ML ──────────────────────────────────────────────────────────────────
 torch>=2.1.0

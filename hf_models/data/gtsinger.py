@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from voice_coach.data.musicxml import NoteEvent, midi_to_hz
+from hf_models.data.musicxml import NoteEvent, midi_to_hz
 
 
 def parse_gtsinger_json_notes(path: str | Path) -> list[NoteEvent]:

@@ -17,8 +17,8 @@ sys.path.insert(0, str(SRC_ROOT))
 
 from PitchExtraction_v1.batch_converter import PitchExtractionBatchConverter
 from PitchExtraction_v1.nanopitch_runtime import NanoPitchRuntimeConfig
-from voice_coach.data.collator import VoiceCoachRawBatchCollator
-from voice_coach.data.runtime_dataset import VoiceCoachRuntimeDataset
+from hf_models.data.collator import VoiceCoachRawBatchCollator
+from hf_models.data.runtime_dataset import VoiceCoachRuntimeDataset
 
 
 def main() -> None:

@@ -6,8 +6,8 @@ from typing import Any
 
 import torch
 
-from voice_coach.data.runtime_dataset import RuntimeExample
-from voice_coach.preprocessing.torch_features import (
+from hf_models.data.runtime_dataset import RuntimeExample
+from hf_models.preprocessing.torch_features import (
     TorchAudioFeatureConfig,
     TorchLogMelExtractor,
     audio_lengths_to_frame_lengths,
@@ -15,7 +15,7 @@ from voice_coach.preprocessing.torch_features import (
     pad_audio_batch,
     resample_audio,
 )
-from voice_coach.preprocessing.torch_labels import TorchLabelConfig, build_training_labels, pad_label_dicts
+from hf_models.preprocessing.torch_labels import TorchLabelConfig, build_training_labels, pad_label_dicts
 
 
 @dataclass

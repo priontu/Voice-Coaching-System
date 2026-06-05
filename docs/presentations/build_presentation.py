@@ -1,6 +1,6 @@
 """
 Build the Voice Coaching System PowerPoint presentation.
-Based entirely on VocalCoach_Kim source code — not the framework PDF.
+Based entirely on pipeline source code — not the framework PDF.
 
 Run:  python3 build_presentation.py
 """
@@ -796,7 +796,7 @@ def slide_results_note_pitch(prs):
 
 def slide_pipeline_summary(prs):
     sl = add_slide(prs)
-    header(sl, "Integrated System — VocalCoach_Kim  (7-phase pipeline)",
+    header(sl, "Integrated System — pipeline  (7-phase pipeline)",
            "inference/pipeline.py · UnifiedInferencePipeline.predict(wav, musicxml, textgrid, compute_scores=True)")
 
     phases = [

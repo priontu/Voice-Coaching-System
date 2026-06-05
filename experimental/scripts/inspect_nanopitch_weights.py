@@ -9,7 +9,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from voice_coach.pitch.nanopitch_extractor import NanoPitchExtractor, resolve_nanopitch_checkpoint
+from hf_models.pitch.nanopitch_extractor import NanoPitchExtractor, resolve_nanopitch_checkpoint
 
 
 def main() -> None:

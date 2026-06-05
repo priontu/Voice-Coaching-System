@@ -6,9 +6,9 @@ from pathlib import Path
 import torch
 from torch.utils.data import DataLoader
 
-from voice_coach.data.collator import VoiceCoachRawBatchCollator
-from voice_coach.data.manifest import Recording, save_manifest
-from voice_coach.data.runtime_dataset import VoiceCoachRuntimeDataset
+from hf_models.data.collator import VoiceCoachRawBatchCollator
+from hf_models.data.manifest import Recording, save_manifest
+from hf_models.data.runtime_dataset import VoiceCoachRuntimeDataset
 
 
 def discover_gtsinger_english_recordings(

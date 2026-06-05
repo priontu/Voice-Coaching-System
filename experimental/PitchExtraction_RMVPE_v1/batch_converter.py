@@ -13,9 +13,9 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from voice_coach.data.collator import VoiceCoachDeviceBatchConverter
-from voice_coach.preprocessing.torch_features import TorchAudioFeatureConfig
-from voice_coach.preprocessing.torch_labels import TorchLabelConfig, build_reference_f0_and_voicing
+from hf_models.data.collator import VoiceCoachDeviceBatchConverter
+from hf_models.preprocessing.torch_features import TorchAudioFeatureConfig
+from hf_models.preprocessing.torch_labels import TorchLabelConfig, build_reference_f0_and_voicing
 
 from .runtime import RMVPEBatchExtractor, RMVPERuntimeConfig
 from .scoring import RMVPECoachingScoreConfig, note_median_pitch_events

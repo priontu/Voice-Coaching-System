@@ -5,8 +5,8 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from pathlib import Path
 
-from voice_coach.data.gtsinger import parse_gtsinger_json_notes
-from voice_coach.data.musicxml import NoteEvent, parse_musicxml_notes
+from hf_models.data.gtsinger import parse_gtsinger_json_notes
+from hf_models.data.musicxml import NoteEvent, parse_musicxml_notes
 
 
 @dataclass(frozen=True)
