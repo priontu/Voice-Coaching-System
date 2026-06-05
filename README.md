@@ -89,6 +89,16 @@ For detailed usage, flags, and troubleshooting see [pipeline/setup/QUICKSTART.md
 
 Place trained checkpoints in `pipeline/checkpoints/`:
 
+
+https://github.com/user-attachments/assets/6153b164-153e-4228-891e-345a2e7c528f
+
+
+
+https://github.com/user-attachments/assets/ea34a6ed-4a92-4e42-8a8e-4865687dc95c
+
+
+
+
 ```
 pipeline/checkpoints/
 └── best.ckpt     # wav2vec2 onset/offset model (required when enabled)
@@ -107,10 +117,13 @@ python -m pytest tests/ -q
 
 ---
 
+## Demo Video
+
+
 ## Contributors
 
 | Name | Role |
 |------|------|
 | Kim | Unified backend (pipeline), NoteModel, PhonemeModel, PitchModel |
 | Priontu | Experimental models, HF wrappers (hf_models), NanoPitch benchmarking |
-| Dabin | PitchModel (RMVPE variant), pitch scoring |
+| Dabin | PitchModel (RMVPE variant), pitch scoring, Frontend interface, user input flow |
