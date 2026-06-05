@@ -69,3 +69,5 @@ numba_cache/
 # HuggingFace model cache (if downloaded locally)
 .cache/
 project-design.md
+"Workspace_Priontu/test/PitchExtraction_RMVPE_v1/test_2/outputs/baseline.json" 
+"Workspace_Priontu/**/*.json" 
