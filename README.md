@@ -107,6 +107,12 @@ python -m pytest tests/ -q
 
 ---
 
+## Diagram
+
+<img width="1280" height="720" alt="Slide1" src="https://github.com/user-attachments/assets/22fea440-9a28-4ece-ace7-e9616d8625d1" />
+
+---
+
 ## Demo Video
 
 https://github.com/user-attachments/assets/6153b164-153e-4228-891e-345a2e7c528f
