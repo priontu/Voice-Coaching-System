@@ -74,7 +74,45 @@ python inference/run_pipeline.py \
     --output_dir outputs/
 ```
 
-### 4. Launch the web UI
+### 4. Downloading weights
+
+The trained model weights are stored in:
+
+```text
+pipeline/checkpoints/
+```
+
+This project expects the following checkpoint files in that folder:
+
+```text
+best.pth
+best.ckpt
+```
+
+To download the weights automatically, run:
+
+```bash
+python pipeline/checkpoints/download_weights.py
+```
+
+This script downloads the required checkpoint files from Hugging Face and places them inside `pipeline/checkpoints/`.
+
+Alternatively, you can download the weights manually from the Hugging Face link provided in:
+
+```text
+pipeline/checkpoints/README.md
+```
+
+After downloading manually, make sure both files are placed here:
+
+```text
+pipeline/checkpoints/best.pth
+pipeline/checkpoints/best.ckpt
+```
+
+The pipeline and web UI use these checkpoint files during inference, so the system may not run correctly if either file is missing.
+
+### 5. Launch the web UI
 
 ```bash
 python frontend/app.py
