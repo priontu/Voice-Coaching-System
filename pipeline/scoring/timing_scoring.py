@@ -19,9 +19,10 @@ from utils.types import CategoryScore, ScoreBreakdown, TimingMetrics
 
 # Breakpoints for mean absolute onset error (ms) and IOI MAE (ms).
 # 50 ms is the default tolerance used by Phase 6 timing_accuracy.
-_ONSET_MAE_BP = [(0.0, 100.0), (25.0, 88.0), (50.0, 75.0), (100.0, 50.0), (200.0, 0.0)]
-_IOI_MAE_BP   = [(0.0, 100.0), (30.0, 88.0), (60.0, 75.0), (120.0, 50.0), (240.0, 0.0)]
-_STD_BP       = [(0.0, 100.0), (30.0, 88.0), (60.0, 72.0), (120.0, 45.0), (240.0, 0.0)]
+_ACCURACY_BP  = [(0.0, 30.0), (0.25, 65.0), (0.50, 83.0), (0.67, 92.0), (0.80, 97.0), (1.0, 100.0)]
+_ONSET_MAE_BP = [(0.0, 100.0), (25.0, 95.0), (50.0, 88.0), (100.0, 78.0), (200.0, 62.0)]
+_IOI_MAE_BP   = [(0.0, 100.0), (50.0, 95.0), (100.0, 88.0), (200.0, 78.0), (350.0, 62.0)]
+_STD_BP       = [(0.0, 100.0), (30.0, 95.0), (60.0, 88.0), (120.0, 78.0), (240.0, 62.0)]
 
 
 def _confidence_from_n(n: int) -> float:
@@ -115,7 +116,7 @@ def compute_timing_score(
 
     # Accuracy component
     if timing.timing_accuracy is not None:
-        acc_score = timing.timing_accuracy * 100.0
+        acc_score = piecewise_score(timing.timing_accuracy, _ACCURACY_BP)
         acc_conf = _confidence_from_n(timing.n_evaluated)
     else:
         acc_score = 0.0

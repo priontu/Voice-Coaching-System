@@ -231,7 +231,7 @@ class TestSilenceFiltering:
 
     def test_non_silence_included(self, silence_tg):
         phonemes, _ = parse_textgrid(silence_tg)
-        assert any(p.phoneme == "AH" for p in phonemes)
+        assert any(p.phoneme == "ʌ" for p in phonemes)  # "AH" normalizes to IPA ʌ
 
 
 # ---------------------------------------------------------------------------

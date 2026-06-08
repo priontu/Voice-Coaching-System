@@ -12,14 +12,14 @@ vad:
   energy_threshold_db: -40.0  # fallback energy VAD threshold
 
 pitch:
-  backend: torchcrepe    # "torchcrepe" | "pyin"
+  backend: nanopitch     # "nanopitch" | "torchcrepe" | "pyin"
   hop_length: 160        # samples at 16 kHz = 10 ms/frame
   fmin: 50.0             # Hz
   fmax: 1000.0           # Hz (covers full singing range)
   model_capacity: full   # torchcrepe: tiny | small | medium | large | full
   batch_size: 1024
   use_viterbi: true
-  periodicity_threshold: 0.21
+  periodicity_threshold: 0.30
   silence_threshold_db: -60.0
 
   # pYIN-specific (only used when backend = pyin)

@@ -21,8 +21,9 @@ from utils.types import CategoryScore, PitchMetrics, ScoreBreakdown
 # Default piecewise breakpoints — configurable via the `config` dict.
 # Units for MACE / RMSE are cents (¢).
 # 50¢ = one quarter-tone; 100¢ = one full semitone.
-_MACE_BP = [(0.0, 100.0), (25.0, 88.0), (50.0, 75.0), (100.0, 50.0), (200.0, 0.0)]
-_RMSE_BP = [(0.0, 100.0), (25.0, 88.0), (50.0, 72.0), (100.0, 45.0), (200.0, 0.0)]
+_ACCURACY_BP = [(0.0, 30.0), (0.25, 65.0), (0.50, 83.0), (0.67, 92.0), (0.80, 97.0), (1.0, 100.0)]
+_MACE_BP = [(0.0, 100.0), (50.0, 95.0), (100.0, 88.0), (200.0, 80.0), (400.0, 70.0), (700.0, 55.0), (1200.0, 30.0)]
+_RMSE_BP = [(0.0, 100.0), (50.0, 93.0), (100.0, 85.0), (200.0, 75.0), (400.0, 65.0), (700.0, 50.0), (1200.0, 30.0)]
 
 
 def _confidence_from_n(n: int) -> float:
@@ -144,7 +145,7 @@ def compute_pitch_score(
 
     # Accuracy component
     if pitch.pitch_accuracy is not None:
-        acc_score = pitch.pitch_accuracy * 100.0
+        acc_score = piecewise_score(pitch.pitch_accuracy, _ACCURACY_BP)
         acc_conf = _confidence_from_n(pitch.n_evaluated)
     else:
         acc_score = 0.0
@@ -183,9 +184,15 @@ def compute_pitch_score(
         overall = 0.0
         overall_conf = 0.0
 
+    # Dampen scores from sparse evaluations so a single lucky note can't
+    # outscore a well-evaluated recording. n=1→0.71x, n≥2→1.0x.
+    import math
+    sparsity_factor = math.sqrt(min(pitch.n_evaluated, 2) / 2.0) if pitch.n_evaluated > 0 else 0.0
+    adjusted = max(0.0, min(100.0, overall)) * sparsity_factor
+
     return CategoryScore(
         category="pitch",
-        score=max(0.0, min(100.0, overall)),
+        score=adjusted,
         confidence=overall_conf,
         components=components,
         n_evaluated=pitch.n_evaluated,

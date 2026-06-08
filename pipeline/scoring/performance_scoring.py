@@ -108,11 +108,9 @@ def build_performance_score_report(
         if cat_score is None:
             continue
         nominal = raw_weights.get(cat_name, 0.0)
-        conf = cat_score.confidence if cat_score.confidence is not None else 0.0
-        eff = nominal * conf
-        effective_weights[cat_name] = eff
-        total_eff += eff
-        weighted_sum += cat_score.score * eff
+        effective_weights[cat_name] = nominal
+        total_eff += nominal
+        weighted_sum += cat_score.score * nominal
 
     if total_eff > 0.0:
         overall = weighted_sum / total_eff

@@ -35,8 +35,8 @@ fusion:
   enabled: true                   # required for reference alignment → metrics → scoring
 
   # Note event construction (fusion/note_events.py)
-  onset_threshold: 0.5            # minimum onset peak height
-  offset_threshold: 0.5           # minimum offset peak height
+  onset_threshold: 0.25           # minimum onset peak height
+  offset_threshold: 0.25          # minimum offset peak height
   min_note_duration_ms: 50        # discard notes shorter than this
   max_duration_s: 10.0            # discard note pairs longer than this
   min_distance_s: 0.05            # minimum distance between peaks of the same type
@@ -119,10 +119,10 @@ scoring:
   # Category weights used in overall score aggregation.
   # Values are relative; they are normalized to sum to 1 internally.
   weights:
-    pitch: 0.40
+    pitch: 0.20
     timing: 0.30
-    duration: 0.15
-    lyric: 0.15
+    duration: 0.25
+    lyric: 0.25
 
   # Pitch scoring (scoring/pitch_scoring.py)
   pitch:
@@ -140,8 +140,8 @@ scoring:
 
   # Duration scoring (scoring/duration_scoring.py)
   duration:
-    weight_relative: 0.60           # weight for relative duration error
-    weight_ratio: 0.20              # weight for duration ratio deviation
+    weight_relative: 0.40           # weight for relative duration error
+    weight_ratio: 0.40              # weight for duration ratio deviation
     weight_phrase: 0.20             # weight for phrase duration consistency
 
   # Lyric scoring (scoring/lyric_scoring.py)

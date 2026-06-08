@@ -37,6 +37,26 @@ Full architecture reference: [pipeline/setup/ARCHITECTURE.md](pipeline/setup/ARC
 
 ## Quick Start
 
+### 0. One-command launch (recommended)
+
+[main.py](main.py) in the project root downloads model weights and starts the web UI in a single step:
+
+```bash
+python main.py
+```
+
+It skips any checkpoint files that are already present, then opens the frontend at http://localhost:8080.
+
+| Flag | Effect |
+|------|--------|
+| _(none)_ | Download missing weights, then launch the UI |
+| `--no-download` | Skip download, launch the UI immediately |
+| `--download-only` | Download weights and exit without launching |
+
+> **Note:** `huggingface_hub` must be installed for the download step (`pip install huggingface_hub`). If it is missing, the script prints the install command and exits cleanly.
+
+---
+
 ### 1. Install dependencies
 
 ```bash

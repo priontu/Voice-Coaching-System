@@ -259,7 +259,10 @@ class PitchModelWrapper:
         n_frames = min(len(f0), len(vad_prob))
         times = np.arange(n_frames, dtype=np.float32) * 160 / 16000
 
-        return times, f0[:n_frames], vad_prob[:n_frames]
+        # Convert probability to binary voiced mask so downstream bitwise
+        # operations in note_events.py work correctly for all recording types.
+        voiced = (vad_prob[:n_frames] > self.config.periodicity_threshold).astype(np.float32)
+        return times, f0[:n_frames], voiced
 
     # ------------------------------------------------------------------
     # torchcrepe backend

@@ -72,3 +72,6 @@ project-design.md
 
 # Large experimental test outputs
 experimental/test/**/outputs/
+
+# Pipeline inference run outputs (JSON results and dashboard PNGs)
+pipeline/outputs/

@@ -360,12 +360,22 @@ def find_score_by_category(data, category_name):
             key_lower = str(key).lower()
 
             if category_name in key_lower and "score" in key_lower:
-                return value
+                # If the value is a score object dict, extract the numeric score from it.
+                # Avoid returning the whole dict, which would confuse normalize_score().
+                if isinstance(value, dict):
+                    inner = value.get("score")
+                    if isinstance(inner, (int, float)):
+                        return inner
+                elif isinstance(value, (int, float)):
+                    return value
+                # Non-numeric / unrecognised structure — keep searching
 
             if key_lower == category_name and isinstance(value, dict):
+                # Don't search for "value" here: per-note metric dicts have a "value"
+                # key that holds raw measurements, not category scores.
                 score = find_key_recursive(
                     value,
-                    ["score", "value", "category_score", "normalized_score"],
+                    ["score", "category_score", "normalized_score"],
                 )
                 if score is not None:
                     return score
@@ -540,8 +550,8 @@ def pitch_component_values():
     if state["mace"] is not None:
         intonation_score = piecewise_score(
             state["mace"],
-            x_points=[0, 25, 50, 100, 200],
-            s_points=[100, 88, 75, 50, 0],
+            x_points=[0, 25, 50, 100, 200, 400, 700, 1200],
+            s_points=[100, 88, 75, 50, 25, 10, 3, 0],
         )
 
         if intonation_score is not None:
@@ -550,8 +560,8 @@ def pitch_component_values():
     if state["pitch_rmse"] is not None:
         stability_score = piecewise_score(
             state["pitch_rmse"],
-            x_points=[0, 25, 50, 100, 200],
-            s_points=[100, 88, 72, 45, 0],
+            x_points=[0, 25, 50, 100, 200, 400, 700, 1200],
+            s_points=[100, 88, 72, 45, 20, 8, 2, 0],
         )
 
         if stability_score is not None:
@@ -1145,6 +1155,10 @@ async def run_command(command, cwd):
         "PYTHONIOENCODING": "utf-8",
         "PYTHONUTF8": "1",
         "PYTHONPATH": str(BACKEND_DIR) + os.pathsep + os.environ.get("PYTHONPATH", ""),
+        "PHONEMIZER_ESPEAK_LIBRARY": os.environ.get(
+            "PHONEMIZER_ESPEAK_LIBRARY",
+            "/usr/lib/x86_64-linux-gnu/libespeak-ng.so.1",
+        ),
     }
 
     process = subprocess.Popen(
@@ -1461,7 +1475,7 @@ def render_backend_visualization():
 
 
 def render_advanced_details():
-    with ui.expansion("Advanced Details", icon="analytics").classes("w-full mt-12"):
+    with ui.expansion("Advanced Details", icon="analytics", value=True).classes("w-full mt-12"):
         ui.label(
             "Detailed backend metrics. Empty metrics are hidden from the main result view."
         ).classes("text-lg text-gray-400 mb-4")
@@ -1495,8 +1509,8 @@ def render_pitch_details():
             error_metric(
                 "Average Pitch Difference",
                 state["mace"],
-                good_value=25,
-                bad_value=200,
+                good_value=0,
+                bad_value=1200,
                 unit="cents",
                 description="Lower is better. 100 cents is one musical half-step, like C to C♯ or B to C.",
             )
@@ -1505,8 +1519,8 @@ def render_pitch_details():
             error_metric(
                 "Pitch RMSE",
                 state["pitch_rmse"],
-                good_value=25,
-                bad_value=200,
+                good_value=0,
+                bad_value=1200,
                 unit="cents",
                 description="Lower is better. This penalizes larger pitch mistakes more strongly.",
             )

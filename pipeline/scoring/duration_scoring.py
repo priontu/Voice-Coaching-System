@@ -20,14 +20,14 @@ from utils.types import CategoryScore, DurationMetrics, ScoreBreakdown
 
 # Breakpoints for relative duration error (dimensionless fraction).
 # 0.0 = perfect, 1.0 = 100% off (note twice as long or not at all).
-_REL_ERROR_BP = [(0.0, 100.0), (0.1, 90.0), (0.2, 75.0), (0.5, 50.0), (1.0, 0.0)]
+_REL_ERROR_BP = [(0.0, 100.0), (0.10, 97.0), (0.25, 90.0), (0.50, 82.0), (0.80, 68.0), (1.20, 50.0)]
 
 # Breakpoints for duration ratio deviation from 1.0.
 # |ratio - 1.0| = 0 → perfect; |ratio - 1.0| > 1 → very poor.
-_RATIO_DEV_BP = [(0.0, 100.0), (0.1, 90.0), (0.25, 75.0), (0.5, 50.0), (1.0, 0.0)]
+_RATIO_DEV_BP = [(0.0, 100.0), (0.10, 97.0), (0.25, 90.0), (0.45, 82.0), (0.75, 68.0), (1.20, 50.0)]
 
 # Breakpoints for std of duration error (seconds).
-_STD_BP = [(0.0, 100.0), (0.05, 90.0), (0.10, 75.0), (0.20, 50.0), (0.40, 0.0)]
+_STD_BP = [(0.0, 100.0), (0.05, 97.0), (0.12, 90.0), (0.25, 80.0), (0.45, 65.0), (0.70, 50.0)]
 
 
 def _confidence_from_n(n: int) -> float:

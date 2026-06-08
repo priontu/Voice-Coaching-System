@@ -173,14 +173,14 @@ def _read_audio(path: Path, mono: bool) -> Tuple[np.ndarray, int]:
         audio, sr = sf.read(str(path), dtype="float32", always_2d=True)
         audio = audio.mean(axis=1) if (mono and audio.shape[1] > 1) else audio[:, 0]
         return audio, sr
-    except ImportError:
+    except Exception:
         pass
 
     try:
         import librosa  # type: ignore
         audio, sr = librosa.load(str(path), sr=None, mono=mono, dtype=np.float32)
         return audio, sr
-    except ImportError:
+    except Exception:
         pass
 
     return _load_wav_stdlib(path)
@@ -199,11 +199,11 @@ def _load_wav_stdlib(path: Path) -> Tuple[np.ndarray, int]:
 
 
 def _resample(audio: np.ndarray, orig_sr: int, target_sr: int) -> np.ndarray:
-    """Resample using librosa (preferred) or torchaudio."""
+    """Resample: soxr → torchaudio → librosa → scipy (in order of preference)."""
     try:
-        import librosa  # type: ignore
-        return librosa.resample(audio, orig_sr=orig_sr, target_sr=target_sr)
-    except ImportError:
+        import soxr  # type: ignore
+        return soxr.resample(audio, orig_sr, target_sr, quality="HQ").astype(np.float32)
+    except Exception:
         pass
 
     try:
@@ -211,11 +211,25 @@ def _resample(audio: np.ndarray, orig_sr: int, target_sr: int) -> np.ndarray:
         import torchaudio.transforms as T  # type: ignore
         wf = torch.from_numpy(audio).unsqueeze(0)
         wf = T.Resample(orig_freq=orig_sr, new_freq=target_sr)(wf)
-        return wf.squeeze(0).numpy()
-    except ImportError:
+        return wf.squeeze(0).numpy().astype(np.float32)
+    except Exception:
+        pass
+
+    try:
+        import librosa  # type: ignore
+        return librosa.resample(audio, orig_sr=orig_sr, target_sr=target_sr).astype(np.float32)
+    except Exception:
+        pass
+
+    try:
+        from math import gcd
+        from scipy.signal import resample_poly  # type: ignore
+        g = gcd(int(orig_sr), int(target_sr))
+        return resample_poly(audio, target_sr // g, orig_sr // g).astype(np.float32)
+    except Exception:
         pass
 
     raise RuntimeError(
         f"Cannot resample {orig_sr}→{target_sr}Hz. "
-        "Install librosa: pip install librosa"
+        "Install soxr: pip install soxr"
     )

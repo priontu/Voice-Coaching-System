@@ -260,7 +260,12 @@ def _make_mock_pitch_model(ts, f0, voiced):
 
 def _make_mock_phoneme_model(segments):
     mock_model = MagicMock()
-    mock_model.predict.return_value = segments
+    mock_model.predict.return_value = {
+        "segments": segments,
+        "phonemes": [],
+        "boundaries": [],
+        "metadata": {},
+    }
     mock_model.is_loaded = True
     mock_model._is_loaded = True
     return mock_model
@@ -288,9 +293,9 @@ class TestPredictWithMocks:
             with patch.object(p, "_get_pitch_model", return_value=mock_pitch):
                 wav = tmp_path / "test.wav"
                 wav.write_bytes(b"")  # file must exist for Path checks
-                import soundfile as sf
-                import numpy as np_
                 try:
+                    import soundfile as sf
+                    import numpy as np_
                     sf.write(str(wav), np_.zeros(1600, dtype=np_.float32), 16000)
                 except Exception:
                     pass

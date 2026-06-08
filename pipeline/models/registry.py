@@ -75,7 +75,7 @@ class ModelRegistry:
     # Loading
     # ------------------------------------------------------------------
 
-    def load(self, name: str, force_reload: bool = False, **kwargs: Any) -> BaseInferenceModel:
+    def load(self, model_name: str, force_reload: bool = False, **kwargs: Any) -> BaseInferenceModel:
         """
         Instantiate and load a model by name (lazy + cached).
 
@@ -83,7 +83,7 @@ class ModelRegistry:
         unless force_reload=True.
 
         Args:
-            name:         Model name as registered.
+            model_name:   Model name as registered.
             force_reload: If True, re-instantiate and reload even if cached.
             **kwargs:     Passed to the factory function (e.g. checkpoint_path,
                           config_path, pipeline_config).
@@ -95,25 +95,25 @@ class ModelRegistry:
             KeyError:   Unknown model name.
             ValueError: Model cannot be loaded (e.g. missing checkpoint).
         """
-        if name not in self._factories:
+        if model_name not in self._factories:
             raise KeyError(
-                f"Unknown model '{name}'. "
+                f"Unknown model '{model_name}'. "
                 f"Registered: {sorted(self._factories)}"
             )
 
-        if name in self._instances and not force_reload:
-            logger.debug(f"[registry] Returning cached model '{name}'")
-            return self._instances[name]
+        if model_name in self._instances and not force_reload:
+            logger.debug(f"[registry] Returning cached model '{model_name}'")
+            return self._instances[model_name]
 
-        logger.info(f"[registry] Loading model: '{name}'")
-        factory = self._factories[name]
+        logger.info(f"[registry] Loading model: '{model_name}'")
+        factory = self._factories[model_name]
         instance = factory(**kwargs)
 
         if not instance.is_loaded:
             instance.load_model()
 
-        self._instances[name] = instance
-        logger.info(f"[registry] '{name}' ready ({instance!r})")
+        self._instances[model_name] = instance
+        logger.info(f"[registry] '{model_name}' ready ({instance!r})")
         return instance
 
     # ------------------------------------------------------------------

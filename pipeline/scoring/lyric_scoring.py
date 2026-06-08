@@ -19,7 +19,8 @@ from utils.types import CategoryScore, LyricMetrics, ScoreBreakdown
 
 # Breakpoints for mean absolute phoneme boundary error (ms).
 # Stricter than note-level timing: phoneme accuracy is finer-grained.
-_BOUNDARY_BP = [(0.0, 100.0), (15.0, 88.0), (30.0, 75.0), (60.0, 50.0), (120.0, 0.0)]
+_ACCURACY_BP = [(0.0, 30.0), (0.25, 65.0), (0.50, 83.0), (0.67, 92.0), (0.80, 97.0), (1.0, 100.0)]
+_BOUNDARY_BP = [(0.0, 100.0), (25.0, 93.0), (50.0, 84.0), (100.0, 72.0), (180.0, 52.0)]
 
 
 def _confidence_from_n(n: int) -> float:
@@ -98,7 +99,7 @@ def compute_lyric_clarity_score(
 
     # Word alignment accuracy
     if lyric.word_alignment_accuracy is not None:
-        word_score = lyric.word_alignment_accuracy * 100.0
+        word_score = piecewise_score(lyric.word_alignment_accuracy, _ACCURACY_BP)
         word_conf = _confidence_from_n(lyric.n_word_matches)
     else:
         word_score = 0.0
@@ -130,7 +131,7 @@ def compute_lyric_clarity_score(
 
     # Label match rate
     if lyric.label_match_rate is not None:
-        label_score = lyric.label_match_rate * 100.0
+        label_score = piecewise_score(lyric.label_match_rate, _ACCURACY_BP)
         label_conf = _confidence_from_n(lyric.n_phoneme_matches)
     else:
         label_score = 0.0
